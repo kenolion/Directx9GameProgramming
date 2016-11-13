@@ -42,7 +42,6 @@ int GameTime::update()
 	elapsedGameTime = (float)(i.QuadPart - start) / frequencySeconds;
 	start = i.QuadPart;
 	totalGameTime += elapsedGameTime;*/
-	std::cout << framesToUpdate << std::endl;
 	return framesToUpdate;
 }
 

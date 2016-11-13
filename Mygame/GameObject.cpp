@@ -33,13 +33,13 @@ GameObject::~GameObject()
 	}
 }
 
-bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height)
+bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col)
 {
 	status = ObjectStatus::Active;
-	
+
 	if (!sprite) {
 		sprite = new GameSprite();
-		if (!sprite->initialize(device3d, file, width, height)) {
+		if (!sprite->initialize(device3d, file, width, height, row, col)) {
 			return false;
 		}
 	}
@@ -47,24 +47,30 @@ bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int wi
 	return true;
 }
 
-void GameObject::update(float gameTime)
+void GameObject::update(int gameTime)
 {
 	if (status == ObjectStatus::Active) {
-		position.x += velocity.x*gameTime;
-		position.y += velocity.y*gameTime;
-		position.z = 0;// not important
-		if(velocity.x>0)
-		velocity.x-=0.1;
-		if(velocity.y>0)
-		velocity.y-=0.1;
+		for (int i = 0; i < gameTime; i++) {
+			//position.x += velocity.x;
+			//position.y += velocity.y;
+			sprite->updateFrame();
+
+
+
+			position.z = 0;// not important
+			if (velocity.x > 0)
+				velocity.x -= 0.1;
+			if (velocity.y > 0)
+				velocity.y -= 0.1;
+		}
 	}
-	
+
 }
 
-void GameObject::draw(float gameTime)
+void GameObject::draw(int gameTime)
 {
 	if (sprite) {
-		sprite->draw(gameTime,position);
+		sprite->draw(gameTime, position);
 	}
 
 }
@@ -87,4 +93,9 @@ void GameObject::setSpeed(float speed)
 int GameObject::getX()
 {
 	return position.x;
+}
+
+float GameObject::getSpeed()
+{
+	return speed;
 }

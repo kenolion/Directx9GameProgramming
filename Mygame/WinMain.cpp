@@ -22,7 +22,6 @@ void RedirectIOToConsole() //THE FUNCTION TO CREATE A CONSOLE BEN IF U READ THIS
 	AllocConsole();
 	freopen_s(&conin, "conin$", "r", stdin);
 	freopen_s(&conout, "conout$", "w", stdout);
-	freopen_s(&conout, "conout$", "w", stderr);
 }
 
 

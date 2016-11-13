@@ -6,6 +6,7 @@
 #include <cmath>
 #include <string>
 #include "GameSprite.h"
+#include <iostream>
 
 enum class ObjectStatus { Active, Dying, Dead };
 
@@ -15,14 +16,15 @@ public:
 
 	GameObject(float x, float y, float rotation, float speed, float maxSpeed);
 	~GameObject();
-	virtual bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height);
-	virtual void update(float gameTime);
-	virtual void draw(float gameTime);
+	virtual bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col);
+	virtual void update(int gameTime);
+	virtual void draw(int gameTime);
 
 	ObjectStatus getStatus() const;
 	void setSpeed(float speed);
 	int getX();
-
+	float getSpeed();
+	GameSprite* sprite;
 protected:
 	//informational data(name, desc wtv u want)
 	std::string name;
@@ -39,7 +41,7 @@ protected:
 
 private:
 	ObjectStatus status;
-	GameSprite* sprite;
+	
 	float maxSpeed;
 
 };

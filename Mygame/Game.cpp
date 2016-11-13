@@ -2,7 +2,7 @@
 
 Game::Game()
 {
-	
+
 	initialize = false;
 	graphics = NULL;
 
@@ -18,8 +18,8 @@ bool Game::initializeGame(HWND hwnd)
 	this->hwnd = hwnd;
 
 	graphics = new Graphics();
-	player = new GameObject(50.0f, 50.0f, (float)M_PI_4, 10.0f, 90.0f); //x ,y ,rotation,speed,maxspeed
-	player2 = new GameObject(200.0f, 200.0f, 0, 0, 0);
+	player = new GameObject(50.0f, 50.0f, (float)M_PI_4, 1.0f, 20.0f); //x ,y ,rotation,speed,maxspeed
+	player2 = new GameObject(200.0f, 200.0f, 0, 0, 0);//x ,y ,rotation,speed,maxspeed
 	input = new PlayerInput();
 	// initialize device
 	if (!graphics->initialize(hwnd, GAME_WIDTH, GAME_HEIGHT)) {
@@ -28,11 +28,11 @@ bool Game::initializeGame(HWND hwnd)
 	}
 
 	// initialize texture
-	if (!player->initialize(graphics->device3d, "sprite\\PlayerPaper.png", 58, 86)) {
-		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);
+	if (!player->initialize(graphics->device3d, "sprite\\sprite_test.jpg", 384, 128, 1, 3)) {
+		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
 		return initialize = false;
 	}
-	if (!player2->initialize(graphics->device3d, "sprite\\PlayerPaper.png", 58, 86)) {
+	if (!player2->initialize(graphics->device3d, "sprite\\PlayerPaper.png", 58, 86, 1, 1)) {
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);
 		return initialize = false;
 	}
@@ -43,7 +43,7 @@ bool Game::initializeGame(HWND hwnd)
 
 	gameTime = new GameTime();
 
-	if (!gameTime->initialize(40)) {
+	if (!gameTime->initialize(8)) {
 		return initialize = false;
 	}
 	return initialize = true;
@@ -53,10 +53,10 @@ bool Game::initializeGame(HWND hwnd)
 void Game::run()
 {
 	framesToUpdate = gameTime->update();
-	
+
 	if (initialize) {
 		input->getInput();
-		
+
 		update(framesToUpdate);
 		draw(framesToUpdate);// draws the games graphics
 	}
@@ -72,10 +72,22 @@ void Game::draw(float gameTime)
 	graphics->begin();
 
 	if (player) {
-		player->draw(gameTime);
+
 
 		player2->draw(gameTime);
+		player->draw(gameTime);
+		setDrawingPoint(0, 0);
+		if (player->sprite->getCol() == 1) {
+			std::cout << "frame 1"<<std::endl;
+		}
+		else if (player->sprite->getCol() == 2) {
+			std::cout << "frame 2" << std::endl;
+		}
+		else if (player->sprite->getCol() == 3) {
+			std::cout << "frame 3" << std::endl;
 
+		}
+		std::cout << player->sprite->getCol() << std::endl;
 		//std::cout << "Player X:";
 		//std::cout << player->getX();
 	}
@@ -91,6 +103,7 @@ void Game::update(float gameTime)
 	//Update sprites and other game object
 	if (player)
 		player->update(gameTime);
+
 
 	if (player2)
 		player2->update(gameTime);
@@ -114,6 +127,7 @@ LRESULT Game::messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			PostQuitMessage(0);
 			return 0;
 			break;
+		
 		}
 
 		break;
