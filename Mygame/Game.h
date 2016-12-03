@@ -21,7 +21,6 @@ private:
 	PlayerInput *pInput;
 	GameTime *gameTime;
 	PlayerInput *input;
-
 public:
 	int framesToUpdate;
 	bool initialize;
@@ -29,7 +28,7 @@ public:
 	void deleteAll();
 	bool initializeGame(HWND hwnd);
 	void run();
-	void draw(float gameTime);
+	void draw();
 	void update(float gameTime);
 	LRESULT messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	Game();

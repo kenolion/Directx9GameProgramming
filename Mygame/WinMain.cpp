@@ -24,6 +24,16 @@ void RedirectIOToConsole() //THE FUNCTION TO CREATE A CONSOLE BEN IF U READ THIS
 	freopen_s(&conout, "conout$", "w", stdout);
 }
 
+void ShowConsoleCursor(bool showFlag)
+{
+	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	CONSOLE_CURSOR_INFO     cursorInfo;
+
+	GetConsoleCursorInfo(out, &cursorInfo);
+	cursorInfo.bVisible = showFlag; // set the cursor visibility
+	SetConsoleCursorInfo(out, &cursorInfo);
+}
 
 int WINAPI WinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
@@ -35,7 +45,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	game = new Game();
 	int count = 0;
 	RedirectIOToConsole();
-
+	ShowConsoleCursor(false);
 	wcex.cbSize = sizeof(wcex);
 	wcex.cbClsExtra = 0;                 // no extra class memory 
 	wcex.cbWndExtra = 0;                 // no extra window memory 
@@ -67,24 +77,24 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		(LPVOID)NULL);         // no window parameters
 
 	ShowWindow(hwnd, nCmdShow);
-	
+
 	ZeroMemory(&msg, sizeof(MSG));
 	game->initializeGame(hwnd);
 	if (game->initialize == true) {
-	while (msg.message != WM_QUIT) {
-		if (msg.message == WM_QUIT)
-			break;
-		while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-			
+		while (msg.message != WM_QUIT) {
+			if (msg.message == WM_QUIT)
+				break;
+			while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+
+			}
+			game->run();
+
+
 		}
-		game->run();
-
-
 	}
-	}
-	
+
 	game->deleteAll();
 
 
