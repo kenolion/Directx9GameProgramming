@@ -1,14 +1,14 @@
 #include "GameObject.h"
 LPD3DXSPRITE GameObject::sprite = NULL;
 
-GameObject::GameObject(float x, float y, float rotation, float speed, float maxSpeed)
+GameObject::GameObject(float x, float y, float rotation)
 {
 	float twopi = (float)(M_PI * 2);
 	position.x = x;
 	position.y = y;
 	position.z = 0;
 	//not mine
-	if (rotation > twopi)
+	/*if (rotation > twopi)
 		rotation = twopi;
 	if (rotation < 0)
 		rotation = 0;
@@ -19,9 +19,8 @@ GameObject::GameObject(float x, float y, float rotation, float speed, float maxS
 	this->rotation = rotation;
 	this->speed = speed;
 	velocity.x = cos(rotation) * speed;
-	velocity.y = sin(rotation) * speed;
+	velocity.y = sin(rotation) * speed;*/
 	velocity.z = 0;
-	this->maxSpeed = maxSpeed;
 	//
 
 	color = D3DCOLOR_ARGB(255, 255, 255, 255);
@@ -107,12 +106,12 @@ ObjectStatus GameObject::getStatus() const
 
 void GameObject::setSpeed(float speed)
 {
-	if (speed >= 0 && speed <= maxSpeed) {
+	/*if (speed >= 0 && speed <= maxSpeed) {
 		this->speed = speed;
 		velocity.x = cos(rotation) * speed;
 		velocity.y = sin(rotation) * speed;
 		velocity.z = 0;
-	}
+	}*/
 }
 
 int GameObject::getX()
@@ -128,4 +127,20 @@ float GameObject::getSpeed()
 void GameObject::setState(int state)
 {
 	this->state = state;
+}
+
+bool GameObject::collideWith(GameObject &object)
+{
+
+	return false;
+}
+
+D3DXVECTOR3 GameObject::getAcceleration()
+{
+	return acceleration;
+}
+
+void GameObject::setAcceleration(D3DXVECTOR3 accel)
+{
+	acceleration = accel;
 }

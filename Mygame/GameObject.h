@@ -12,10 +12,10 @@ class GameObject
 {
 public:
 
-	GameObject(float x, float y, float rotation, float speed, float maxSpeed);
+	GameObject(float x, float y, float rotation);
 	~GameObject();
 	virtual bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal);
-	virtual void update(int gameTime) =0;
+	virtual void update(int gameTime, bool keyPressed) =0;
 	virtual void draw();
 
 	ObjectStatus getStatus() const;
@@ -25,6 +25,12 @@ public:
 	GameSprite *spriteClass;
 	static LPD3DXSPRITE sprite;
 	void setState(int state);
+	bool collideWith(GameObject &object);
+	bool collision;
+
+	//physics
+	D3DXVECTOR3 getAcceleration();
+	void setAcceleration(D3DXVECTOR3 accel);
 
 protected:
 	//informational data(name, desc wtv u want)
@@ -33,14 +39,12 @@ protected:
 	//physics data
 	D3DXVECTOR3 position;
 	D3DXVECTOR3 velocity;
-	D3DXVECTOR2 trans;
-	D3DXMATRIX mat;
-
+	D3DXVECTOR3 acceleration;
 	D3DXVECTOR2 scaling;
 	float rotation;
 	float speed;
 	ObjectStatus status;
-	float maxSpeed;
+	
 
 	//SPRITE INFO
 

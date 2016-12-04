@@ -33,8 +33,7 @@ bool Graphics::initialize(HWND hw, int w, int h)
 		D3DCREATE_SOFTWARE_VERTEXPROCESSING,
 		&d3dpp,
 		&device3d);
-	device3d->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	device3d->SetRenderState(D3DRS_LIGHTING, false);
+
 	return true;
 
 }

@@ -1,6 +1,12 @@
 #include "PlayerInput.h"
 
-
+PlayerInput::PlayerInput()
+{
+	leftAKey = 203;
+	rightAKey = 205;
+	downAKey = 208;
+	upAKey = 200;
+}
 
 bool PlayerInput::initializeInput(HWND hwnd)
 {
@@ -52,52 +58,45 @@ void PlayerInput::getInput()
 	DI_Device->GetDeviceState(sizeof(keys), (LPVOID)&keys);
 	
 	if (KEYDOWN(keys, leftAKey)) {
-		std::cout << "Left arrow key was pressed!\n";
 		leftArrowKey = true;
-
+		keyPressed = true;
 	}
 	if (KEYDOWN(keys, rightAKey)) {
-		std::cout << "right arrow key was pressed!\n";
 		rightArrowKey = true;
+		keyPressed = true;
 	}
 	if (KEYDOWN(keys, upAKey)) {
-		std::cout << "up arrow key was pressed!\n";
 		upArrowKey = true;
+		keyPressed = true;
 	}
 	if (KEYDOWN(keys, downAKey)) {
-		std::cout << "Down arrow key was pressed!\n";
 		downArrowKey = true;
+		keyPressed = true;
 
 	}
 
 	if (leftArrowKey == true && keys[leftAKey] ==0) {
-		std::cout << "Left Arrow Key is released!" << std::endl;
-		leftArrowKey = false;
 
+		leftArrowKey = false;
+		keyPressed = false;
 	}
 	if (rightArrowKey == true && keys[rightAKey] == 0) {
-		std::cout << "right Key is released!" << std::endl;
-		rightArrowKey = false;
 
+		rightArrowKey = false;
+		keyPressed = false;
 	}
 	if (downArrowKey == true && keys[downAKey] == 0) {
-		std::cout << "Down Key is released!" << std::endl;
 		downArrowKey = false;
-
+		keyPressed = false;
 	}
 	if (upArrowKey == true && keys[upAKey] == 0) {
-		std::cout << "up Key is released!" << std::endl;
+		
 		upArrowKey = false;
-
+		keyPressed = false;
 	}
 
 
 
-	for (int a = 0; a < 256; a++) {
-		if (keys[a] != 0)
-			std::cout << a << ":" << keys[a] << std::endl;
-
-	}
 
 
 
@@ -105,13 +104,7 @@ void PlayerInput::getInput()
 
 
 
-PlayerInput::PlayerInput()
-{
-	leftAKey = 203;
-	rightAKey = 205;
-	downAKey = 208;
-	upAKey = 200;
-}
+
 
 void PlayerInput::remapKeys()
 {

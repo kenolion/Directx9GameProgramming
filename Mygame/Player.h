@@ -20,8 +20,8 @@ public:
 	//bool    loop;           // true to loop frames
 	//bool    visible;        // true when visible
 	//bool    animComplete;   // true when loop is false and endFrame has finished displaying
-	Player(float x, float y, float rotation, float speed, float maxSpeed);
-	void update(int gameTime);
+	Player(float x, float y, float rotation);
+	void update(int gameTime,bool keyPressed);
 	~Player();
 };
 

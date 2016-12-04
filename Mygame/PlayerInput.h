@@ -29,6 +29,8 @@ public:
 	bool rightArrowKey;
 	bool leftArrowKey;
 
+	bool keyPressed;
+
 
 	~PlayerInput();
 	

@@ -30,7 +30,7 @@ bool Game::initializeGame(HWND hwnd)
 
 	gameTime = new GameTime();
 
-	if (!gameTime->initialize(1)) {
+	if (!gameTime->initialize(20)) {
 		return initialize = false;
 	}
 	return initialize = true;
@@ -49,7 +49,7 @@ void Game::run()
 		4.Render
 		*/
 		input->getInput();
-		
+		collisions();
 		update(framesToUpdate);
 		draw();// draws the games graphics
 	}

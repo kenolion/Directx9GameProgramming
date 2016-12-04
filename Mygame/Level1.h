@@ -9,6 +9,7 @@ public:
 	GameObject *player2;
 	bool initializeGame(HWND hwnd);
 	void update(int gameTime);
+	void collisions();
 	void draw();
 	void deleteAll();
 	Level1();

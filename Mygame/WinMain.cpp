@@ -43,7 +43,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	HWND hwnd;
 	WNDCLASSEX wcex;
 	MSG msg;
-	game = new Level1();
+	game = new Level1();				//<--- use this to change level
 	RedirectIOToConsole();
 	ShowConsoleCursor(false);
 	wcex.cbSize = sizeof(wcex);

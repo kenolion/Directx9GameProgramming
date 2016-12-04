@@ -28,6 +28,7 @@ public:
 	void run();
 	virtual void draw() = 0;
 	virtual void update(int gameTime) = 0;
+	virtual void collisions()=0;
 	
 	LRESULT messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	Game();
