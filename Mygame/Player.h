@@ -5,14 +5,11 @@
 #include "GameObject.h"
 
 
-class Player
+class Player:public GameObject
 {
 private:
-	GameSprite idle;
-	GameSprite walk;
 
 public:
-	PlayerInput *input;
 	// spriteData contains the data required to draw the image by Graphics::drawSprite()
 	//int     cols;           // number of cols (1 to n) in multi-frame sprite
 	//int     startFrame;     // first frame of current animation
@@ -23,7 +20,8 @@ public:
 	//bool    loop;           // true to loop frames
 	//bool    visible;        // true when visible
 	//bool    animComplete;   // true when loop is false and endFrame has finished displaying
-//	Player(float x, float y);
+	Player(float x, float y, float rotation, float speed, float maxSpeed);
+	void update(int gameTime);
 	~Player();
 };
 

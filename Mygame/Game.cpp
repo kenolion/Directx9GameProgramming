@@ -77,7 +77,7 @@ LRESULT Game::messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			return 0;
 			break;
 		case VK_F1:
-			input->remapKeys();
+			input->remapKeys();//<---- underconstruction used to remap keys but needs to be switched to windows input instead of directinput
 
 			break;
 		}

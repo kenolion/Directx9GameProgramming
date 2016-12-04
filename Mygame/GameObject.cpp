@@ -7,7 +7,7 @@ GameObject::GameObject(float x, float y, float rotation, float speed, float maxS
 	position.x = x;
 	position.y = y;
 	position.z = 0;
-
+	//not mine
 	if (rotation > twopi)
 		rotation = twopi;
 	if (rotation < 0)
@@ -22,7 +22,7 @@ GameObject::GameObject(float x, float y, float rotation, float speed, float maxS
 	velocity.y = sin(rotation) * speed;
 	velocity.z = 0;
 	this->maxSpeed = maxSpeed;
-
+	//
 
 	color = D3DCOLOR_ARGB(255, 255, 255, 255);
 
@@ -40,7 +40,7 @@ GameObject::~GameObject()
 	delete spriteClass;
 }
 
-bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col)
+bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal)
 {
 	status = ObjectStatus::Active;
 	spriteClass = new GameSprite();
@@ -52,46 +52,48 @@ bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int wi
 			system("pause");
 		}
 	}
-	
+	this->frameHorizontal = frameHorizontal;
 
-		spriteClass->initializeTex(device3d, file, width, height, row, col);
-		this->width = width;
-		this->height = height;
-		this->spriteRow = row;
-		this->spriteCol = col;
-		spriteHeight = height / spriteRow;
-		spriteWidth = width / spriteCol;
+	spriteClass->initializeTex(device3d, file, width, height, row, col);
+	this->width = width;
+	this->height = height;
+	this->spriteRow = row;
+	this->spriteCol = col;
+	spriteHeight = height / spriteRow;
+	spriteWidth = width / spriteCol;
+	if (frameHorizontal) {
 		maxFrame = spriteCol;					//TEST CODE WILL BE CLEANED UP LATER
-	
+
+	}
+	else {
+		maxFrame = spriteRow;
+
+	}
 
 
 	return true;
 }
 
-void GameObject::update(int gameTime)
-{
-	if (status == ObjectStatus::Active) {
-		for (int i = 0; i < gameTime; i++) {
 
-			frame++;
-			if (frame > maxFrame) {
-				frame = 1;
-			}
-			position.z = 0;// not important
-
-		}
-	}
-
-}
 
 void GameObject::draw()
 {
+	if(frameHorizontal)
+	{
 	spriteRect.top = (state - 1)*spriteHeight;
-	spriteRect.bottom = spriteRect.top+spriteHeight;
+	spriteRect.bottom = spriteRect.top + spriteHeight;
 	spriteRect.left = (frame - 1)*spriteWidth;
-	spriteRect.right = spriteRect.left +spriteHeight;
-
-	if (sprite) {
+	spriteRect.right = spriteRect.left + spriteHeight;
+	}
+	else
+	{
+		spriteRect.top = (frame - 1)*spriteHeight;
+		spriteRect.bottom = spriteRect.top + spriteHeight;
+		spriteRect.left = (state - 1)*spriteWidth;
+		spriteRect.right = spriteRect.left + spriteHeight;
+	}
+	if (sprite) 
+	{
 		spriteClass->draw(position, sprite, spriteRect, color);
 
 	}
@@ -121,4 +123,9 @@ int GameObject::getX()
 float GameObject::getSpeed()
 {
 	return speed;
+}
+
+void GameObject::setState(int state)
+{
+	this->state = state;
 }

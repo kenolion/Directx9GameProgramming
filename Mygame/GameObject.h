@@ -14,8 +14,8 @@ public:
 
 	GameObject(float x, float y, float rotation, float speed, float maxSpeed);
 	~GameObject();
-	virtual bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col);
-	virtual void update(int gameTime);
+	virtual bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal);
+	virtual void update(int gameTime) =0;
 	virtual void draw();
 
 	ObjectStatus getStatus() const;
@@ -24,6 +24,7 @@ public:
 	float getSpeed();
 	GameSprite *spriteClass;
 	static LPD3DXSPRITE sprite;
+	void setState(int state);
 
 protected:
 	//informational data(name, desc wtv u want)
@@ -38,8 +39,6 @@ protected:
 	D3DXVECTOR2 scaling;
 	float rotation;
 	float speed;
-
-private:
 	ObjectStatus status;
 	float maxSpeed;
 
@@ -56,6 +55,7 @@ private:
 	int spriteHeight;
 	int spriteWidth;
 	int maxFrame;
+	bool frameHorizontal;
 };
 
 #endif // !GAMEOBJECT_H

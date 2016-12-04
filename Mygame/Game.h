@@ -8,6 +8,7 @@
 #include "GameObject.h"
 #include "GameTime.h"
 #include "PlayerInput.h"
+#include "Player.h"
 #include <iostream>
 
 class Game

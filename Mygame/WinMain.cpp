@@ -16,7 +16,6 @@
 //Global Player Sprites
 LRESULT WINAPI WinProc(HWND, UINT, WPARAM, LPARAM);
 Game * game;
-Level1* lvl1;
 
 void RedirectIOToConsole() //THE FUNCTION TO CREATE A CONSOLE BEN IF U READ THIS CODE EVENTUALLY
 {
@@ -44,8 +43,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	HWND hwnd;
 	WNDCLASSEX wcex;
 	MSG msg;
-	lvl1 = new Level1();
-	game = lvl1;
+	game = new Level1();
 	RedirectIOToConsole();
 	ShowConsoleCursor(false);
 	wcex.cbSize = sizeof(wcex);
