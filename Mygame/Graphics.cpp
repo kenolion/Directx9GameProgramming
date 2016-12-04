@@ -80,15 +80,7 @@ void Graphics::cleanup()
 	}
 }
 
-HRESULT Graphics::showBackbuffer()
-{
-	result = E_FAIL;
-	//Clear buffer to lime green
-	device3d->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 255, 0), 0.0f, 0);
-	//Display backbuffer to screen
-	result = device3d->Present(NULL, NULL, NULL, NULL);
-	return result;
-}
+
 
 Graphics::Graphics()
 {

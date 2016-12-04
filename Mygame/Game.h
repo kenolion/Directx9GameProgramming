@@ -12,24 +12,22 @@
 
 class Game
 {
-private:
-	
+protected:
+
 	HWND hwnd;
 	Graphics * graphics;
-	GameObject *player;
-	GameObject *player2;
-	PlayerInput *pInput;
 	GameTime *gameTime;
 	PlayerInput *input;
 public:
 	int framesToUpdate;
 	bool initialize;
 	static void setDrawingPoint(int x, int y);
-	void deleteAll();
-	bool initializeGame(HWND hwnd);
+	virtual void deleteAll();
+	virtual bool initializeGame(HWND hwnd);
 	void run();
-	void draw();
-	void update(float gameTime);
+	virtual void draw() = 0;
+	virtual void update(int gameTime) = 0;
+	
 	LRESULT messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	Game();
 	~Game();

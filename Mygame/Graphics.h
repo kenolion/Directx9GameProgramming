@@ -29,7 +29,6 @@ public:
 	void end();
 	void present();
 	void cleanup();
-	HRESULT showBackbuffer();
 	
 	Graphics();
 	~Graphics();

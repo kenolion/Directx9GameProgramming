@@ -16,8 +16,6 @@ bool Game::initializeGame(HWND hwnd)
 {
 	this->hwnd = hwnd;
 	graphics = new Graphics();
-	player = new GameObject(50.0f, 50.0f, (float)M_PI_4, 1.0f, 20.0f); //x ,y ,rotation,speed,maxspeed
-	player2 = new GameObject(200.0f, 200.0f, 0, 0, 0);//x ,y ,rotation,speed,maxspeed
 	input = new PlayerInput();
 	// initialize device
 	if (!graphics->initialize(hwnd, GAME_WIDTH, GAME_HEIGHT)) {
@@ -25,19 +23,6 @@ bool Game::initializeGame(HWND hwnd)
 		return initialize = false;
 	}
 
-
-
-	
-	
-	// initialize texture
-	if (!player->initialize(graphics->device3d, "sprite\\sprite_test.jpg", 384, 128, 1, 3)) {
-		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
-		return initialize = false;
-	}
-	if (!player2->initialize(graphics->device3d, "sprite\\PlayerPaper.png", 58, 86, 1, 1)) {
-		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);
-		return initialize = false;
-	}
 	if (!input->initializeInput(hwnd)) {
 		std::cout << "failed to initialize input";
 		return initialize = false;
@@ -72,38 +57,7 @@ void Game::run()
 }
 
 //Draws game object
-void Game::draw()
-{
-	//Simple RGB value for background so use XRGB
-	// Draws sprite and other game object
-	graphics->clear(D3DCOLOR_XRGB(0, 100, 100));
-	graphics->begin();
 
-	if (player) {
-		
-		player2->draw();
-		player->draw();
-		//setDrawingPoint(0, 0);
-
-	}
-
-	graphics->end();
-	graphics->present();
-
-}
-
-void Game::update(float gameTime)
-{
-
-	//Update sprites and other game object
-	if (player)
-		player->update(gameTime);
-
-
-	if (player2)
-		player2->update(gameTime);
-
-}
 
 LRESULT Game::messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -150,8 +104,6 @@ void Game::setDrawingPoint(int x, int y)
 void Game::deleteAll() {
 	graphics->cleanup();
 	dltPtr(graphics);
-	dltPtr(player);
-	dltPtr(player2);
 	dltPtr(gameTime);
 	dltPtr(input);
 
