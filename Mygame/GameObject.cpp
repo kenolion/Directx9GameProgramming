@@ -1,12 +1,12 @@
 #include "GameObject.h"
 LPD3DXSPRITE GameObject::sprite = NULL;
 
-GameObject::GameObject(float x, float y, float rotation)
+GameObject::GameObject(float x, float y, float rotation, D3DXVECTOR2 scaling, float enginePower,int mass)
 {
 	float twopi = (float)(M_PI * 2);
 	position.x = x;
 	position.y = y;
-	position.z = 0;
+	this->scaling = scaling;
 	//not mine
 	/*if (rotation > twopi)
 		rotation = twopi;
@@ -20,11 +20,10 @@ GameObject::GameObject(float x, float y, float rotation)
 	this->speed = speed;
 	velocity.x = cos(rotation) * speed;
 	velocity.y = sin(rotation) * speed;*/
-	velocity.z = 0;
 	//
-
+	this->enginePower = enginePower;
 	color = D3DCOLOR_ARGB(255, 255, 255, 255);
-
+	this->mass = mass;
 	state = 1;			//Start it at frame 1
 	frame = 1;
 }
@@ -77,6 +76,8 @@ bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int wi
 
 void GameObject::draw()
 {
+
+
 	if(frameHorizontal)
 	{
 	spriteRect.top = (state - 1)*spriteHeight;
@@ -91,6 +92,10 @@ void GameObject::draw()
 		spriteRect.left = (state - 1)*spriteWidth;
 		spriteRect.right = spriteRect.left + spriteHeight;
 	}
+	
+	spriteCentre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
+	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, &spriteCentre, rotation, &position);
+	sprite->SetTransform(&mat);
 	if (sprite) 
 	{
 		spriteClass->draw(position, sprite, spriteRect, color);
@@ -114,10 +119,12 @@ void GameObject::setSpeed(float speed)
 	}*/
 }
 
-int GameObject::getX()
+D3DXVECTOR2 GameObject::getObjectPos()
 {
-	return position.x;
+	return position;
 }
+
+
 
 float GameObject::getSpeed()
 {
@@ -129,18 +136,46 @@ void GameObject::setState(int state)
 	this->state = state;
 }
 
-bool GameObject::collideWith(GameObject &object)
+bool GameObject::collideWith(GameObject &object,D3DXVECTOR2 &collisionVector)
 {
 
+	distance = object.getObjectPos() - position;			// Distance = object2 position - object1 position		
+	
+	
+	if (distance.y *distance.y + distance.x*distance.x < (spriteCentre.x + object.spriteCentre.x)*(spriteCentre.y + object.spriteCentre.y)) {			//it is squared to make value x and y positive if the player is on the right side of object or above object		
+																																				// spritecentre = object radius
+		return true;
+	}
+	
 	return false;
 }
 
-D3DXVECTOR3 GameObject::getAcceleration()
+D3DXVECTOR2 GameObject::getAcceleration()
 {
 	return acceleration;
 }
 
-void GameObject::setAcceleration(D3DXVECTOR3 accel)
+D3DXVECTOR2 GameObject::getForce()
+{
+	return force;
+}
+
+D3DXVECTOR2 GameObject::getVelocity()
+{
+	return velocity;
+}
+
+float GameObject::getMass()
+{
+	return mass;
+}
+
+void GameObject::setAcceleration(D3DXVECTOR2 accel)
 {
 	acceleration = accel;
+}
+
+void GameObject::setVelocity(D3DXVECTOR2 vel)
+{
+	velocity = vel;
 }

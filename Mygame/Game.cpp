@@ -30,7 +30,7 @@ bool Game::initializeGame(HWND hwnd)
 
 	gameTime = new GameTime();
 
-	if (!gameTime->initialize(20)) {
+	if (!gameTime->initialize(60)) {
 		return initialize = false;
 	}
 	return initialize = true;
@@ -41,7 +41,7 @@ void Game::run()
 {
 	framesToUpdate = gameTime->update();
 
-	if (initialize) {
+	
 		/*
 		1.Input
 		2.AI
@@ -49,10 +49,11 @@ void Game::run()
 		4.Render
 		*/
 		input->getInput();
+		setDrawingPoint(0, 0);
 		collisions();
 		update(framesToUpdate);
 		draw();// draws the games graphics
-	}
+	
 
 }
 
@@ -84,7 +85,6 @@ LRESULT Game::messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_LBUTTONDOWN:
 		input->DI_Device->Acquire();
-
 		break;
 
 	}
@@ -94,7 +94,7 @@ LRESULT Game::messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 void Game::setDrawingPoint(int x, int y)
 {
-	COORD coord; //Does not need to be define because if we right click COORD and go to definition it is already defined in another library
+	COORD coord; 
 	coord.X = x;
 	coord.Y = y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);

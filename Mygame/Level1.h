@@ -2,6 +2,7 @@
 #define LEVEL1_H
 
 #include "Game.h"
+#include <cmath>
 class Level1:public Game
 {
 public:

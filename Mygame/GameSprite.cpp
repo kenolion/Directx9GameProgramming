@@ -18,7 +18,7 @@ void GameSprite::initializeTex(LPDIRECT3DDEVICE9 device3d,std::string file, int 
 		0,
 		D3DFMT_UNKNOWN,
 		D3DPOOL_MANAGED,
-		D3DX_DEFAULT,
+		D3DX_DEFAULT, 
 		D3DX_DEFAULT,
 		0,
 		NULL,
@@ -36,7 +36,7 @@ void GameSprite::initializeTex(LPDIRECT3DDEVICE9 device3d,std::string file, int 
 
 
 
-void GameSprite::draw(D3DXVECTOR3 position, LPD3DXSPRITE sprite, RECT spriteRect,D3DCOLOR color)
+void GameSprite::draw(D3DXVECTOR2 position, LPD3DXSPRITE sprite, RECT spriteRect,D3DCOLOR color)
 {
 
 
@@ -49,7 +49,7 @@ void GameSprite::draw(D3DXVECTOR3 position, LPD3DXSPRITE sprite, RECT spriteRect
 
 	if (sprite && tex) {
 		sprite->Begin(D3DXSPRITE_ALPHABLEND);
-		sprite->Draw(tex, &spriteRect, NULL, &position, color);
+		sprite->Draw(tex, &spriteRect, NULL,NULL, color);
 		sprite->End();
 		
 	}
