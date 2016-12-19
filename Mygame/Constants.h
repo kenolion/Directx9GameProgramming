@@ -2,7 +2,7 @@
 
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
-
+#include <Windows.h>
 const int GAME_WIDTH = 800;
 const int GAME_HEIGHT = 600;
 const char CLASS_NAME[] = "Keith Class";
@@ -15,6 +15,15 @@ inline void dltPtr(T& ptr) {
 		delete ptr;
 		ptr = NULL;
 	}
+
+}
+
+static void setDrawingPoint(int x, int y)
+{
+	COORD coord;
+	coord.X = x;
+	coord.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 
 }
 

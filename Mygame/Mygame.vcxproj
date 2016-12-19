@@ -126,8 +126,10 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Level1.h" />
+    <ClInclude Include="LevelMainMenu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerInput.h" />
+    <ClInclude Include="UserInterface.h" />
     <ClInclude Include="Windows.h" />
   </ItemGroup>
   <ItemGroup>
@@ -140,8 +142,10 @@
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Level1.cpp" />
+    <ClCompile Include="LevelMainMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerInput.cpp" />
+    <ClCompile Include="UserInterface.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="Windows.cpp" />
   </ItemGroup>

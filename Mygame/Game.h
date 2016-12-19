@@ -10,6 +10,7 @@
 #include "PlayerInput.h"
 #include "Player.h"
 #include <iostream>
+#include "UserInterface.h"
 
 class Game
 {
@@ -19,6 +20,7 @@ protected:
 	Graphics * graphics;
 	GameTime *gameTime;
 	PlayerInput *input;
+	UserInterface *userinterface;
 
 	//Variables
 	D3DXVECTOR2 posVector;		
@@ -28,7 +30,7 @@ protected:
 public:
 	int framesToUpdate;
 	bool initialize;
-	static void setDrawingPoint(int x, int y);
+	//Previously SetDrawingPoint function declaration was on this line.
 	virtual void deleteAll();
 	virtual bool initializeGame(HWND hwnd);
 	void run();

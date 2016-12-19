@@ -61,8 +61,9 @@ void Level1::draw()
 {
 	//Simple RGB value for background so use XRGB
 	 //Draws sprite and other game object
-	graphics->clear(D3DCOLOR_XRGB(0, 100, 100));
+	graphics->clear(D3DCOLOR_XRGB(0, 0, 0)); 
 	graphics->begin();
+
 
 	if (player) {
 		player2->draw();

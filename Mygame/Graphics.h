@@ -20,12 +20,17 @@ private:
 public:
 	LP_3DDEVICE device3d;
 
+	LPD3DXLINE line = NULL; // Zer add Line Pointer 
+
 	HWND hwnd;
 	HRESULT result;
 	D3DPRESENT_PARAMETERS d3dpp;
 	bool initialize(HWND hwnd,int w,int h);
 	void clear(D3DCOLOR color);
 	void begin();
+	void createLine(); //Zer add
+	void lineBegin(); //Zer add
+	void lineEnd(); //Zer add
 	void end();
 	void present();
 	void cleanup();

@@ -6,6 +6,7 @@
 #include "GameSprite.h"
 #include "Game.h"
 #include "Level1.h"
+#include "LevelMainMenu.h"
 
 #include <iostream>
 #include <conio.h>
@@ -43,7 +44,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	HWND hwnd;
 	WNDCLASSEX wcex;
 	MSG msg;
-	game = new Level1();				//<--- use this to change level
+	game = new LevelMainMenu();				//<--- use this to change level
 	RedirectIOToConsole();
 	ShowConsoleCursor(false);
 	wcex.cbSize = sizeof(wcex);

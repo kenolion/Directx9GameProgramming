@@ -48,12 +48,13 @@ void Game::run()
 		3.Collision
 		4.Render
 		*/
+
 		input->getInput();
 		setDrawingPoint(0, 0);
 		collisions();
 		update(framesToUpdate);
 		draw();// draws the games graphics
-	
+
 
 }
 
@@ -89,16 +90,6 @@ LRESULT Game::messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 	}
 	return DefWindowProc(hwnd, msg, wParam, lParam);
-}
-
-
-void Game::setDrawingPoint(int x, int y)
-{
-	COORD coord; 
-	coord.X = x;
-	coord.Y = y;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-
 }
 
 void Game::deleteAll() {
