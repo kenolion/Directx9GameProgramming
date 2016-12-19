@@ -13,6 +13,9 @@ public:
 	void collisions();
 	void draw();
 	void deleteAll();
+	//sounds
+	float pan;
+	float frequency;
 	Level1();
 	~Level1();
 };

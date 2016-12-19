@@ -10,6 +10,7 @@
 #include "PlayerInput.h"
 #include "Player.h"
 #include <iostream>
+#include "DxSound.h"
 
 class Game
 {
@@ -19,10 +20,13 @@ protected:
 	Graphics * graphics;
 	GameTime *gameTime;
 	PlayerInput *input;
+	DxSound *sound;
+
 
 	//Variables
 	D3DXVECTOR2 posVector;		
 	D3DXVECTOR2 forceVector;
+
 
 
 public:

@@ -19,7 +19,7 @@ private:
 	int height;
 public:
 	LP_3DDEVICE device3d;
-
+	LPD3DXLINE line;
 	HWND hwnd;
 	HRESULT result;
 	D3DPRESENT_PARAMETERS d3dpp;

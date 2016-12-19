@@ -43,7 +43,7 @@ bool Graphics::initialize(HWND hw, int w, int h)
 void Graphics::clear(D3DCOLOR color)
 {
 	device3d->Clear(0, NULL, D3DCLEAR_TARGET,
-		D3DCOLOR_XRGB(0, 100, 100), 1.0f, 0);  // 0x00000000 = black
+		color, 1.0f, 0);  // 0x00000000 = black
 	
 }
 

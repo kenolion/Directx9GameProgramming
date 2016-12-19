@@ -17,6 +17,8 @@ bool Level1::initializeGame(HWND hwnd)
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);
 		return initialize = false;
 	}
+	pan = 0.0f;
+	frequency = 44000.0f;
 	player2->setState(2); //<----- state set to 2 because state controls the column of the image in this case
 	return true;
 }
@@ -40,11 +42,19 @@ void Level1::collisions()
 	if (input->rightArrowKey) {
 
 		player->rotation += 0.1f;
-
+		if (pan <= 1) {
+			std::cout << frequency;
+			//sound->channel->setPan(pan+=0.01f);
+			sound->channel->setFrequency(frequency+=10);
+		}
 	}
 	if (input->leftArrowKey) {
 		player->rotation -= 0.1f;
-
+		if (pan >= -1) {
+			std::cout << frequency;
+			sound->channel->setFrequency(frequency -= 10);
+			//sound->channel->setPan(pan -= 0.01f);
+		}
 	}
 
 	if (input->upArrowKey) {
@@ -53,7 +63,7 @@ void Level1::collisions()
 		player->setVelocity(player->getVelocity() + player->getAcceleration());	// velocity = velocity +acceleration;
 	}
 
-	player->collision = player->collideWith(*player2,posVector);
+	player->collision = player->collideWith(*player2, posVector);
 
 }
 
@@ -61,7 +71,7 @@ void Level1::draw()
 {
 	//Simple RGB value for background so use XRGB
 	 //Draws sprite and other game object
-	graphics->clear(D3DCOLOR_XRGB(0, 100, 100));
+	graphics->clear(D3DCOLOR_XRGB(0, 0, 0));
 	graphics->begin();
 
 	if (player) {

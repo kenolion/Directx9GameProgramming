@@ -25,16 +25,7 @@ void RedirectIOToConsole() //THE FUNCTION TO CREATE A CONSOLE BEN IF U READ THIS
 	freopen_s(&conout, "conout$", "w", stdout);
 }
 
-void ShowConsoleCursor(bool showFlag)
-{
-	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	CONSOLE_CURSOR_INFO     cursorInfo;
-
-	GetConsoleCursorInfo(out, &cursorInfo);
-	cursorInfo.bVisible = showFlag; // set the cursor visibility
-	SetConsoleCursorInfo(out, &cursorInfo);
-}
 
 int WINAPI WinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
@@ -45,7 +36,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	MSG msg;
 	game = new Level1();				//<--- use this to change level
 	RedirectIOToConsole();
-	ShowConsoleCursor(false);
+
 	wcex.cbSize = sizeof(wcex);
 	wcex.cbClsExtra = 0;                 // no extra class memory 
 	wcex.cbWndExtra = 0;                 // no extra window memory 
