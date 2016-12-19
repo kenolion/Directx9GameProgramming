@@ -142,10 +142,12 @@ bool GameObject::collideWith(GameObject &object,D3DXVECTOR2 &collisionVector)
 	distance = object.getObjectPos() - position;			// Distance = object2 position - object1 position		
 	
 	
-	if (distance.y *distance.y + distance.x*distance.x < (spriteCentre.x + object.spriteCentre.x)*(spriteCentre.y + object.spriteCentre.y)) {			//it is squared to make value x and y positive if the player is on the right side of object or above object		
-																																				// spritecentre = object radius
-		return true;
-	}
+	//if (distance.y *distance.y + distance.x*distance.x < (spriteCentre.x + object.spriteCentre.x)*(spriteCentre.y + object.spriteCentre.y)) {			//it is squared to make value x and y positive if the player is on the right side of object or above object		
+	//																																			// spritecentre = object radius
+	//	return true;
+	//}
+
+
 	
 	return false;
 }

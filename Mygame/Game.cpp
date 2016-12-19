@@ -17,6 +17,7 @@ bool Game::initializeGame(HWND hwnd)
 	this->hwnd = hwnd;
 	graphics = new Graphics();
 	input = new PlayerInput();
+	sound = new DxSound();
 	// initialize device
 	if (!graphics->initialize(hwnd, GAME_WIDTH, GAME_HEIGHT)) {
 		MessageBox(NULL, "There was an issue initializing the graphics", NULL, NULL);
@@ -24,10 +25,16 @@ bool Game::initializeGame(HWND hwnd)
 	}
 
 	if (!input->initializeInput(hwnd)) {
-		std::cout << "failed to initialize input";
+		MessageBox(NULL, "There was an issue initializing the Sounds", NULL, NULL);
 		return initialize = false;
 	}
 
+	if (!sound->initializeSound()) {
+		MessageBox(NULL, "There was an issue initializing the Sounds", NULL, NULL);
+		return initialize = false;
+	}
+	sound->loadSounds();
+	sound->playSoundtrack();
 	gameTime = new GameTime();
 
 	if (!gameTime->initialize(60)) {
@@ -86,6 +93,7 @@ LRESULT Game::messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_LBUTTONDOWN:
 		input->DI_Device->Acquire();
+
 		break;
 
 	}
@@ -97,7 +105,7 @@ void Game::deleteAll() {
 	dltPtr(graphics);
 	dltPtr(gameTime);
 	dltPtr(input);
-
+	dltPtr(sound);
 
 
 }
