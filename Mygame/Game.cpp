@@ -36,8 +36,9 @@ bool Game::initializeGame(HWND hwnd)
 	return initialize = true;
 
 }
-// This function is called repeatedly by main message loop
-void Game::run()
+
+
+void Game::run()	// This function is called repeatedly by main message loop
 {
 	framesToUpdate = gameTime->update();
 
@@ -59,7 +60,7 @@ void Game::run()
 //Draws game object
 
 
-LRESULT Game::messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+LRESULT Game::messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)		//Windows procedure
 {
 
 
@@ -76,10 +77,10 @@ LRESULT Game::messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			PostQuitMessage(0);
 			return 0;
 			break;
-		case VK_F1:
-			input->remapKeys();//<---- underconstruction used to remap keys but needs to be switched to windows input instead of directinput
+		//case VK_F1:
+		//	input->remapKeys();//<---- underconstruction used to remap keys but needs to be switched to windows input instead of directinput
 
-			break;
+			//break;
 		}
 		break;
 	case WM_LBUTTONDOWN:
@@ -92,14 +93,7 @@ LRESULT Game::messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 }
 
 
-void Game::setDrawingPoint(int x, int y)
-{
-	COORD coord; //Does not need to be define because if we right click COORD and go to definition it is already defined in another library
-	coord.X = x;
-	coord.Y = y;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 
-}
 
 void Game::deleteAll() {
 	graphics->cleanup();

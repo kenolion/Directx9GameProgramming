@@ -11,7 +11,7 @@
 #include "Player.h"
 #include <iostream>
 
-class Game
+class Game		//
 {
 protected:
 
