@@ -106,5 +106,8 @@
     <Library Include="C:\Program Files (x86)\FMOD SoundSystem\FMOD Programmers API Windows\api\lib\fmodex_vc.lib">
       <Filter>Source Files</Filter>
     </Library>
+    <Library Include="E:\FMOD\FMOD Programmers API Windows\api\lib\fmodex_vc.lib">
+      <Filter>Source Files</Filter>
+    </Library>
   </ItemGroup>
 </Project>

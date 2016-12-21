@@ -20,7 +20,7 @@ inline void dltPtr(T& ptr) {
 
 }
 
-void setDrawingPoint(int x, int y)
+static void setDrawingPoint(int x, int y)
 {
 	COORD coord; //Does not need to be define because if we right click COORD and go to definition it is already defined in another library
 	coord.X = x;
@@ -29,13 +29,6 @@ void setDrawingPoint(int x, int y)
 
 }
 
-static void setDrawingPoint(int x, int y)
-{
-	COORD coord;
-	coord.X = x;
-	coord.Y = y;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 
-}
 
 #endif // !CONSTANTS_H
