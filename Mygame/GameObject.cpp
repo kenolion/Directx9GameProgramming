@@ -74,7 +74,7 @@ bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int wi
 
 
 
-void GameObject::draw()
+void GameObject::draw()		//Function that draw sprite
 {
 
 
@@ -109,7 +109,7 @@ ObjectStatus GameObject::getStatus() const
 	return status;
 }
 
-void GameObject::setSpeed(float speed)
+void GameObject::setSpeed(float speed)		//Function to adjust the speed/velocity of the object
 {
 	/*if (speed >= 0 && speed <= maxSpeed) {
 		this->speed = speed;

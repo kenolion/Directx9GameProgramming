@@ -31,7 +31,8 @@ void RedirectIOToConsole() //THE FUNCTION TO CREATE A CONSOLE BEN IF U READ THIS
 int WINAPI WinMain(HINSTANCE hInstance,
 	HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine,
-	int nCmdShow) {
+	int nCmdShow)   //Main function
+{
 	HWND hwnd;
 	WNDCLASSEX wcex;
 	MSG msg;
@@ -98,7 +99,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 }
 
 
-LRESULT WINAPI WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+LRESULT WINAPI WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {		//Windows procedure
 
 	return game->messageHandler(hwnd, msg, wParam, lParam);
 }
