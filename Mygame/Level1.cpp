@@ -19,6 +19,7 @@ bool Level1::initializeGame(HWND hwnd)
 	}
 	pan = 0.0f;
 	frequency = 44000.0f;
+	sound->channel->setVolume(0.2);
 	player2->setState(2); //<----- state set to 2 because state controls the column of the image in this case
 	return true;
 }
@@ -71,7 +72,7 @@ void Level1::draw()
 {
 	//Simple RGB value for background so use XRGB
 	 //Draws sprite and other game object
-	graphics->clear(D3DCOLOR_XRGB(0, 0, 0)); 
+	graphics->clear(D3DCOLOR_XRGB(0, 100, 100)); 
 	graphics->begin();
 	
 	if (player) {

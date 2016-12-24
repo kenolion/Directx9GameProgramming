@@ -73,7 +73,7 @@ bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int wi
 
 
 
-void GameObject::draw()
+void GameObject::draw()		//Function that draw sprite
 {
 
 
@@ -108,7 +108,7 @@ ObjectStatus GameObject::getStatus() const
 	return status;
 }
 
-void GameObject::setSpeed(float speed)
+void GameObject::setSpeed(float speed)		//Function to adjust the speed/velocity of the object
 {
 	/*if (speed >= 0 && speed <= maxSpeed) {
 		this->speed = speed;
@@ -140,7 +140,9 @@ bool GameObject::collideWith(GameObject &object,D3DXVECTOR2 &collisionVector)
 
 	distance = object.getObjectPos() - position;			// Distance = object2 position - object1 position		
 	
-	
+	if (D3DXVec2Length(&distance) < (spriteCentre.x + object.spriteCentre.x)) {
+		return true;
+	}
 	//if (distance.y *distance.y + distance.x*distance.x < (spriteCentre.x + object.spriteCentre.x)*(spriteCentre.y + object.spriteCentre.y)) {			//it is squared to make value x and y positive if the player is on the right side of object or above object		
 	//																																			// spritecentre = object radius
 	//	return true;
