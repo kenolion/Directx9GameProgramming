@@ -13,7 +13,7 @@ class GameObject
 {
 public:
 
-	GameObject(float x, float y, float rotation, D3DXVECTOR2 scaling, float enginePower,int mass);
+	GameObject(float x, float y, float rotation, D3DXVECTOR2 scaling, float enginePower,int mass);													//
 	~GameObject();
 	virtual bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal);
 	virtual void update(int &gameTime, D3DXVECTOR2 &position, D3DXVECTOR2 &force) = 0;

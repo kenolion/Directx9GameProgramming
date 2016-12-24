@@ -73,7 +73,7 @@ void Level1::draw()
 	 //Draws sprite and other game object
 	graphics->clear(D3DCOLOR_XRGB(0, 0, 0)); 
 	graphics->begin();
-
+	
 	if (player) {
 		player2->draw();
 		player->draw();

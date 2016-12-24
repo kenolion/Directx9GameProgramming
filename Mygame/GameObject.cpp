@@ -51,8 +51,7 @@ bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int wi
 		}
 	}
 	this->frameHorizontal = frameHorizontal;
-
-	spriteClass->initializeTex(device3d, file, width, height, row, col);
+	spriteClass->initializeTex(device3d, file, width, height, row, col);  //When a game object is created, a game sprite is created.
 	this->width = width;
 	this->height = height;
 	this->spriteRow = row;
