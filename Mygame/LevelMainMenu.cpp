@@ -7,7 +7,7 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 	Game::initializeGame(hwnd);
 	
 	startButton = new Button(0, 0, D3DXVECTOR2(1.0f, 1.0f),30); //X to print, Y to print position and scaling.
-
+	
 	startButton->setX(500);
 	startButton->setY(500);
 
