@@ -41,7 +41,6 @@ void GameSprite::draw(D3DXVECTOR2 position, LPD3DXSPRITE sprite, RECT spriteRect
 {
 
 
-	//MATRIX TRANSFORMATION
 	if (tex == NULL) {
 		MessageBox(NULL, "tex is empty", "", MB_OK);
 

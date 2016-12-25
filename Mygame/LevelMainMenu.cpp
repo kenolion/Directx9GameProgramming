@@ -5,7 +5,14 @@
 bool LevelMainMenu::initializeGame(HWND hwnd)
 {
 	Game::initializeGame(hwnd);
-	graphics->createLine();
+
+	startButton = new Button(0, 0, D3DXVECTOR2(1.0f, 1.0f)); //X to print, Y to print position and scaling.
+
+	if(!startButton->initialize(graphics->device3d, "sprite\\buttonA.png", 1280, 720, 1,1, true)) //Width, Height of the pic when printed in game, SpriteWidth, SpriteHeight, 
+	{
+		MessageBox(NULL, "There was an issue creating the start button", NULL, NULL);
+		return initialize = false; //If false program wont run
+	}
 	return true;
 }
 
@@ -21,12 +28,12 @@ void LevelMainMenu::collisions()
 
 void LevelMainMenu::draw()
 {
-	graphics->clear(D3DCOLOR_XRGB(0, 0, 0));
+	graphics->clear(D3DCOLOR_XRGB(0, 100, 100));
 	graphics->begin();
-
+	
 	//UserInterface=> Draw Main Menu Button
 	//UserInterface=> Draw Pause UI
-
+	startButton->draw();
 	//Button Class , On hover
 
 //	graphics->lineBegin(); //Zer Add - Basically has line->Begin() in it.

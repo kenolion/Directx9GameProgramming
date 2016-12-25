@@ -4,7 +4,7 @@
 #ifndef NUM_CHANNELS
 #define NUM_CHANNELS 3
 #endif // !NUM_CHANNELS
-#include<fmod.hpp>
+#include <fmod.hpp>
 #include <Windows.h>
 class DxSound
 {

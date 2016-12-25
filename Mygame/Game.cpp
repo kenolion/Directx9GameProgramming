@@ -24,8 +24,13 @@ bool Game::initializeGame(HWND hwnd)
 		return initialize = false;
 	}
 
-	if (!input->initializeInput(hwnd)) {
-		MessageBox(NULL, "There was an issue initializing the Sounds", NULL, NULL);
+	if (!input->initializeKeyboard(hwnd)) {
+		MessageBox(NULL, "There was an issue initializing the Keyboard input", NULL, NULL);
+		return initialize = false;
+	}
+
+	if (!input->initializeMouse(hwnd)) {
+		MessageBox(NULL, "There was an issue initializing the Mouse input", NULL, NULL);
 		return initialize = false;
 	}
 
@@ -44,24 +49,28 @@ bool Game::initializeGame(HWND hwnd)
 
 }
 
-
+int x, y;
 void Game::run()	// This function is called repeatedly by main message loop
 {
 	framesToUpdate = gameTime->update();
 
-	
-		/*
-		1.Input
-		2.AI
-		3.Collision
-		4.Render
-		*/
+	/*
+	1.Input
+	2.AI
+	3.Collision
+	4.Render
+	*/
 
-		input->getInput();
-		setDrawingPoint(0, 0);
-		collisions();
-		update(framesToUpdate);
-		draw();// draws the games graphics
+
+	input->getInput();
+	input->ReadMouse();
+	input->ProcessInput();
+	input->GetMouseLocation(x, y);
+	std::cout << x << "           " << y << "          ";
+	setDrawingPoint(0, 0);
+	collisions();
+	update(framesToUpdate);
+	draw();// draws the games graphics
 
 
 }
@@ -86,15 +95,13 @@ LRESULT Game::messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)	
 			PostQuitMessage(0);
 			return 0;
 			break;
-		//case VK_F1:
-		//	input->remapKeys();//<---- underconstruction used to remap keys but needs to be switched to windows input instead of directinput
+			//case VK_F1:
+			//	input->remapKeys();//<---- underconstruction used to remap keys but needs to be switched to windows input instead of directinput
 
-			//break;
+				//break;
 		}
 		break;
 	case WM_LBUTTONDOWN:
-		input->DI_Device->Acquire();
-
 		break;
 
 	}

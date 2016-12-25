@@ -19,6 +19,11 @@ void UserInterface::drawUIButton(LPD3DXLINE line,int x, int y, float startXA, fl
 	line->Draw(basicButtonVertices, 4, D3DCOLOR_XRGB(255, 255, 255)); //Number of coordinates and colour of line.
 }
 
+void UserInterface::initializeUIImages()
+{
+//	button->initialize(graphics->device3d, "sprite\\practical9.png", );
+}
+
 
 /*
 void drawMainMenu() {

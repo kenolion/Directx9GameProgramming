@@ -6,11 +6,13 @@
 #include "GameSprite.h"
 #include "GameObject.h"
 #include "PlayerInput.h"
+#include "Button.h"
 
 class LevelMainMenu : public Game
 {
 public:
-	GameObject * DialogueBox;
+
+	GameObject * startButton;
 
 	bool initializeGame(HWND hwnd);
 	void update(int gameTime);

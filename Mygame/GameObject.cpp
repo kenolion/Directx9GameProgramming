@@ -1,5 +1,15 @@
 #include "GameObject.h"
 LPD3DXSPRITE GameObject::sprite = NULL;
+//Zer Add (For Button)
+GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling)
+{
+	position.x = x;
+	position.y = y;
+	this->scaling = scaling;
+	color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	state = 1;			//Start it at frame 1
+	frame = 1;
+}
 
 GameObject::GameObject(float x, float y, float rotation, D3DXVECTOR2 scaling, float enginePower,int mass)
 {
@@ -79,17 +89,17 @@ void GameObject::draw()		//Function that draw sprite
 
 	if(frameHorizontal)
 	{
-	spriteRect.top = (state - 1)*spriteHeight;
+	spriteRect.top = (state - 1)*spriteHeight;					
 	spriteRect.bottom = spriteRect.top + spriteHeight;
 	spriteRect.left = (frame - 1)*spriteWidth;
-	spriteRect.right = spriteRect.left + spriteHeight;
+	spriteRect.right = spriteRect.left + spriteWidth;
 	}
 	else
 	{
 		spriteRect.top = (frame - 1)*spriteHeight;
 		spriteRect.bottom = spriteRect.top + spriteHeight;
 		spriteRect.left = (state - 1)*spriteWidth;
-		spriteRect.right = spriteRect.left + spriteHeight;
+		spriteRect.right = spriteRect.left + spriteWidth;
 	}
 	
 	spriteCentre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
