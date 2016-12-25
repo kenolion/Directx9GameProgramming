@@ -20,8 +20,13 @@ public:
 	//bool    loop;           // true to loop frames
 	//bool    visible;        // true when visible
 	//bool    animComplete;   // true when loop is false and endFrame has finished displaying
-	Player(float x, float y, float rotation, D3DXVECTOR2 scaling,float enginePower,int mass);
-	void update(int &gameTime, D3DXVECTOR2 &position, D3DXVECTOR2 &force);
+	Player(float x, float y,D3DXVECTOR2 scaling,int animSpeed,float speed,int mass);
+	void update(int &gameTime);
+
+	//Mario properties
+	bool onGround;
+	bool getOnGroundStatus();
+
 	~Player();
 };
 

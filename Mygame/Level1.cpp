@@ -5,30 +5,34 @@
 bool Level1::initializeGame(HWND hwnd)
 {
 	Game::initializeGame(hwnd);
-	player = new Player(50.0f, 50.0f, (float)M_PI_4, D3DXVECTOR2(1.0f, 1.0f), 1.0f, 1); //x ,y ,rotation,
-	player2 = new Player(100.0f, 50.0f, 0, D3DXVECTOR2(1.0f, 1.0f), 1.0f, 1);//x ,y ,rotation,speed,maxspeed
+	object[0] = new Player(50.0f, 50.0f, D3DXVECTOR2(1.0f, 1.0f), 10, 2, 5); //x, y, scaling, animation, speed,mass
+	object[1] = new Player(600.0f, 50.0f, D3DXVECTOR2(1.0f, 1.0f), 2, 0, 5);//x, y, scaling, animation, speed,mass
 
 	// initialize texture
-	if (!player->initialize(graphics->device3d, "C:\\zeldaSprite.png", 24,34, 1, 1, false, D3DCOLOR_XRGB(0,0,0))) { // 24, 34
+	if (!object[0]->initialize(graphics->device3d, "sprite\\militia.png", 128, 192, 4, 4, true)) {
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
 		return initialize = false;
 	}
-	if (!player2->initialize(graphics->device3d, "sprite\\practical9.png", 64, 64, 2, 2, false, D3DCOLOR_XRGB(0, 0, 0))) {
+	if (!object[1]->initialize(graphics->device3d, "sprite\\practical9.png", 64, 64, 2, 2, false)) {
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);
 		return initialize = false;
 	}
-	pan = 0.0f;
-	frequency = 44000.0f;
-	sound->channel->setVolume(0.2);
-	player2->setState(2); //<----- state set to 2 because state controls the column of the image in this case
+	gravity = { 0,GRAVITY };
+	friction = { FRICTION,0 };
+
+	object[0]->setState(3);				//changes animaton state like walk left to walk right
+	object[1]->setState(2);
+	
 	return true;
 }
 
 void Level1::update(int gameTime)
 {
-	posVector = { (float)mouseX,(float)mouseY };
-	player->update(gameTime, posVector, forceVector);
-	player2->update(gameTime, D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));				// position vector temporarily set to 0
+	for (int i = 0; i < GOBJECTNUML1; i++) {
+		object[i]->update(gameTime);
+	}
+
+
 
 }
 
@@ -36,49 +40,58 @@ void Level1::collisions()
 {
 
 	//Collision should not update players position
+	for (int i = 0; i<GOBJECTNUML1; i++) {
+		object[i]->posVector = object[i]->getObjectPos();
+	}
 
-	posVector = player->getObjectPos();
-	forceVector = player->getForce();
-
+	//Player *p = dynamic_cast<Player*>(player);			//dynamic casting to access childrens variables
 	if (input->rightArrowKey) {
-
-		player->rotation += 0.1f;
-		if (pan <= 1) {
-			std::cout << frequency;
-			//sound->channel->setPan(pan+=0.01f);
-			sound->channel->setFrequency(frequency+=10);
-		}
+		object[0]->forceVector = D3DXVECTOR2(object[0]->getSpeed(), 0);
+		object[0]->setState(3);
 	}
 	if (input->leftArrowKey) {
-		player->rotation -= 0.1f;
-		if (pan >= -1) {
-			std::cout << frequency;
-			sound->channel->setFrequency(frequency -= 10);
-			//sound->channel->setPan(pan -= 0.01f);
-		}
+		object[0]->forceVector = D3DXVECTOR2(-object[0]->getSpeed(), 0);
+		object[0]->setState(2);
+
 	}
 
 	if (input->upArrowKey) {
-		forceVector = D3DXVECTOR2(sin(player->rotation)*player->enginePower, -cos(player->rotation)*player->enginePower);
-		player->setAcceleration(forceVector / player->getMass());				// acceleration =force/ mass 
-		player->setVelocity(player->getVelocity() + player->getAcceleration());	// velocity = velocity +acceleration;
+		object[0]->forceVector = D3DXVECTOR2(0, -50);
 	}
+	for(int i = 1;i<GOBJECTNUML1;i++){
+		object[i]->setAcceleration(object[i]->forceVector / object[i]->getMass());
+		object[i]->setVelocity(object[i]->getVelocity() + object[i]->getAcceleration()+gravity);
 
-	player->collision = player->collideWith(*player2, posVector);
+	}
+	if (input->keyPressed) {
+		object[0]->setAcceleration(object[0]->forceVector / object[0]->getMass());
+		object[0]->setVelocity(object[0]->getVelocity() + object[0]->getAcceleration());
+	}
+	if (object[0]->getOnGroundStatus()) {
+		object[0]->setVelocity(D3DXVECTOR2(object[0]->getVelocityX()*friction.x, object[0]->getVelocityY()));// applying friction
+		if (abs(object[0]->getVelocityX()) < 0.3) {
+			object[0]->setVelocity(D3DXVECTOR2(0,object[0]->getVelocityY()));
+		}
+	}
+	else {
+		object[0]->setVelocity(object[0]->getVelocity() + gravity);
+	}
+	
+	object[0]->collision = object[0]->collideWith(*object[1], object[0]->posVector);
 
+	
 }
 
 void Level1::draw()
 {
 	//Simple RGB value for background so use XRGB
 	 //Draws sprite and other game object
-	graphics->clear(D3DCOLOR_XRGB(0, 100, 100)); 
+	graphics->clear(D3DCOLOR_XRGB(0, 100, 100));
 	graphics->begin();
+	for(int i = 0;i<GOBJECTNUML1;i++)
+		object[i]->draw();
+
 	
-	if (player) {
-		player2->draw();
-		player->draw();
-	}
 
 	graphics->end();
 	graphics->present();
@@ -88,8 +101,10 @@ void Level1::draw()
 void Level1::deleteAll()
 {
 	Game::deleteAll();
-	dltPtr(player);
-	dltPtr(player2);
+	for(int i =0; i <GOBJECTNUML1;i++){
+	dltPtr(object[i]);
+	}
+
 
 }
 
