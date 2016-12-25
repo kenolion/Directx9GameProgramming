@@ -37,7 +37,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	WNDCLASSEX wcex;
 	MSG msg;
 
-	game = new LevelMainMenu(); //<--- use this to change level ===========================================================================================================================================================
+	game = new Level1(); //<--- use this to change level ===========================================================================================================================================================
 	
 	RECT rect;
 	rect.bottom = GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2 + GAME_HEIGHT;

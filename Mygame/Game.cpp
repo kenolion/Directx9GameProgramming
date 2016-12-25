@@ -43,6 +43,7 @@ bool Game::initializeGame(HWND hwnd)
 		MessageBox(NULL, "There was an issue initializing the Sounds", NULL, NULL);
 		return initialize = false;
 	}
+	
 	sound->loadSounds();
 	//sound->playSoundtrack();
 	
@@ -72,6 +73,7 @@ void Game::run()	// This function is called repeatedly by main message loop
 	input->ReadMouse();
 	input->ProcessInput();
 	input->GetMouseLocation(mouseX, mouseY);
+	cursor->posVector = { (float)mouseX,(float)mouseY };
 	std::cout << "Mouse X : "<< mouseX << "          " "Mouse Y : " << mouseY << "          ";
 	setDrawingPoint(0, 0);
 	collisions();
@@ -120,7 +122,7 @@ void Game::deleteAll() {
 	dltPtr(gameTime);
 	dltPtr(input);
 	dltPtr(sound);
-
+	dltPtr(cursor);
 
 
 }

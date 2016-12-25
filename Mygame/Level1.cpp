@@ -88,11 +88,12 @@ void Level1::draw()
 	 //Draws sprite and other game object
 	graphics->clear(D3DCOLOR_XRGB(0, 100, 100));
 	graphics->begin();
+	object[0]->sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	for(int i = 0;i<GOBJECTNUML1;i++)
 		object[i]->draw();
 
 	
-
+	object[0]->sprite->End();
 	graphics->end();
 	graphics->present();
 

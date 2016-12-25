@@ -31,7 +31,7 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 void LevelMainMenu::update(int gameTime)
 {
 
-	cursor->posVector = { (float)mouseX,(float)mouseY };
+	
 	cursor->update(gameTime); //Update cursor according to mouseX and mouseY
 
 	Button *childrenPointer = dynamic_cast<Button*>(startButton); //Children class = Parent class
