@@ -1,13 +1,22 @@
-#include "Player.h"
+#include "Enemy.h"
 
 
-Player::Player(float x, float y, D3DXVECTOR2 scaling, int animSpeed,float speed,int mass) :GameObject(x, y, scaling, animSpeed,speed,mass)
+
+Enemy::Enemy()
 {
-
-	onGround = false;
 }
 
-void Player::update(int &gameTime)
+
+Enemy::~Enemy()
+{
+}
+
+Enemy::Enemy(float x, float y, D3DXVECTOR2 scaling, int animSpeed, float speed, int mass) :GameObject(x, y, scaling, animSpeed, speed, mass)
+{
+
+}
+
+void Enemy::update(int &gameTime)
 {
 	std::cout << "X:" << position.x << "   " << std::endl;
 	std::cout << "Y:" << position.y << "   " << std::endl;
@@ -17,8 +26,8 @@ void Player::update(int &gameTime)
 
 		for (int i = 0; i < gameTime; i++) {
 			if (abs(velocity.x) > PLAYERMAXVEL) {
-				
-				if(velocity.x < 0 )velocity.x = -PLAYERMAXVEL;
+
+				if (velocity.x < 0)velocity.x = -PLAYERMAXVEL;
 				else velocity.x = PLAYERMAXVEL;
 
 			}
@@ -26,7 +35,7 @@ void Player::update(int &gameTime)
 			//	velocity.x = -velocity.x;
 			//}
 			if (position.x < 0) {
-				velocity.x +=5;
+				velocity.x += 5;
 			}
 			if (position.y >GROUND_LEVEL) {
 				velocity.y = 0;
@@ -40,10 +49,10 @@ void Player::update(int &gameTime)
 
 			}
 			else {
-				this->position -= 5*velocity;
+				this->position -= 5 * velocity;
 				velocity = { 0, 0 };
 			}
-			if (animTimer >=60) {
+			if (animTimer >= 60) {
 				animTimer = 0;
 				frame++;
 				if (frame > maxFrame) {
@@ -54,14 +63,4 @@ void Player::update(int &gameTime)
 
 		}
 	}
-}
-
-
-bool Player::getOnGroundStatus()
-{
-	return onGround;
-}
-
-Player::~Player()
-{
 }

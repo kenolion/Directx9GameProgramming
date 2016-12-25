@@ -13,17 +13,20 @@ class GameObject
 {
 public:
 
-	GameObject(float x, float y, D3DXVECTOR2 scaling,int animSpeed,float speed,int mass);			//x, y, scaling, animation, speed,mass
+	GameObject();
+	GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed, float speed, int mass);			//x, y, scaling, animation, speed,mass											//
+	GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed);		//Zer add
+
 	~GameObject();
-	virtual bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal);
+	virtual bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color);
 	virtual void update(int &gameTime) = 0;
 	virtual void draw();
-
 
 	//Sprite
 	GameSprite *spriteClass;
 	static LPD3DXSPRITE sprite;
 	void setState(int state);
+	void setFrame(int frame);
 	float rotation;
 
 
@@ -49,6 +52,9 @@ public:
 	D3DXVECTOR2 getObjectPos();
 	float getObjectX();
 	float getObjectY();
+	void setX(float x);
+	void setY(float y);
+
 	D3DXVECTOR2 distance;				//used for storing distance between objects in the collision function of gameobject
 	D3DXVECTOR2 posVector;
 	D3DXVECTOR2 forceVector;

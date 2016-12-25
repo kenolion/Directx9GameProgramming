@@ -1,5 +1,20 @@
 #include "GameObject.h"
 LPD3DXSPRITE GameObject::sprite = NULL;
+//Zer Add (For Button)
+GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed)
+{
+	position.x = x;
+	position.y = y;
+	this->scaling = scaling;
+	color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	state = 1;			//Start it at frame 1
+	frame = 1;
+	this->animSpeed = animSpeed;
+}
+
+GameObject::GameObject()
+{
+}
 
 GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed,float speed,int mass)
 {
@@ -38,7 +53,7 @@ GameObject::~GameObject()
 	delete spriteClass;
 }
 
-bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal)
+bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color)
 {
 	status = ObjectStatus::Active;
 	spriteClass = new GameSprite();
@@ -51,10 +66,10 @@ bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int wi
 		}
 	}
 	this->frameHorizontal = frameHorizontal;
-	spriteClass->initializeTex(device3d, file, width, height, row, col);//When a game object is created, a game sprite is created.
-	this->width = width;				//actual bitmap width
-	this->height = height;				//actual bitmap height
-	this->spriteRow = row;				//
+	spriteClass->initializeTex(device3d, file, width, height, row, col, color);  //When a game object is created, a game sprite is created.
+	this->width = width;			//actual bitmap width
+	this->height = height;			//actual bitmap height
+	this->spriteRow = row;			//
 	this->spriteCol = col;
 	spriteHeight = height / spriteRow;
 	spriteWidth = width / spriteCol;
@@ -89,7 +104,7 @@ void GameObject::draw()		//Function that draw sprite
 
 	if(frameHorizontal)
 	{
-	spriteRect.top = (state - 1)*spriteHeight;
+	spriteRect.top = (state - 1)*spriteHeight;					
 	spriteRect.bottom = spriteRect.top + spriteHeight;
 	spriteRect.left = (frame - 1)*spriteWidth;
 	spriteRect.right = spriteRect.left + spriteWidth;
@@ -114,6 +129,8 @@ void GameObject::draw()		//Function that draw sprite
 	}
 
 }
+
+
 
 ObjectStatus GameObject::getStatus()
 {
@@ -140,6 +157,16 @@ float GameObject::getObjectY()
 	return position.y;
 }
 
+void GameObject::setX(float x)
+{
+	position.x = x;
+}
+
+
+void GameObject::setY(float y)
+{
+	position.y = y;
+}
 
 
 float GameObject::getSpeed()
@@ -150,6 +177,11 @@ float GameObject::getSpeed()
 void GameObject::setState(int state)
 {
 	this->state = state;
+}
+
+void GameObject::setFrame(int frame)
+{
+	this->frame = frame;
 }
 
 bool GameObject::collideWith(GameObject &object,D3DXVECTOR2 &collisionVector)

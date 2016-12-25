@@ -2,11 +2,61 @@
 
 
 
-bool PlayerInput::initializeInput(HWND hwnd)		//Function that displays error message if play input is false
+bool PlayerInput::ReadMouse() //Smart and Pro programmer zer add this
 {
+	hr = M_Device->GetDeviceState(sizeof(DIMOUSESTATE), (LPVOID)&m_mouseState); //Read the Mouse Device
+	if (FAILED(hr))
+	{
+		//If the mouse lost focus or was not acquired then try to get control back.
+		if ((hr== DIERR_INPUTLOST) || (hr == DIERR_NOTACQUIRED))
+		{
+			M_Device->Acquire();
+		}
+		else
+		{
+			return false;
+		}
+	}
+	return true;
+}
 
-	HRESULT hr;
+void PlayerInput::ProcessInput()  //Smart and Pro programmer zer add this
+{
+	
+	m_mouseX += m_mouseState.lX; //mousestate.IX IS THE RELATIVE X POSITION 
+	m_mouseY += m_mouseState.lY; //mousestate.IY is the RELATIVE Y position
 
+	//Ensure the mouse location doesn't exceed the screen width or height.
+	if (m_mouseX <= 0)
+	{
+		m_mouseX = 0;
+	}
+	if (m_mouseY <= 0)
+	{
+		m_mouseY = 0;
+	}
+
+	if (m_mouseX > GAME_WIDTH)
+	{ 
+		m_mouseX = GAME_WIDTH;
+	}
+	if (m_mouseY > GAME_HEIGHT)
+	{
+		m_mouseY = GAME_HEIGHT;
+	}
+
+	return;
+}
+
+void PlayerInput::GetMouseLocation(int & mouseX, int & mouseY) //Stores the mouseX and mouseY into the mouseXandmouseY in this class
+{
+	mouseX = m_mouseX;
+	mouseY = m_mouseY;
+	return;
+}
+
+bool PlayerInput::initializeKeyboard(HWND hwnd)		//Function that displays error message if play input is false
+{
 	hr = DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&DI_OBJECT, NULL);
 
 	if (FAILED(hr)) {
@@ -22,6 +72,7 @@ bool PlayerInput::initializeInput(HWND hwnd)		//Function that displays error mes
 		system("pause");
 		return false;
 	}
+
 	hr = DI_Device->SetDataFormat(&c_dfDIKeyboard);
 	if (FAILED(hr)) {
 		std::cout << "Failed to set data format";
@@ -34,12 +85,40 @@ bool PlayerInput::initializeInput(HWND hwnd)		//Function that displays error mes
 		system("pause");
 		return false;
 	}
+	
+	return true;
+
+}
+
+bool PlayerInput::initializeMouse(HWND hwnd)
+{
+	hr = DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&DI_OBJECT, NULL);
+	hr = DI_OBJECT->CreateDevice(GUID_SysMouse, &M_Device, NULL);
 
 
+	if (FAILED(hr)) {
+		std::cout << "Failed to create Directinput object";
+		system("pause");
+		return false;
+	}
 
+	hr = M_Device->SetDataFormat(&c_dfDIMouse);
+	if (FAILED(hr)) {
+		MessageBox(NULL, "Failed to set Mouse data format.", NULL, MB_ICONERROR);
+		system("pause");
+		return false;
+	}
+
+	hr = M_Device->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+	if (FAILED(hr)) {
+		std::cout << "Failed to set cooperative level";
+		system("pause");
+		return false;
+	}
 
 
 	return true;
+
 
 }
 
@@ -89,11 +168,6 @@ void PlayerInput::getInput()		//Function that gets the player input
 		keyPressed = false;
 	}
 
-
-
-
-
-
 }
 
 
@@ -104,6 +178,9 @@ PlayerInput::PlayerInput()		//Initialization of player input defailt values
 	rightAKey = 205;
 	downAKey = 208;
 	upAKey = 200;
+	M_Device = 0; //Make Direct Input interface variables to null.
+	m_mouseState.lX = GAME_WIDTH / 2;
+	m_mouseState.lY = GAME_HEIGHT / 2;
 }
 
 //void PlayerInput::remapKeys()		
@@ -173,4 +250,6 @@ PlayerInput::~PlayerInput()
 {
 	DI_Device->Unacquire();
 	DI_Device->Release();
+	M_Device->Unacquire();
+	M_Device->Release();
 }

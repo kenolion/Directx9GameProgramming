@@ -7,14 +7,27 @@
 #define KEYDOWN(name, key) (name[key] & 0x80)
 //#define DIK_LEFT 0x1F
 #include <iostream>
+#include "Constants.h"
 class PlayerInput
 {
 public:
 
 	LPDIRECTINPUT8 DI_OBJECT;
 	LPDIRECTINPUTDEVICE8 DI_Device;
+	LPDIRECTINPUTDEVICE8 M_Device;	
+
+	//Smart and Pro Programmer Zer add these ====================================================
+	DIMOUSESTATE m_mouseState;			//MOUSESTATE IS USED FOR RECORDING THE CURRENT STATE OF KEYBOARD AND MOUSE DEVICES
+	int m_mouseX, m_mouseY;
+	bool ReadMouse();
+	void ProcessInput();
+	int mouseX, mouseY; //To be used to do checking.
+	void GetMouseLocation(int& mouseX, int& mouseY);
+	//Smart and Pro Programmer Zer add these ====================================================
+
 	//RAWINPUTDEVICE rawinput[1];
-	bool initializeInput( HWND hwnd);
+	bool initializeKeyboard( HWND hwnd);
+	bool initializeMouse(HWND hwnd);
 	char keys[256];
 	void getInput();
 	int leftAKey;
@@ -31,6 +44,8 @@ public:
 
 	bool keyPressed;
 
+	
+	HRESULT hr;
 
 	~PlayerInput();
 	
