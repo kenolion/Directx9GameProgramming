@@ -168,6 +168,16 @@ void PlayerInput::getInput()		//Function that gets the player input
 		keyPressed = false;
 	}
 
+	
+	if (m_mouseState.rgbButtons[0])
+	{
+		std::cout << "Left click is pressed.";
+	}
+	if (m_mouseState.rgbButtons[1])
+	{
+		std::cout << "Right click is pressed.";
+	}
+	
 }
 
 

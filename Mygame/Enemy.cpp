@@ -18,9 +18,9 @@ Enemy::Enemy(float x, float y, D3DXVECTOR2 scaling, int animSpeed, float speed, 
 
 void Enemy::update(int &gameTime)
 {
-	std::cout << "X:" << position.x << "   " << std::endl;
-	std::cout << "Y:" << position.y << "   " << std::endl;
-	std::cout << "Velocity:" << velocity.x << "," << velocity.y << "   " << std::endl;
+	std::cout << "Enemy X:" << position.x << "   " << std::endl;
+	std::cout << "Enemy Y:" << position.y << "   " << std::endl;
+	std::cout << "Enemy Velocity:" << velocity.x << "," << velocity.y << "   " << std::endl;
 	this->position = position;
 	if (status == ObjectStatus::Dead) {
 

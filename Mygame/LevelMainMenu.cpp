@@ -6,9 +6,9 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 {
 	Game::initializeGame(hwnd);
 	
-	startButton = new Button(0, 0, D3DXVECTOR2(1.0f, 1.0f),30); //X to print, Y to print position and scaling.
-	startButton->setX(500);
-	startButton->setY(500);
+	startButton = new Button(0, 0, D3DXVECTOR2(1.0f, 1.0f),30, "Start Game", 10, 100,100,100); //X to print, Y to print position and scaling.
+	startButton->setX(50);
+	startButton->setY(600);
 
 	if(!startButton->initialize(graphics->device3d, "sprite\\buttonTemplateAnimation.png", 1116, 76, 1, 4, true, D3DCOLOR_XRGB(255,255,255))) //Width, Height of the pic when printed in game, SpriteWidth, SpriteHeight, 
 	{
@@ -16,9 +16,9 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 		return initialize = false; //If false program wont run
 	}
 
-	quitButton = new Button(0, 0, D3DXVECTOR2(1.0f, 1.0f), 30);
-	quitButton->setX(700);
-	quitButton->setX(700);
+	quitButton = new Button(0, 0, D3DXVECTOR2(1.0f, 1.0f), 30, "Exit Game", 10, 100, 100, 100);
+	quitButton->setX(950);
+	quitButton->setY(600);
 
 	if (!quitButton->initialize(graphics->device3d, "sprite\\buttonTemplateAnimation.png", 1116, 76, 1, 4, true, D3DCOLOR_XRGB(255, 255, 255))) //Width, Height of the pic when printed in game, SpriteWidth, SpriteHeight, 
 	{
@@ -26,6 +26,8 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 		return initialize = false; //If false program wont run
 	}
 	return true;
+
+
 }
 
 void LevelMainMenu::update(int gameTime)
@@ -33,8 +35,8 @@ void LevelMainMenu::update(int gameTime)
 
 	cursor->posVector = { (float)mouseX,(float)mouseY };
 	cursor->update(gameTime); //Update cursor according to mouseX and mouseY
+	Button *childrenPointer = dynamic_cast<Button*>(startButton); //Children class = Parent 
 
-	Button *childrenPointer = dynamic_cast<Button*>(startButton); //Children class = Parent class
 	if (childrenPointer->onHover(mouseX, mouseY)) 
 	{
 		startButton->update(gameTime);
@@ -42,8 +44,8 @@ void LevelMainMenu::update(int gameTime)
 	else{
 		startButton->setFrame(1);
 	}
-
-	Button *childrenPointer2 = dynamic_cast<Button*>(quitButton);
+	Button *childrenPointer2 = dynamic_cast<Button*>(quitButton); //Children class = Parent class
+	
 	if (childrenPointer2->onHover(mouseX, mouseY))
 	{
 		quitButton->update(gameTime);
@@ -69,6 +71,7 @@ void LevelMainMenu::draw()
 	//UserInterface=> Draw Pause UI
 	startButton->draw();
 	quitButton->draw();
+
 	//Button Class , On hover
 	cursor->draw();
 //	graphics->lineBegin(); //Zer Add - Basically has line->Begin() in it.
@@ -83,6 +86,7 @@ void LevelMainMenu::deleteAll()
 {
 	Game::deleteAll();
 	dltPtr(startButton);
+	dltPtr(quitButton);
 }
 
 

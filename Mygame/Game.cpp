@@ -120,7 +120,8 @@ void Game::deleteAll() {
 	dltPtr(gameTime);
 	dltPtr(input);
 	dltPtr(sound);
-
+	dltPtr(cursor);
+	dltPtr(userinterface);
 
 
 }

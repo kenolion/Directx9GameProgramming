@@ -9,6 +9,7 @@ public:
 
 	GameObject * startButton;
 	GameObject * quitButton;
+	GameObject * goombaOne;
 
 	bool initializeGame(HWND hwnd);
 	void update(int gameTime);
@@ -19,6 +20,10 @@ public:
 
 	LevelMainMenu();
 	~LevelMainMenu();
+
+
+	
+		
 };
 
 #endif

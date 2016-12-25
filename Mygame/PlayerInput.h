@@ -22,6 +22,7 @@ public:
 	bool ReadMouse();
 	void ProcessInput();
 	int mouseX, mouseY; //To be used to do checking.
+
 	void GetMouseLocation(int& mouseX, int& mouseY);
 	//Smart and Pro Programmer Zer add these ====================================================
 
