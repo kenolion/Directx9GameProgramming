@@ -52,11 +52,10 @@ void GameSprite::draw(D3DXVECTOR2 position, LPD3DXSPRITE sprite, RECT spriteRect
 	}
 
 	if (sprite && tex) {
-		sprite->Begin(D3DXSPRITE_ALPHABLEND);
+		
 		sprite->Draw(tex, &spriteRect, NULL,NULL, color);
 		
-		sprite->End();
-		
+
 	}
 }
 

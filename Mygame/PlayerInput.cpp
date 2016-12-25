@@ -23,7 +23,7 @@ bool PlayerInput::ReadMouse() //Smart and Pro programmer zer add this
 void PlayerInput::ProcessInput()  //Smart and Pro programmer zer add this
 {
 	
-	m_mouseX += m_mouseState.lX; //mousestate.IX IS THE  RELATIVE X POSITION 
+	m_mouseX += m_mouseState.lX; //mousestate.IX IS THE RELATIVE X POSITION 
 	m_mouseY += m_mouseState.lY; //mousestate.IY is the RELATIVE Y position
 
 	//Ensure the mouse location doesn't exceed the screen width or height.
@@ -85,7 +85,7 @@ bool PlayerInput::initializeKeyboard(HWND hwnd)		//Function that displays error 
 		system("pause");
 		return false;
 	}
-
+	
 	return true;
 
 }
@@ -179,6 +179,8 @@ PlayerInput::PlayerInput()		//Initialization of player input defailt values
 	downAKey = 208;
 	upAKey = 200;
 	M_Device = 0; //Make Direct Input interface variables to null.
+	m_mouseState.lX = GAME_WIDTH / 2;
+	m_mouseState.lY = GAME_HEIGHT / 2;
 }
 
 //void PlayerInput::remapKeys()		

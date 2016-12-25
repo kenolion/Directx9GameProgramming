@@ -9,11 +9,11 @@ bool Level1::initializeGame(HWND hwnd)
 	object[1] = new Player(600.0f, 50.0f, D3DXVECTOR2(1.0f, 1.0f), 2, 0, 5);//x, y, scaling, animation, speed,mass
 
 	// initialize texture
-	if (!object[0]->initialize(graphics->device3d, "sprite\\militia.png", 128, 192, 4, 4, true)) {
+	if (!object[0]->initialize(graphics->device3d, "sprite\\militia.png", 128, 192, 4, 4, true, D3DCOLOR_XRGB(0,0,0))) {
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
 		return initialize = false;
 	}
-	if (!object[1]->initialize(graphics->device3d, "sprite\\practical9.png", 64, 64, 2, 2, false)) {
+	if (!object[1]->initialize(graphics->device3d, "sprite\\practical9.png", 64, 64, 2, 2, false, D3DCOLOR_XRGB(0, 0, 0))) {
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);
 		return initialize = false;
 	}

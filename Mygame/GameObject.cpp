@@ -1,7 +1,7 @@
 #include "GameObject.h"
 LPD3DXSPRITE GameObject::sprite = NULL;
 //Zer Add (For Button)
-GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling)
+GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed)
 {
 	position.x = x;
 	position.y = y;
@@ -9,6 +9,7 @@ GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling)
 	color = D3DCOLOR_ARGB(255, 255, 255, 255);
 	state = 1;			//Start it at frame 1
 	frame = 1;
+	this->animSpeed = animSpeed;
 }
 
 GameObject::GameObject()
@@ -129,6 +130,8 @@ void GameObject::draw()		//Function that draw sprite
 
 }
 
+
+
 ObjectStatus GameObject::getStatus()
 {
 	return status;
@@ -154,6 +157,16 @@ float GameObject::getObjectY()
 	return position.y;
 }
 
+void GameObject::setX(float x)
+{
+	position.x = x;
+}
+
+
+void GameObject::setY(float y)
+{
+	position.y = y;
+}
 
 
 float GameObject::getSpeed()
@@ -164,6 +177,11 @@ float GameObject::getSpeed()
 void GameObject::setState(int state)
 {
 	this->state = state;
+}
+
+void GameObject::setFrame(int frame)
+{
+	this->frame = frame;
 }
 
 bool GameObject::collideWith(GameObject &object,D3DXVECTOR2 &collisionVector)
