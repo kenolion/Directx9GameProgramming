@@ -4,7 +4,7 @@
 Player::Player(float x, float y, D3DXVECTOR2 scaling, int animSpeed,float speed,int mass) :GameObject(x, y, scaling, animSpeed,speed,mass)
 {
 
-	onGround = true;
+	onGround = false;
 }
 
 void Player::update(int &gameTime)

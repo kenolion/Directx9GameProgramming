@@ -37,7 +37,6 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	MSG msg;
 	game = new Level1();				//<--- use this to change level
 	RedirectIOToConsole();
-
 	wcex.cbSize = sizeof(wcex);
 	wcex.cbClsExtra = 0;                 // no extra class memory 
 	wcex.cbWndExtra = 0;                 // no extra window memory 
@@ -81,6 +80,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 				DispatchMessage(&msg);
 
 			}
+			
 			game->run();
 
 

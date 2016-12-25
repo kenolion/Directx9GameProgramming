@@ -6,7 +6,7 @@ bool Level1::initializeGame(HWND hwnd)
 {
 	Game::initializeGame(hwnd);
 	object[0] = new Player(50.0f, 50.0f, D3DXVECTOR2(1.0f, 1.0f), 10, 2, 5); //x, y, scaling, animation, speed,mass
-	object[1] = new Player(100.0f, 50.0f, D3DXVECTOR2(1.0f, 1.0f), 2, 0, 5);//x, y, scaling, animation, speed,mass
+	object[1] = new Player(600.0f, 50.0f, D3DXVECTOR2(1.0f, 1.0f), 2, 0, 5);//x, y, scaling, animation, speed,mass
 
 	// initialize texture
 	if (!object[0]->initialize(graphics->device3d, "sprite\\militia.png", 128, 192, 4, 4, true)) {
@@ -71,7 +71,6 @@ void Level1::collisions()
 		object[0]->setVelocity(D3DXVECTOR2(object[0]->getVelocityX()*friction.x, object[0]->getVelocityY()));// applying friction
 		if (abs(object[0]->getVelocityX()) < 0.3) {
 			object[0]->setVelocity(D3DXVECTOR2(0,object[0]->getVelocityY()));
-			
 		}
 	}
 	else {
