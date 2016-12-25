@@ -51,7 +51,7 @@ bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int wi
 		}
 	}
 	this->frameHorizontal = frameHorizontal;
-	spriteClass->initializeTex(device3d, file, width, height, row, col);
+	spriteClass->initializeTex(device3d, file, width, height, row, col);//When a game object is created, a game sprite is created.
 	this->width = width;				//actual bitmap width
 	this->height = height;				//actual bitmap height
 	this->spriteRow = row;				//
@@ -79,7 +79,7 @@ bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int wi
 
 
 
-void GameObject::draw()
+void GameObject::draw()		//Function that draw sprite
 {
 	//for RECT collision
 	left = position.x+col_xOffset;
@@ -120,7 +120,7 @@ ObjectStatus GameObject::getStatus()
 	return status;
 }
 
-void GameObject::setSpeed(float speed)
+void GameObject::setSpeed(float speed)		//Function to adjust the speed/velocity of the object
 {
 	this->speed = speed;
 }

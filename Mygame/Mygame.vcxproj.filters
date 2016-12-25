@@ -57,6 +57,9 @@
     <ClInclude Include="DxSound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Windows.cpp">
@@ -101,9 +104,15 @@
     <ClCompile Include="DxSound.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="C:\Program Files (x86)\FMOD SoundSystem\FMOD Programmers API Windows\api\lib\fmodex_vc.lib">
+      <Filter>Source Files</Filter>
+    </Library>
+    <Library Include="E:\FMOD\FMOD Programmers API Windows\api\lib\fmodex_vc.lib">
       <Filter>Source Files</Filter>
     </Library>
   </ItemGroup>

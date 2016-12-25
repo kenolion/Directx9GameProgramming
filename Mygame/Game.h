@@ -13,7 +13,7 @@
 #include "DxSound.h"
 #include "UserInterface.h"
 
-class Game
+class Game		//
 {
 protected:
 

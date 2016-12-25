@@ -1,14 +1,8 @@
 #include "PlayerInput.h"
 
-PlayerInput::PlayerInput()
-{
-	leftAKey = 203;
-	rightAKey = 205;
-	downAKey = 208;
-	upAKey = 200;
-}
 
-bool PlayerInput::initializeInput(HWND hwnd)
+
+bool PlayerInput::initializeInput(HWND hwnd)		//Function that displays error message if play input is false
 {
 
 	HRESULT hr;
@@ -49,7 +43,7 @@ bool PlayerInput::initializeInput(HWND hwnd)
 
 }
 
-void PlayerInput::getInput()
+void PlayerInput::getInput()		//Function that gets the player input
 {
 
 	HRESULT hr;
@@ -104,69 +98,75 @@ void PlayerInput::getInput()
 
 
 
-
-
-void PlayerInput::remapKeys()
+PlayerInput::PlayerInput()		//Initialization of player input defailt values
 {
-	HRESULT hr;
-
-	std::cout << "What key do you want to rebind?" << std::endl;
-
-	while (keys[59] != -1) {
-		
-		ZeroMemory(keys, sizeof(keys));
-		DI_Device->GetDeviceState(sizeof(keys), (LPVOID)&keys);
-		for (int a = 0; a < 256; a++) {
-			if (a == 59) {
-				a++;
-			}
-			if (keys[a] != 0) {
-				std::cout << a << ":" << keys[a] << std::endl;
-				tempRemapKey = a;
-				keys[59] = -1;
-			}
-
-
-
-		}
-	}
-	system("pause");
-	std::cout << "Enter another key"<<std::endl;
-	ZeroMemory(keys, sizeof(keys));
-	while (keys[59] != -1) {
-		hr = DI_Device->Acquire();
-		ZeroMemory(keys, sizeof(keys));
-		DI_Device->GetDeviceState(sizeof(keys), (LPVOID)&keys);
-		for (int a = 0; a < 256; a++) {
-			if (a == 59) {
-				a++;
-			}
-			if (keys[a] != 0) {
-				std::cout << a << ":" << keys[a] << std::endl;
-				if (tempRemapKey == leftAKey) {
-					leftAKey = a;
-				}
-				else if (tempRemapKey == rightAKey) {
-					rightAKey = a;
-				}
-				else if (tempRemapKey == upAKey) {
-					upAKey = a;
-				}
-				else if (tempRemapKey == rightAKey) {
-
-					rightAKey = a;
-				}
-
-				keys[59] = -1;
-
-			}
-
-
-
-		}
-	}
-
+	leftAKey = 203;
+	rightAKey = 205;
+	downAKey = 208;
+	upAKey = 200;
 }
+
+//void PlayerInput::remapKeys()		
+//{
+//	HRESULT hr;
+//
+//	std::cout << "What key do you want to rebind?" << std::endl;
+//
+//	while (keys[59] != -1) {
+//		
+//		ZeroMemory(keys, sizeof(keys));
+//		DI_Device->GetDeviceState(sizeof(keys), (LPVOID)&keys);
+//		for (int a = 0; a < 256; a++) {
+//			if (a == 59) {
+//				a++;
+//			}
+//			if (keys[a] != 0) {
+//				std::cout << a << ":" << keys[a] << std::endl;
+//				tempRemapKey = a;
+//				keys[59] = -1;
+//			}
+//
+//
+//
+//		}
+//	}
+//	system("pause");
+//	std::cout << "Enter another key"<<std::endl;
+//	ZeroMemory(keys, sizeof(keys));
+//	while (keys[59] != -1) {
+//		hr = DI_Device->Acquire();
+//		ZeroMemory(keys, sizeof(keys));
+//		DI_Device->GetDeviceState(sizeof(keys), (LPVOID)&keys);
+//		for (int a = 0; a < 256; a++) {
+//			if (a == 59) {
+//				a++;
+//			}
+//			if (keys[a] != 0) {
+//				std::cout << a << ":" << keys[a] << std::endl;
+//				if (tempRemapKey == leftAKey) {
+//					leftAKey = a;
+//				}
+//				else if (tempRemapKey == rightAKey) {
+//					rightAKey = a;
+//				}
+//				else if (tempRemapKey == upAKey) {
+//					upAKey = a;
+//				}
+//				else if (tempRemapKey == rightAKey) {
+//
+//					rightAKey = a;
+//				}
+//
+//				keys[59] = -1;
+//
+//			}
+//
+//
+//
+//		}
+//	}
+//
+//}
 
 
 PlayerInput::~PlayerInput()
