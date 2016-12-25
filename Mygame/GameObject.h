@@ -13,11 +13,12 @@ class GameObject
 {
 public:
 
+	GameObject();
 	GameObject(float x, float y, float rotation, D3DXVECTOR2 scaling, float enginePower,int mass);													//
 	GameObject(float x, float y, D3DXVECTOR2 scaling);		//Zer add
 
 	~GameObject();
-	virtual bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal);
+	virtual bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color);
 	virtual void update(int &gameTime, D3DXVECTOR2 &position, D3DXVECTOR2 &force) = 0;
 	virtual void draw();
 

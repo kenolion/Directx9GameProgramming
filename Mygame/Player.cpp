@@ -12,7 +12,8 @@ void Player::update(int &gameTime, D3DXVECTOR2 &position, D3DXVECTOR2 &force)
 	std::cout << "X:" << position.x << "   " << std::endl;
 	std::cout << "Y:" << position.y << "   " << std::endl;
 	std::cout << "Velocity:" << velocity.x << "," << velocity.y << "   " << std::endl;
-	if (status == ObjectStatus::Active) {
+	this->position = position;
+	if (status == ObjectStatus::Dead) {
 
 		for (int i = 0; i < gameTime; i++) {
 

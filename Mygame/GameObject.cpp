@@ -11,6 +11,10 @@ GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling)
 	frame = 1;
 }
 
+GameObject::GameObject()
+{
+}
+
 GameObject::GameObject(float x, float y, float rotation, D3DXVECTOR2 scaling, float enginePower,int mass)
 {
 	float twopi = (float)(M_PI * 2);
@@ -48,7 +52,7 @@ GameObject::~GameObject()
 	delete spriteClass;
 }
 
-bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal)
+bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color)
 {
 	status = ObjectStatus::Active;
 	spriteClass = new GameSprite();
@@ -61,7 +65,7 @@ bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int wi
 		}
 	}
 	this->frameHorizontal = frameHorizontal;
-	spriteClass->initializeTex(device3d, file, width, height, row, col);  //When a game object is created, a game sprite is created.
+	spriteClass->initializeTex(device3d, file, width, height, row, col, color);  //When a game object is created, a game sprite is created.
 	this->width = width;
 	this->height = height;
 	this->spriteRow = row;

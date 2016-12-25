@@ -36,11 +36,18 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	HWND hwnd;
 	WNDCLASSEX wcex;
 	MSG msg;
-	game = new Level1();				//<--- use this to change level
-	RedirectIOToConsole();
 
+	game = new LevelMainMenu(); //<--- use this to change level ===========================================================================================================================================================
+	
+	RECT rect;
+	rect.bottom = GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2 + GAME_HEIGHT;
+	rect.right = (GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2) + GAME_WIDTH;
+	rect.left = GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2;
+	rect.top = GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2;
+	ShowCursor(false);
+	RedirectIOToConsole();
 	wcex.cbSize = sizeof(wcex);
-	wcex.cbClsExtra = 0;                 // no extra class memory 
+	wcex.cbClsExtra = 0;                 // no extra class memory				
 	wcex.cbWndExtra = 0;                 // no extra window memory 
 	wcex.lpfnWndProc = WinProc;
 	wcex.hInstance = hInstance;
@@ -53,13 +60,12 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	wcex.hIconSm = NULL;
 
 
-
 	if (RegisterClassEx(&wcex) == 0)    // if error
 		return false;
 
 	hwnd = CreateWindow(CLASS_NAME,
 		GAME_TITTLE,
-		WS_OVERLAPPEDWINDOW,
+		 WS_OVERLAPPED | WS_MINIMIZEBOX | WS_SYSMENU,
 		GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2,          // default horizontal position of window
 		GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2,
 		GAME_WIDTH,             // width of window
@@ -82,6 +88,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 				DispatchMessage(&msg);
 
 			}
+			ClipCursor(&rect);
 			game->run();
 
 

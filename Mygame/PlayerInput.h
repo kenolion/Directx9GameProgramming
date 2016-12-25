@@ -18,7 +18,7 @@ public:
 
 	//Smart and Pro Programmer Zer add these ====================================================
 	DIMOUSESTATE m_mouseState;			//MOUSESTATE IS USED FOR RECORDING THE CURRENT STATE OF KEYBOARD AND MOUSE DEVICES
-	int m_mouseX = 0, m_mouseY = 0;
+	int m_mouseX, m_mouseY;
 	bool ReadMouse();
 	void ProcessInput();
 	int mouseX, mouseY; //To be used to do checking.

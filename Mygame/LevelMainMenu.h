@@ -13,7 +13,7 @@ class LevelMainMenu : public Game
 public:
 
 	GameObject * startButton;
-
+	
 	bool initializeGame(HWND hwnd);
 	void update(int gameTime);
 	void collisions();

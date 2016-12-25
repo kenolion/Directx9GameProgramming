@@ -12,6 +12,8 @@
 #include <iostream>
 #include "DxSound.h"
 #include "UserInterface.h"
+#include "Cursor.h"
+
 
 class Game		//
 {
@@ -23,7 +25,7 @@ protected:
 	PlayerInput *input;
 	DxSound *sound;
 	UserInterface *userinterface;
-
+	Cursor *cursor;
 
 	//Variables
 	D3DXVECTOR2 posVector;		
@@ -38,10 +40,10 @@ public:
 	virtual void deleteAll();
 	virtual bool initializeGame(HWND hwnd);
 	void run();
-	virtual void draw() = 0;
+	virtual void draw()=0;
 	virtual void update(int gameTime) = 0;
 	virtual void collisions()=0;
-	
+	int mouseX, mouseY;
 	LRESULT messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	Game();
 	~Game();

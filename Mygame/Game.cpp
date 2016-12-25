@@ -18,12 +18,17 @@ bool Game::initializeGame(HWND hwnd)
 	graphics = new Graphics();
 	input = new PlayerInput();
 	sound = new DxSound();
+	cursor = new Cursor(GAME_WIDTH/2,GAME_HEIGHT/2, D3DXVECTOR2(1.0f, 1.0f));
+
 	// initialize device
 	if (!graphics->initialize(hwnd, GAME_WIDTH, GAME_HEIGHT)) {
 		MessageBox(NULL, "There was an issue initializing the graphics", NULL, NULL);
 		return initialize = false;
 	}
-
+	if (!cursor->initialize(graphics->device3d, "sprite/dankcursor.png" ,1440,297, 3,15 ,true, D3DCOLOR_XRGB(255,0,255))) { 
+		MessageBox(NULL, "There was an issue initializing the graphics", NULL, NULL);
+		return initialize = false;
+	}
 	if (!input->initializeKeyboard(hwnd)) {
 		MessageBox(NULL, "There was an issue initializing the Keyboard input", NULL, NULL);
 		return initialize = false;
@@ -49,7 +54,7 @@ bool Game::initializeGame(HWND hwnd)
 
 }
 
-int x, y;
+
 void Game::run()	// This function is called repeatedly by main message loop
 {
 	framesToUpdate = gameTime->update();
@@ -65,8 +70,8 @@ void Game::run()	// This function is called repeatedly by main message loop
 	input->getInput();
 	input->ReadMouse();
 	input->ProcessInput();
-	input->GetMouseLocation(x, y);
-	std::cout << x << "           " << y << "          ";
+	input->GetMouseLocation(mouseX, mouseY);
+	std::cout << "Mouse X : "<< mouseX << "          " "Mouse X : " << mouseY << "          ";
 	setDrawingPoint(0, 0);
 	collisions();
 	update(framesToUpdate);

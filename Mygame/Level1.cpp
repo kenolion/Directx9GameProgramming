@@ -9,11 +9,11 @@ bool Level1::initializeGame(HWND hwnd)
 	player2 = new Player(100.0f, 50.0f, 0, D3DXVECTOR2(1.0f, 1.0f), 1.0f, 1);//x ,y ,rotation,speed,maxspeed
 
 	// initialize texture
-	if (!player->initialize(graphics->device3d, "C:\\zeldaSprite.png", 24,34, 1, 1, false)) { // 24, 34
+	if (!player->initialize(graphics->device3d, "C:\\zeldaSprite.png", 24,34, 1, 1, false, D3DCOLOR_XRGB(0,0,0))) { // 24, 34
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
 		return initialize = false;
 	}
-	if (!player2->initialize(graphics->device3d, "sprite\\practical9.png", 64, 64, 2, 2, false)) {
+	if (!player2->initialize(graphics->device3d, "sprite\\practical9.png", 64, 64, 2, 2, false, D3DCOLOR_XRGB(0, 0, 0))) {
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);
 		return initialize = false;
 	}
@@ -26,7 +26,7 @@ bool Level1::initializeGame(HWND hwnd)
 
 void Level1::update(int gameTime)
 {
-
+	posVector = { (float)mouseX,(float)mouseY };
 	player->update(gameTime, posVector, forceVector);
 	player2->update(gameTime, D3DXVECTOR2(0, 0), D3DXVECTOR2(0, 0));				// position vector temporarily set to 0
 

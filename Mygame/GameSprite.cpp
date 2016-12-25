@@ -7,7 +7,7 @@ GameSprite::GameSprite()
 	
 }
 
-void GameSprite::initializeTex(LPDIRECT3DDEVICE9 device3d,std::string file, int width, int height, int row, int col)  
+void GameSprite::initializeTex(LPDIRECT3DDEVICE9 device3d,std::string file, int width, int height, int row, int col,D3DXCOLOR color)  
 {
 	
 	if (!SUCCEEDED(D3DXCreateTextureFromFileEx(device3d,				//(1st Parameter) [LPDIRECT3DDEVICE9] Pointer to an IDirect3DDevice9 interface, representing the device to be associated
@@ -20,7 +20,7 @@ void GameSprite::initializeTex(LPDIRECT3DDEVICE9 device3d,std::string file, int 
 		D3DPOOL_MANAGED,												//(8th Parameter) [D3DPOOL] Member of the D3DPOOL enumerated type, describing the memory class into which the texture should be placed.
 		D3DX_DEFAULT, 													//(9th Parameter) [DWORD] A combination of one or more D3DX_FILTER constants controlling how the image is filtered.Specifying D3DX_DEFAULT for this parameter is the equivalent of specifying D3DX_FILTER_TRIANGLE | D3DX_FILTER_DITHER.
 		D3DX_DEFAULT,													//(10th Parameter) [DWORD] A combination of one or more D3DX_FILTER constants controlling how the image is filtered.Specifying D3DX_DEFAULT for this parameter is the equivalent of specifying D3DX_FILTER_BOX.In addition, use bits 27 - 31 to specify the number of mip levels to be skipped(from the top of the mipmap chain) when a.dds texture is loaded into memory; this allows you to skip up to 32 levels.
-		0,																//(11th Parameter) [D3DCOLOR] D3DCOLOR value to replace with transparent black, or 0 to disable the color key. This is always a 32-bit ARGB color, independent of the source image format. Alpha is significant and should usually be set to FF for opaque color keys. Thus, for opaque black, the value would be equal to 0xFF000000.
+		color,															//(11th Parameter) [D3DCOLOR] D3DCOLOR value to replace with transparent black, or 0 to disable the color key. This is always a 32-bit ARGB color, independent of the source image format. Alpha is significant and should usually be set to FF for opaque color keys. Thus, for opaque black, the value would be equal to 0xFF000000.
 		NULL,															//(12th Parameter) [D3DXIMAGE_INFO] Pointer to a D3DXIMAGE_INFO structure to be filled in with a description of the data in the source image file, or NULL.
 		NULL,															//(13th Parameter) [PALETTEENTRY] Pointer to a PALETTEENTRY structure, representing a 256-color palette to fill in, or NULL.
 		&tex)))															//(14th Parameter) [LPDIRECT3DTEXTURE9] Address of a pointer to an IDirect3DTexture9 interface, representing the created texture object.
@@ -46,6 +46,10 @@ void GameSprite::draw(D3DXVECTOR2 position, LPD3DXSPRITE sprite, RECT spriteRect
 
 	}
 
+	if (sprite == NULL) {
+		MessageBox(NULL, "sprite is empty", "", MB_OK);
+
+	}
 
 	if (sprite && tex) {
 		sprite->Begin(D3DXSPRITE_ALPHABLEND);

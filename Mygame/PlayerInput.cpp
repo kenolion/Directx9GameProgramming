@@ -23,8 +23,8 @@ bool PlayerInput::ReadMouse() //Smart and Pro programmer zer add this
 void PlayerInput::ProcessInput()  //Smart and Pro programmer zer add this
 {
 	
-	m_mouseX += m_mouseState.lX; //mousestate.IX IS THE  X POSITION OF THE MOUSE CURSOR in the game window
-	m_mouseY += m_mouseState.lY; //mousestate.IY is th Y position of the mosue cursor in the game window
+	m_mouseX += m_mouseState.lX; //mousestate.IX IS THE  RELATIVE X POSITION 
+	m_mouseY += m_mouseState.lY; //mousestate.IY is the RELATIVE Y position
 
 	//Ensure the mouse location doesn't exceed the screen width or height.
 	if (m_mouseX <= 0)
