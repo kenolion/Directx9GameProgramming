@@ -8,6 +8,7 @@
 #include "Constants.h"
 
 enum class ObjectStatus { Active, Dying, Dead };
+enum ObjectType {Enemy, Player,Floor};
 
 class GameObject
 {
