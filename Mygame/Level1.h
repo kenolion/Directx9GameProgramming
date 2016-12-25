@@ -6,8 +6,7 @@
 class Level1:public Game
 {
 public:
-	GameObject *player;
-	GameObject *player2;
+	GameObject *object[GOBJECTNUML1];			//see constant header for GOBJECTNUML1 value
 	bool initializeGame(HWND hwnd);
 	void update(int gameTime);
 	void collisions();
@@ -16,6 +15,7 @@ public:
 	//sounds
 	float pan;
 	float frequency;
+	D3DXVECTOR2 gravity;
 	Level1();
 	~Level1();
 };

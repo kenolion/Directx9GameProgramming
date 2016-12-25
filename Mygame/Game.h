@@ -25,10 +25,8 @@ protected:
 	UserInterface *userinterface;
 
 
-	//Variables
-	D3DXVECTOR2 posVector;		
-	D3DXVECTOR2 forceVector;
-
+	
+	D3DXVECTOR2 friction;
 
 
 public:

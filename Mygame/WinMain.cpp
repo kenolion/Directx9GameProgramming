@@ -35,7 +35,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	HWND hwnd;
 	WNDCLASSEX wcex;
 	MSG msg;
-	game = new LevelMainMenu();				//<--- use this to change level
+	game = new Level1();				//<--- use this to change level
 	RedirectIOToConsole();
 
 	wcex.cbSize = sizeof(wcex);

@@ -34,7 +34,7 @@ bool Game::initializeGame(HWND hwnd)
 		return initialize = false;
 	}
 	sound->loadSounds();
-	sound->playSoundtrack();
+	//sound->playSoundtrack();
 	gameTime = new GameTime();
 
 	if (!gameTime->initialize(60)) {
