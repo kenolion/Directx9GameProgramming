@@ -8,13 +8,17 @@
 //#define DIK_LEFT 0x1F
 #include <iostream>
 #include "Constants.h"
+#include "DxSound.h"
+
 class PlayerInput
 {
-public:
+public: 
 
 	LPDIRECTINPUT8 DI_OBJECT;
 	LPDIRECTINPUTDEVICE8 DI_Device;
 	LPDIRECTINPUTDEVICE8 M_Device;	
+
+	DxSound dxsound;
 
 	//Smart and Pro Programmer Zer add these ====================================================
 	DIMOUSESTATE m_mouseState;			//MOUSESTATE IS USED FOR RECORDING THE CURRENT STATE OF KEYBOARD AND MOUSE DEVICES

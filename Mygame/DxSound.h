@@ -14,15 +14,18 @@ public:
 	FMOD::System *fmodSystem;
 	FMOD_RESULT result;
 	FMOD::Channel *channel;
+	// =============================== ADD NEW SOUNDS UNDER HERE =============================================
 
-	FMOD::Sound *soundtrack;
+	FMOD::Sound *mainmenuMusic;
+	FMOD::Sound *clickSound;
 
+	// =======================================================================================================
 	bool initializeSound();
 	void updateSound();
 	void loadSounds();
 	
-	void playSoundtrack();
-
+	void playMainMenuMusic();
+	void playClickSound();
 
 
 	DxSound();

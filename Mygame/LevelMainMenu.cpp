@@ -5,8 +5,24 @@
 bool LevelMainMenu::initializeGame(HWND hwnd)
 {
 	Game::initializeGame(hwnd);
-	
-	startButton = new Button(0, 0, D3DXVECTOR2(1.0f, 1.0f),30, "Start Game", 10, 100,100,100); //X to print, Y to print position and scaling.
+	sound->playMainMenuMusic();
+
+	//======================================================= Create your Game Objects Here =======================================================
+	backgroundImage = new Player(0.0f, 0.0f, D3DXVECTOR2(1.0f, 1.0f), 0, 0, 0); //x, y, scaling, animation, speed,mass
+	if (!backgroundImage->initialize(graphics->device3d, "sprite\\backgroundImage.png", 1280, 720, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0))) {
+		MessageBox(NULL, "There was an issue creating the backgroundImage", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
+		return initialize = false;
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	gameLogo = new Player(200,100, D3DXVECTOR2(1.0f, 1.0f), 0, 0, 0);
+	if (!gameLogo->initialize(graphics->device3d, "sprite\\gameLogo.png", 891, 179, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0))) {
+		MessageBox(NULL, "There was an issue creating the game logo image", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
+		return initialize = false;
+	}
+
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+
+	startButton = new Button(0, 0, D3DXVECTOR2(1.0f, 1.0f),30, "Start Game", 10, 255,155,0); //X to print, Y to print position and scaling.
 	startButton->setX(50);
 	startButton->setY(600);
 
@@ -15,8 +31,8 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 		MessageBox(NULL, "There was an issue creating the start button", NULL, NULL);
 		return initialize = false; //If false program wont run
 	}
-
-	quitButton = new Button(0, 0, D3DXVECTOR2(1.0f, 1.0f), 30, "Exit Game", 10, 100, 100, 100);
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	quitButton = new Button(0, 0, D3DXVECTOR2(1.0f, 1.0f), 30, "Exit Game", 10, 255, 155, 0);
 	quitButton->setX(950);
 	quitButton->setY(600);
 
@@ -25,8 +41,19 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 		MessageBox(NULL, "There was an issue creating the quit button", NULL, NULL);
 		return initialize = false; //If false program wont run
 	}
-	return true;
+	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
+	//Enemy Goomba Testing
+	goombaOne = new Enemy(1280.0f,550.0f, D3DXVECTOR2(1.0f, 1.0f), 10, 2, 5);
+	if (!goombaOne->initialize(graphics->device3d, "sprite\\goombawalkLeft.png", 168, 31, 1, 8, true, D3DCOLOR_XRGB(255, 255, 255)))
+	{
+		MessageBox(NULL, "There was an issue creating goomba one", NULL, NULL);
+		return initialize = false; //If false program wont run
+	}
 
+	//==============================================================================================================================================
+	return true;
 
 }
 
@@ -35,6 +62,7 @@ void LevelMainMenu::update(int gameTime)
 
 	cursor->posVector = { (float)mouseX,(float)mouseY };
 	cursor->update(gameTime); //Update cursor according to mouseX and mouseY
+
 	Button *childrenPointer = dynamic_cast<Button*>(startButton); //Children class = Parent 
 
 	if (childrenPointer->onHover(mouseX, mouseY)) 
@@ -53,31 +81,39 @@ void LevelMainMenu::update(int gameTime)
 	else {
 		quitButton->setFrame(1);
 	}
+
+		goombaOne->update(gameTime);
 }
 
 void LevelMainMenu::collisions()
 {
-	
+	//Collision should not update players position
+//	for (int i = 0; i<GOBJECTNUML1; i++) {
+//		object[i]->posVector = object[i]->getObjectPos();
+//	}
 
-
+	goombaOne->posVector = goombaOne->getObjectPos();
 }
 
 void LevelMainMenu::draw()
 {
-	graphics->clear(D3DCOLOR_XRGB(0, 100, 100));
+	graphics->clear(D3DCOLOR_XRGB(255, 204, 255)); //255 204 255 = Pink
 	graphics->begin();
+
 	cursor->sprite->Begin(D3DXSPRITE_ALPHABLEND);
-	//UserInterface=> Draw Main Menu Button
-	//UserInterface=> Draw Pause UI
+	//======================================================= Draw your Objects in Here =======================================================
+	
+	backgroundImage->draw();
+	gameLogo->draw();
+
 	startButton->draw();
 	quitButton->draw();
+	goombaOne->draw();
 
-	//Button Class , On hover
+	//==============================================================================================================================================
 	cursor->draw();
-//	graphics->lineBegin(); //Zer Add - Basically has line->Begin() in it.
-	//userinterface->drawUIButton(graphics->line, 20, 20, 100, 100, 200, 200, 300, 300, 400, 400);
-//	graphics->lineEnd(); //Zer Add -  //Basically has Line->End() in it.
 	cursor->sprite->End();
+
 	graphics->end();  
 	graphics->present();
 }
@@ -87,6 +123,10 @@ void LevelMainMenu::deleteAll()
 	Game::deleteAll();
 	dltPtr(startButton);
 	dltPtr(quitButton);
+	dltPtr(goombaOne);
+	dltPtr(backgroundImage);
+	dltPtr(gameLogo);
+		
 }
 
 

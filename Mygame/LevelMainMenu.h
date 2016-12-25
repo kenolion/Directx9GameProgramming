@@ -10,6 +10,8 @@ public:
 	GameObject * startButton;
 	GameObject * quitButton;
 	GameObject * goombaOne;
+	GameObject * backgroundImage;
+	GameObject * gameLogo;
 
 	bool initializeGame(HWND hwnd);
 	void update(int gameTime);
