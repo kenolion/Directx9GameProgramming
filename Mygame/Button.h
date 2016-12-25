@@ -5,8 +5,6 @@
 #include "constants.h"
 #include "PlayerInput.h"
 
-#include <string>
-
 #include<d3d9.h> 
 #include<d3dx9.h>
 
@@ -19,7 +17,7 @@ public:
 
 	Button(float x, float y, D3DXVECTOR2 scaling, int animSpeed);
 
-	void draw();
+	void drawText(LPCSTR buttonText, int noOfChars, int r, int g, int b);
 
 	void update(int &gameTime);
 	~Button();
