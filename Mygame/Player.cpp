@@ -18,23 +18,7 @@ void Player::update(int &gameTime)
 	if (status == ObjectStatus::Active) {
 
 		for (int i = 0; i < gameTime; i++) {
-			if (abs(velocity.x) < 0.3) {
-				velocity.x = 0;
-			}
-			if (position.y > GAME_HEIGHT - spriteHeight) {
-				velocity.y = 0;
-
-			}
-		
-			if (onGround && !platformCollision) {
-				velocity.y = 0;
-			}
-	
-			if (!enemyCollision && !platformCollision || onGround) {
-				this->position += velocity;
-
-			}
-			
+			position += velocity;
 			if (animTimer >=60) {
 				animTimer = 0;
 				frame++;

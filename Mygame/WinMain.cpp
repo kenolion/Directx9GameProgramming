@@ -8,6 +8,7 @@
 #include "Level1.h"
 #include "LevelMainMenu.h"
 #include "LevelPlayerWins.h"
+#include "FlappyBird.h"
 
 #include <iostream>
 #include <conio.h>
@@ -42,7 +43,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	rect.bottom = GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2 + GAME_HEIGHT;
 	rect.right = (GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2) + GAME_WIDTH;
 	rect.left = GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2;
-	rect.top = GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2;
+	rect.top = GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2+50;
 
 	ShowCursor(false);
 	RedirectIOToConsole();
@@ -85,7 +86,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 
 		
-			game = new LevelMainMenu(); //<--- use this to change level 
+			game = new FlappyBird(); //<--- use this to change level 
 
 					game->initializeGame(hwnd);
 					if (game->initialize == true) {
