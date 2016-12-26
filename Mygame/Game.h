@@ -11,6 +11,7 @@
 #include "Player.h"
 #include <iostream>
 #include "DxSound.h"
+#include "UserInterface.h"
 #include "Cursor.h"
 #include "Platform.h"
 #include "Enemy.h"
@@ -25,6 +26,7 @@ protected:
 	GameTime *gameTime;
 	PlayerInput *input;
 	DxSound *sound;
+	UserInterface *userinterface;
 	Cursor *cursor;
 
 	
