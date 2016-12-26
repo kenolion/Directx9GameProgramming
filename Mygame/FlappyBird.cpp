@@ -9,7 +9,7 @@ bool FlappyBird::initializeGame(HWND hwnd)
 
 
 
-	if (!object[0]->initialize(graphics->device3d, "sprite\\ben.png", 128, 192, 4, 4, true, D3DCOLOR_XRGB(0, 0, 0), 0.70f)) {
+	if (!object[0]->initialize(graphics->device3d, "sprite\\ben.png", 128, 192, 4, 4, true, D3DCOLOR_XRGB(0, 0, 0), 0.70f, 0, 0, 0,0 )) {
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
 		return initialize = false;
 	}
