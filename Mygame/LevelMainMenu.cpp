@@ -89,6 +89,7 @@ void LevelMainMenu::update(int gameTime)
 	{
 		if (childrenPointer->isClicked(input->leftClickDown))
 		{
+		//	gsm->run(gsm->EXITPROGRAM);
 			//quit game; Game state = (something) to quit
 		}
 		quitButton->update(gameTime);

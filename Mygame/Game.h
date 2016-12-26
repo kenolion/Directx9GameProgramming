@@ -27,7 +27,7 @@ protected:
 	PlayerInput *input;
 	DxSound *sound;
 	Cursor *cursor;
-
+	
 	
 	D3DXVECTOR2 friction;
 
