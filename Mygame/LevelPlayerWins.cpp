@@ -7,13 +7,13 @@ bool LevelPlayerWins::initializeGame(HWND hwnd)
 	sound->playPlayerWinMusic();
 
 	//======================================================= Create your Game Objects Here =======================================================
-	backgroundImage = new Player(0.0f, 0.0f, D3DXVECTOR2(1.0f, 1.0f), 0, 0, 0); //x, y, scaling, animation, speed,mass
+	backgroundImage = new Pictures(0.0f, 0.0f, D3DXVECTOR2(1.0f, 1.0f)); //x, y, scaling, animation, speed,mass
 	if (!backgroundImage->initialize(graphics->device3d, "sprite\\backgroundImage.png", 1280, 720, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0 ,0 ,0 ,0)) {
 		MessageBox(NULL, "There was an issue creating the backgroundImage", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
 		return initialize = false;
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	youWinTextLogo = new Player(200, 100, D3DXVECTOR2(1.0f, 1.0f), 0, 0, 0);
+	youWinTextLogo = new Pictures(200, 100, D3DXVECTOR2(1.0f, 1.0f));
 	if (!youWinTextLogo->initialize(graphics->device3d, "sprite\\youWinLogo.png", 891, 179, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0),1.0f, 0,0,0,0)) {
 		MessageBox(NULL, "There was an issue creating the game logo image", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
 		return initialize = false;

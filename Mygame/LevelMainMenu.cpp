@@ -8,13 +8,13 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 	sound->playMainMenuMusic();
 
 	//======================================================= Create your Game Objects Here =======================================================
-	backgroundImage = new Player(0.0f, 0.0f, D3DXVECTOR2(1.0f, 1.0f), 0, 0, 0); //x, y, scaling, animation, speed,mass
-	if (!backgroundImage->initialize(graphics->device3d, "sprite\\backgroundImage.png", 1280, 720, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
+	backgroundImage = new Pictures(0.0f, 0.0f, D3DXVECTOR2(1.0f, 1.0f)); //x, y, scaling, animation, speed,mass
+	if (!backgroundImage->initialize(graphics->device3d, "sprite\\backgroundimage.png", 1280, 720, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
 		MessageBox(NULL, "There was an issue creating the backgroundImage", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
 		return initialize = false;
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	gameLogo = new Player(100,100, D3DXVECTOR2(1.0f, 1.0f), 0, 0, 0);
+	gameLogo = new Pictures(100,100, D3DXVECTOR2(1.0f, 1.0f));
 	if (!gameLogo->initialize(graphics->device3d, "sprite\\gameLogo.png", 1130, 97, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
 		MessageBox(NULL, "There was an issue creating the game logo image", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
 		return initialize = false;
@@ -135,7 +135,7 @@ void LevelMainMenu::draw()
 	gameLogo->draw();
 	goombaOne->draw();
 
-	//graphics->drawLine(goombaVector, 5, 255, 255, 255);
+	//graphics->drawLine(goombaVector, 5, 255, 204, 255);
 
 	std::cout << std::endl << goombaOne->hitBoxTop << std::endl << goombaOne->hitBoxBottom << std::endl << goombaOne->hitBoxLeft << std::endl << goombaOne->hitBoxRight << std::endl;
 	startButton->draw();

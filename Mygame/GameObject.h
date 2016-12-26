@@ -20,6 +20,7 @@ public:
 	GameObject();
 	GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed, float speed, int mass);			//x, y, scaling, animation, speed,mass											//
 	GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed);		//Zer add
+	GameObject(float x, float y, D3DXVECTOR2 scaling);
 	
 
 	~GameObject();

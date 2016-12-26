@@ -15,6 +15,7 @@
 #include "Cursor.h"
 #include "Platform.h"
 #include "Enemy.h"
+#include "Pictures.h"
 
 class Game		//
 {

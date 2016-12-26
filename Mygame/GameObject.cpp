@@ -13,6 +13,16 @@ GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed)
 	this->type = type;
 }
 
+GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling)
+{
+	position.x = x;
+	position.y = y;
+	this->scaling = scaling;
+	state = 1;			//Start it at frame 1
+	frame = 1;
+	color = D3DCOLOR_ARGB(255, 255, 255, 255);
+}
+
 
 GameObject::GameObject()
 {
