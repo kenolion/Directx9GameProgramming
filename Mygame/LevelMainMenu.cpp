@@ -14,8 +14,8 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 		return initialize = false;
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	gameLogo = new Player(200,100, D3DXVECTOR2(1.0f, 1.0f), 0, 0, 0);
-	if (!gameLogo->initialize(graphics->device3d, "sprite\\gameLogo.png", 891, 179, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
+	gameLogo = new Player(100,100, D3DXVECTOR2(1.0f, 1.0f), 0, 0, 0);
+	if (!gameLogo->initialize(graphics->device3d, "sprite\\gameLogo.png", 1130, 97, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
 		MessageBox(NULL, "There was an issue creating the game logo image", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
 		return initialize = false;
 	}
@@ -131,7 +131,7 @@ void LevelMainMenu::draw()
 	cursor->sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	//======================================================= Draw your Objects in Here =======================================================
 
-	//backgroundImage->draw();
+	backgroundImage->draw();
 	gameLogo->draw();
 	goombaOne->draw();
 
