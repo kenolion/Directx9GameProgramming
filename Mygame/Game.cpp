@@ -80,6 +80,24 @@ void Game::run()	// This function is called repeatedly by main message loop
 
 
 }
+// ================================================================================================================================
+
+void Game::changeState()
+{
+
+}
+
+void Game::deleteSceneContents()
+{
+	dltPtr(graphics);
+	dltPtr(gameTime);
+	dltPtr(input);
+	dltPtr(sound);
+	dltPtr(cursor);
+	dltPtr(userinterface);
+
+}
+// ================================================================================================================================
 
 //Draws game object
 

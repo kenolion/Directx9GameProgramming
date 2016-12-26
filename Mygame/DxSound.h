@@ -18,15 +18,20 @@ public:
 
 	FMOD::Sound *mainmenuMusic;
 	FMOD::Sound *clickSound;
+	FMOD::Sound *playerWinMusic;
 
 	// =======================================================================================================
 	bool initializeSound();
 	void updateSound();
 	void loadSounds();
 	
+	// =============================== ADD PLAYER MUSIC FUNCTIONS IN HERE ====================================
+
 	void playMainMenuMusic();
 	void playClickSound();
+	void playPlayerWinMusic();
 
+	// =======================================================================================================
 
 	DxSound();
 	~DxSound();

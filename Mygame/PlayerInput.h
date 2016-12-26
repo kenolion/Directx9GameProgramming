@@ -20,7 +20,7 @@ public:
 
 	DxSound dxsound;
 
-	//Smart and Pro Programmer Zer add these ====================================================
+	//Zer add these ====================================================
 	DIMOUSESTATE m_mouseState;			//MOUSESTATE IS USED FOR RECORDING THE CURRENT STATE OF KEYBOARD AND MOUSE DEVICES
 	int m_mouseX, m_mouseY;
 	bool ReadMouse();
@@ -28,7 +28,8 @@ public:
 	int mouseX, mouseY; //To be used to do checking.
 
 	void GetMouseLocation(int& mouseX, int& mouseY);
-	//Smart and Pro Programmer Zer add these ====================================================
+	bool leftClickDown;
+	//Zer add these ====================================================
 
 	//RAWINPUTDEVICE rawinput[1];
 	bool initializeKeyboard( HWND hwnd);

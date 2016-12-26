@@ -53,7 +53,15 @@ bool Button::onHover(int mouseX, int mouseY)
 			return true;
 		}
 	}
+	return false;
+}
 
+bool Button::isClicked(bool leftClickDown)
+{
+	if (leftClickDown == true)
+	{
+		return true;
+	}
 	return false;
 }
 

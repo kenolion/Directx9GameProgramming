@@ -44,6 +44,12 @@ void DxSound::loadSounds()
 	}
 	mainmenuMusic->setMode(FMOD_LOOP_NORMAL);
 
+	result = fmodSystem->createStream("sounds//playerWinMusic.mp3", FMOD_DEFAULT, 0, &playerWinMusic);
+	if (result != FMOD_OK) {
+		MessageBox(NULL, "ERROR", "Could not load playerWinMusic.mp3", MB_ICONERROR);
+	}
+	mainmenuMusic->setMode(FMOD_LOOP_NORMAL);
+
 
 }
 
@@ -56,6 +62,11 @@ void DxSound::playMainMenuMusic()
 void DxSound::playClickSound()
 {
 	result = fmodSystem->playSound(FMOD_CHANNEL_FREE, clickSound, false, &channel);
+}
+
+void DxSound::playPlayerWinMusic()
+{
+	result = fmodSystem->playSound(FMOD_CHANNEL_FREE, playerWinMusic, false, &channel);
 }
 
 DxSound::DxSound()

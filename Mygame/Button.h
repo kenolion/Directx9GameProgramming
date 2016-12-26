@@ -1,9 +1,11 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 #include "GameObject.h"
+#include "PlayerInput.h"
 
 #include<d3d9.h> 
 #include<d3dx9.h>
+
 
 class Button : public GameObject
 {
@@ -25,10 +27,11 @@ public:
 
 	void draw();
 	void update(int &gameTime);
+
 	~Button();
 	bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color);
 	bool onHover(int mouseX, int mouseY);
-	
+	bool isClicked(bool leftClickDown);
 
 
 	

@@ -1,11 +1,10 @@
-#include "LevelMainMenu.h"
+#include "LevelPlayerWins.h"
 
 
-
-bool LevelMainMenu::initializeGame(HWND hwnd)
+bool LevelPlayerWins::initializeGame(HWND hwnd)
 {
 	Game::initializeGame(hwnd);
-	sound->playMainMenuMusic();
+	sound->playPlayerWinMusic();
 
 	//======================================================= Create your Game Objects Here =======================================================
 	backgroundImage = new Player(0.0f, 0.0f, D3DXVECTOR2(1.0f, 1.0f), 0, 0, 0); //x, y, scaling, animation, speed,mass
@@ -14,24 +13,25 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 		return initialize = false;
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	gameLogo = new Player(200,100, D3DXVECTOR2(1.0f, 1.0f), 0, 0, 0);
-	if (!gameLogo->initialize(graphics->device3d, "sprite\\gameLogo.png", 891, 179, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0))) {
+	youWinTextLogo = new Player(200, 100, D3DXVECTOR2(1.0f, 1.0f), 0, 0, 0);
+	if (!youWinTextLogo->initialize(graphics->device3d, "sprite\\youWinLogo.png", 891, 179, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0))) {
 		MessageBox(NULL, "There was an issue creating the game logo image", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
 		return initialize = false;
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 
-	startButton = new Button(0, 0, D3DXVECTOR2(1.0f, 1.0f),30, "Start Game", 10, 255,155,0); //X to print, Y to print position and scaling.
-	startButton->setX(50);
-	startButton->setY(600);
+	returnToMainMenuButton = new Button(0, 0, D3DXVECTOR2(1.0f, 1.0f), 30, " Main Menu", 10, 255, 155, 0); //X to print, Y to print position and scaling.
+	returnToMainMenuButton->setX(50);
+	returnToMainMenuButton->setY(600);
 
-	if(!startButton->initialize(graphics->device3d, "sprite\\buttonTemplateAnimation.png", 1116, 76, 1, 4, true, D3DCOLOR_XRGB(255,255,255))) //Width, Height of the pic when printed in game, SpriteWidth, SpriteHeight, 
+	if (!returnToMainMenuButton->initialize(graphics->device3d, "sprite\\buttonTemplateAnimation.png", 1116, 76, 1, 4, true, D3DCOLOR_XRGB(255, 255, 255))) //Width, Height of the pic when printed in game, SpriteWidth, SpriteHeight, 
 	{
 		MessageBox(NULL, "There was an issue creating the start button", NULL, NULL);
 		return initialize = false; //If false program wont run
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
+
 	quitButton = new Button(0, 0, D3DXVECTOR2(1.0f, 1.0f), 30, "Exit Game", 10, 255, 155, 0);
 	quitButton->setX(950);
 	quitButton->setY(600);
@@ -42,115 +42,90 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 		return initialize = false; //If false program wont run
 	}
 	
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	
-	//Enemy Goomba Testing
-	goombaOne = new Enemy(1280.0f,550.0f, D3DXVECTOR2(1.0f, 1.0f), 10, 2, 5);
-	if (!goombaOne->initialize(graphics->device3d, "sprite\\goombawalkLeft.png", 168, 31, 1, 8, true, D3DCOLOR_XRGB(255, 255, 255)))
-	{
-		MessageBox(NULL, "There was an issue creating goomba one", NULL, NULL);
-		return initialize = false; //If false program wont run
-	}
-
-	//==============================================================================================================================================
-	return true;
 
 }
 
-void LevelMainMenu::update(int gameTime)
+void LevelPlayerWins::update(int gameTime)
 {
 
 	cursor->posVector = { (float)mouseX,(float)mouseY };
 	cursor->update(gameTime); //Update cursor according to mouseX and mouseY
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	Button *childrenPointer1 = dynamic_cast<Button*>(returnToMainMenuButton); //Children class = Parent 
 
-	Button *childrenPointer = dynamic_cast<Button*>(startButton); //Children class = Parent 
-
-	if (childrenPointer->onHover(mouseX, mouseY)) 
+	if (childrenPointer1->onHover(mouseX, mouseY))
 	{
-		if (childrenPointer->isClicked(input->leftClickDown))
+		if (childrenPointer1->isClicked(input->leftClickDown))
 		{
-			//change to level one
+			//returnToMainMenu
 		}
-		startButton->update(gameTime);
+		returnToMainMenuButton->update(gameTime);
 	}
-	else{
-		startButton->setFrame(1);
+	else {
+		returnToMainMenuButton->setFrame(1);
 	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
 
 	Button *childrenPointer2 = dynamic_cast<Button*>(quitButton); //Children class = Parent class
-	
+
 	if (childrenPointer2->onHover(mouseX, mouseY))
 	{
-		if (childrenPointer->isClicked(input->leftClickDown))
+		if (childrenPointer2->isClicked(input->leftClickDown))
 		{
-			//quit game; Game state = (something) to quit
+			//quitgame
 		}
 		quitButton->update(gameTime);
 	}
 	else {
 		quitButton->setFrame(1);
 	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-
-		goombaOne->update(gameTime);
 }
 
-void LevelMainMenu::collisions()
+void LevelPlayerWins::collisions()
 {
 	//Collision should not update players position
-//	for (int i = 0; i<GOBJECTNUML1; i++) {
-//		object[i]->posVector = object[i]->getObjectPos();
-//	}
+	//	for (int i = 0; i<GOBJECTNUML1; i++) {
+	//		object[i]->posVector = object[i]->getObjectPos();
+	//	}
 
-	goombaOne->posVector = goombaOne->getObjectPos();
+
 }
 
-void LevelMainMenu::draw()
+void LevelPlayerWins::draw()
 {
 	graphics->clear(D3DCOLOR_XRGB(255, 204, 255)); //255 204 255 = Pink
 	graphics->begin();
 
 	cursor->sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	//======================================================= Draw your Objects in Here =======================================================
-	
-	backgroundImage->draw();
-	gameLogo->draw();
 
-	startButton->draw();
+	backgroundImage->draw();
+	youWinTextLogo->draw();
+
+	returnToMainMenuButton->draw();
 	quitButton->draw();
-	goombaOne->draw();
 
 	//==============================================================================================================================================
 	cursor->draw();
 	cursor->sprite->End();
 
-	graphics->end();  
+	graphics->end();
 	graphics->present();
 }
 
-void LevelMainMenu::deleteAll()
+void LevelPlayerWins::deleteAll()
 {
 	Game::deleteAll();
-	dltPtr(startButton);
-	dltPtr(quitButton);
-	dltPtr(goombaOne);
+	dltPtr(youWinTextLogo);
 	dltPtr(backgroundImage);
-	dltPtr(gameLogo);
-		
+	dltPtr(returnToMainMenuButton);
 }
 
-
-LevelMainMenu::LevelMainMenu()
+LevelPlayerWins::LevelPlayerWins()
 {
 }
 
 
-LevelMainMenu::~LevelMainMenu()
+LevelPlayerWins::~LevelPlayerWins()
 {
 }
 
