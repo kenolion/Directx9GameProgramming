@@ -86,7 +86,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 
 		
-			game = new FlappyBird(); //<--- use this to change level 
+			game = new LevelMainMenu(); //<--- use this to change level 
 
 					game->initializeGame(hwnd);
 					if (game->initialize == true) {
