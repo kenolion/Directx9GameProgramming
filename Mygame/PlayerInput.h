@@ -8,22 +8,28 @@
 //#define DIK_LEFT 0x1F
 #include <iostream>
 #include "Constants.h"
+#include "DxSound.h"
+
 class PlayerInput
 {
-public:
+public: 
 
 	LPDIRECTINPUT8 DI_OBJECT;
 	LPDIRECTINPUTDEVICE8 DI_Device;
 	LPDIRECTINPUTDEVICE8 M_Device;	
 
-	//Smart and Pro Programmer Zer add these ====================================================
+	DxSound dxsound;
+
+	//Zer add these ====================================================
 	DIMOUSESTATE m_mouseState;			//MOUSESTATE IS USED FOR RECORDING THE CURRENT STATE OF KEYBOARD AND MOUSE DEVICES
 	int m_mouseX, m_mouseY;
 	bool ReadMouse();
 	void ProcessInput();
 	int mouseX, mouseY; //To be used to do checking.
+
 	void GetMouseLocation(int& mouseX, int& mouseY);
-	//Smart and Pro Programmer Zer add these ====================================================
+	bool leftClickDown;
+	//Zer add these ====================================================
 
 	//RAWINPUTDEVICE rawinput[1];
 	bool initializeKeyboard( HWND hwnd);

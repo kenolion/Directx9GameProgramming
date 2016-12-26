@@ -8,6 +8,12 @@ public:
 	Enemy(float x, float y, D3DXVECTOR2 scaling, int animSpeed, float speed, int mass);
 	~Enemy();
 	void update(int &gameTime);
+	void draw();
+
+	RECT goombaHitBox;
+	RECT goombaTopHitBox;
+
+	int circleDetectionRadius;
 };
 
 #endif

@@ -13,6 +13,7 @@ GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed)
 	this->type = type;
 }
 
+
 GameObject::GameObject()
 {
 }

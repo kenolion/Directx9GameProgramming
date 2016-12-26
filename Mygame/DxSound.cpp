@@ -30,20 +30,43 @@ void DxSound::updateSound()
 
 void DxSound::loadSounds()
 {
-	result = fmodSystem->createStream("Music1.mp3", FMOD_DEFAULT, 0, &soundtrack);
 
+
+	result = fmodSystem->createSound("sounds//clickSoundEffect.mp3", FMOD_DEFAULT, 0, &clickSound); //File name * Path, Behaviour of sound
 	if (result != FMOD_OK) {
-		MessageBox(NULL, "ERROR", "Could not load Music1.mp3", MB_ICONERROR);
+		MessageBox(NULL, "ERROR", "Could not load clickSoundEffect.mp3", MB_ICONERROR);
 	}
-	soundtrack->setMode(FMOD_LOOP_NORMAL);
+	clickSound->setMode(FMOD_LOOP_OFF);  // No loop
+
+	result = fmodSystem->createStream("sounds//mainMenuMusic.mp3", FMOD_DEFAULT, 0, &mainmenuMusic);
+	if (result != FMOD_OK) {
+		MessageBox(NULL, "ERROR", "Could not load mainMenuMusic.mp3", MB_ICONERROR);
+	}
+	mainmenuMusic->setMode(FMOD_LOOP_NORMAL);
+
+	result = fmodSystem->createStream("sounds//playerWinMusic.mp3", FMOD_DEFAULT, 0, &playerWinMusic);
+	if (result != FMOD_OK) {
+		MessageBox(NULL, "ERROR", "Could not load playerWinMusic.mp3", MB_ICONERROR);
+	}
+	mainmenuMusic->setMode(FMOD_LOOP_NORMAL);
 
 
 }
 
-void DxSound::playSoundtrack()
+void DxSound::playMainMenuMusic()
 {
-	result = fmodSystem->playSound(FMOD_CHANNEL_FREE, soundtrack, false, &channel);
+	result = fmodSystem->playSound(FMOD_CHANNEL_FREE, mainmenuMusic, false, &channel);
 
+}
+
+void DxSound::playClickSound()
+{
+	result = fmodSystem->playSound(FMOD_CHANNEL_FREE, clickSound, false, &channel);
+}
+
+void DxSound::playPlayerWinMusic()
+{
+	result = fmodSystem->playSound(FMOD_CHANNEL_FREE, playerWinMusic, false, &channel);
 }
 
 DxSound::DxSound()

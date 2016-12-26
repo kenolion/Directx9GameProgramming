@@ -55,6 +55,7 @@ void PlayerInput::GetMouseLocation(int & mouseX, int & mouseY) //Stores the mous
 	return;
 }
 
+
 bool PlayerInput::initializeKeyboard(HWND hwnd)		//Function that displays error message if play input is false
 {
 	hr = DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&DI_OBJECT, NULL);
@@ -168,6 +169,23 @@ void PlayerInput::getInput()		//Function that gets the player input
 		keyPressed = false;
 	}
 
+	
+	if (m_mouseState.rgbButtons[0])
+	{
+		dxsound.playClickSound();
+		leftClickDown = true;
+		std::cout << "Left click is pressed.";
+	}
+	else
+	{
+		leftClickDown = false;
+	}
+
+	if			(m_mouseState.rgbButtons[1])
+	{
+		std::cout << "Right click is pressed.";
+	}
+	
 }
 
 

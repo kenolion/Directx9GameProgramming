@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "Level1.h"
 #include "LevelMainMenu.h"
+#include "LevelPlayerWins.h"
 
 #include <iostream>
 #include <conio.h>
@@ -37,13 +38,12 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	WNDCLASSEX wcex;
 	MSG msg;
 
-	game = new Level1(); //<--- use this to change level ===========================================================================================================================================================
-	
 	RECT rect;
 	rect.bottom = GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2 + GAME_HEIGHT;
 	rect.right = (GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2) + GAME_WIDTH;
 	rect.left = GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2;
 	rect.top = GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2;
+
 	ShowCursor(false);
 	RedirectIOToConsole();
 	wcex.cbSize = sizeof(wcex);
@@ -65,7 +65,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 	hwnd = CreateWindow(CLASS_NAME,
 		GAME_TITTLE,
-		 WS_OVERLAPPED | WS_MINIMIZEBOX | WS_SYSMENU,
+		WS_OVERLAPPED | WS_MINIMIZEBOX | WS_SYSMENU,
 		GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2,          // default horizontal position of window
 		GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2,
 		GAME_WIDTH,             // width of window
@@ -78,27 +78,34 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	ShowWindow(hwnd, nCmdShow);
 
 	ZeroMemory(&msg, sizeof(MSG));
-	game->initializeGame(hwnd);
-	if (game->initialize == true) {
-		while (msg.message != WM_QUIT) {
-			if (msg.message == WM_QUIT)
-				break;
-			while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
-				TranslateMessage(&msg);
-				DispatchMessage(&msg);
 
-			}
-			ClipCursor(&rect);
-			game->run();
+	//========================================================================================================================================================================
+
+	
 
 
-		}
-	}
+		
+			game = new LevelMainMenu(); //<--- use this to change level 
 
-	game->deleteAll();
+					game->initializeGame(hwnd);
+					if (game->initialize == true) {
+						while (msg.message != WM_QUIT) {
+							if (msg.message == WM_QUIT)
+								break;
+							while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+								TranslateMessage(&msg);
+								DispatchMessage(&msg);
+							}
+						    	ClipCursor(&rect);
+								game->run();
+						}
+					}
 
+		game->deleteAll();
 
-	dltPtr(game);
+		dltPtr(game);
+	
+	//========================================================================================================================================================================
 	UnregisterClass(wcex.lpszClassName, hInstance);
 	return msg.wParam;
 	system("pause");
