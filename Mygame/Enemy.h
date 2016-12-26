@@ -11,7 +11,6 @@ public:
 	void draw();
 
 	RECT goombaHitBox;
-	RECT goombaTopHitBox;
 
 	int circleDetectionRadius;
 };

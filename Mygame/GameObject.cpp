@@ -13,6 +13,16 @@ GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed)
 	this->type = type;
 }
 
+GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling)
+{
+	position.x = x;
+	position.y = y;
+	this->scaling = scaling;
+	state = 1;			//Start it at frame 1
+	frame = 1;
+	color = D3DCOLOR_ARGB(255, 255, 255, 255);
+}
+
 
 GameObject::GameObject()
 {
@@ -56,7 +66,7 @@ GameObject::~GameObject()
 	delete spriteClass;
 }
 
-bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color, float falseColl)
+bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color, float falseColl, float hitBoxTop, float hitBoxBottom, float hitBoxLeft, float hitBoxRight)
 {
 	status = ObjectStatus::Active;
 	spriteClass = new GameSprite();
@@ -80,6 +90,12 @@ bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int wi
 	col_height = height *falseColl;
 	col_xOffset = (width - col_width) / 2;
 	col_yOffset = (height - col_height) / 2;
+
+	this->hitBoxTop = hitBoxTop;
+	this->hitBoxBottom = hitBoxBottom;
+	this->hitBoxLeft = hitBoxLeft;
+	this->hitBoxRight = hitBoxRight;
+
 	//for rectangle collision
 
 	if (frameHorizontal) {

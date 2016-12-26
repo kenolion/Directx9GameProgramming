@@ -26,7 +26,7 @@ public:
 
 	~Button();
 
-	bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color, float falseColl);
+	bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color, float falseColl, float hitBoxTop, float hitBoxBottom, float hitBoxLeft, float hitBoxRight);
 	bool onHover(int mouseX, int mouseY);
 	bool isClicked(bool leftClickDown);
 
