@@ -1,11 +1,8 @@
 #ifndef USERINTERFACE_H
 #define USERINTERFACE_H
-#include "constants.h"
 #include "Graphics.h"
 #include "Button.h"
 
-#include<d3d9.h> 
-#include<d3dx9.h>
 
 class UserInterface	
 {

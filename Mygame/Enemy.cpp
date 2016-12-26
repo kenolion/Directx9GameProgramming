@@ -44,7 +44,7 @@ void Enemy::update(int &gameTime)
 			//	velocity.y = -velocity.y;
 			//}
 
-			if (!collision) {
+			if (!enemyCollision) {
 				this->position += velocity;
 
 			}

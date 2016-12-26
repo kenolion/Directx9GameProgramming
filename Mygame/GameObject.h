@@ -7,8 +7,7 @@
 #include <iostream>
 #include "Constants.h"
 
-enum class ObjectStatus { Active, Dying, Dead };
-enum class ObjectType {Enemy,Player,Platform};
+
 class GameObject
 {
 public:
@@ -18,10 +17,10 @@ public:
 	GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed);		//Zer add
 
 	~GameObject();
-	virtual bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color);
+	virtual bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color,float falseColl);
 	virtual void update(int &gameTime) = 0;
 	virtual void draw();
-
+	
 	//Sprite
 	GameSprite *spriteClass;
 	static LPD3DXSPRITE sprite;
@@ -35,6 +34,7 @@ public:
 	void setVelocity(D3DXVECTOR2 vel);
 	D3DXVECTOR2 getAcceleration();
 	virtual bool getOnGroundStatus();
+	virtual void setGroundStatus(bool status);
 	D3DXVECTOR2 getVelocity();
 	float getVelocityX();
 	float getVelocityY();
@@ -46,8 +46,9 @@ public:
 	void setSpeed(float speed);
 
 
-	bool collision;
-	
+	bool enemyCollision;
+	bool platformCollision;
+
 	//TEMP data used for calculating physics
 	D3DXVECTOR2 getObjectPos();
 	float getObjectX();
@@ -59,7 +60,9 @@ public:
 	D3DXVECTOR2 posVector;
 	D3DXVECTOR2 forceVector;
 	ObjectStatus getStatus();
-	
+	ObjectType getType();
+	//
+	void printData();
 protected:
 	//informational data(name, desc wtv u want)
 	std::string name;
@@ -72,6 +75,7 @@ protected:
 	float mass;
 	float speed;
 	ObjectStatus status;
+	ObjectType type;
 	D3DXVECTOR2 spriteCentre;
 	D3DXMATRIX mat;
 	//RECT COLLISION
@@ -83,7 +87,7 @@ protected:
 	float col_height;
 	float col_xOffset;
 	float col_yOffset;
-
+	RECT collisionRect; //used if you want to make additional rectangles to check for collision
 	
 
 	//SPRITE INFO

@@ -7,8 +7,9 @@ class Platform:public GameObject
 public:
 
 	void draw();
-	void update();
-	Platform();
+	void update(int &gameTime);
+	Platform(float x, float y, D3DXVECTOR2 scaling,int animSpeed);
+private:
 	~Platform();
 };
 

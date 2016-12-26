@@ -13,9 +13,9 @@ Button::~Button()
 }
 
 
-bool Button::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color)
+bool Button::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color,float falseColl)
 {
-	GameObject::initialize(device3d, file, width, height, row, col, frameHorizontal, color);
+	GameObject::initialize(device3d, file, width, height, row, col, frameHorizontal, color, falseColl);
 
 	hr = D3DXCreateFont(device3d,			    //(1st Parameter) [LPDIRECT3DDEVICE9] Pointer to an IDirect3DDevice9 interface, the device to be associated with the font object.
 		25,										//(2nd Parameter) [INT] The height of the characters in logical units.

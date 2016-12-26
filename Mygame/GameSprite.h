@@ -13,7 +13,7 @@ public:
 	GameSprite();
 	void initializeTex(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, D3DXCOLOR color);
 
-	virtual void draw(D3DXVECTOR2 position, LPD3DXSPRITE sprite, RECT spriteRect, D3DCOLOR color);
+	virtual void draw( LPD3DXSPRITE sprite, RECT spriteRect, D3DCOLOR color);
 	~GameSprite();
 };
 

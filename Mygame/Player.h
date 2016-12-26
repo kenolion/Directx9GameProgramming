@@ -1,7 +1,5 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "PlayerInput.h"
-#include "GameSprite.h"
 #include "GameObject.h"
 
 
@@ -25,8 +23,9 @@ public:
 
 	//Mario properties
 	bool onGround;
-	bool getOnGroundStatus();
 
+	bool getOnGroundStatus();
+	void setGroundStatus(bool status);
 	~Player();
 };
 

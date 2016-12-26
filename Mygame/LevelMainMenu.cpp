@@ -10,7 +10,7 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 	startButton->setX(500);
 	startButton->setY(500);
 
-	if(!startButton->initialize(graphics->device3d, "sprite\\buttonTemplateAnimation.png", 1116, 76, 1, 4, true, D3DCOLOR_XRGB(255,255,255))) //Width, Height of the pic when printed in game, SpriteWidth, SpriteHeight, 
+	if(!startButton->initialize(graphics->device3d, "sprite\\buttonTemplateAnimation.png", 1116, 76, 1, 4, true, D3DCOLOR_XRGB(255,255,255),1.0f)) //Width, Height of the pic when printed in game, SpriteWidth, SpriteHeight, 
 	{
 		MessageBox(NULL, "There was an issue creating the start button", NULL, NULL);
 		return initialize = false; //If false program wont run
@@ -20,7 +20,7 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 	quitButton->setX(700);
 	quitButton->setX(700);
 
-	if (!quitButton->initialize(graphics->device3d, "sprite\\buttonTemplateAnimation.png", 1116, 76, 1, 4, true, D3DCOLOR_XRGB(255, 255, 255))) //Width, Height of the pic when printed in game, SpriteWidth, SpriteHeight, 
+	if (!quitButton->initialize(graphics->device3d, "sprite\\buttonTemplateAnimation.png", 1116, 76, 1, 4, true, D3DCOLOR_XRGB(255, 255, 255),1.0f)) //Width, Height of the pic when printed in game, SpriteWidth, SpriteHeight, 
 	{
 		MessageBox(NULL, "There was an issue creating the quit button", NULL, NULL);
 		return initialize = false; //If false program wont run
@@ -83,6 +83,7 @@ void LevelMainMenu::deleteAll()
 {
 	Game::deleteAll();
 	dltPtr(startButton);
+	dltPtr(quitButton);
 }
 
 

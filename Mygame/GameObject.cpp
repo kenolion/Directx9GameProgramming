@@ -10,13 +10,14 @@ GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed)
 	state = 1;			//Start it at frame 1
 	frame = 1;
 	this->animSpeed = animSpeed;
+	this->type = type;
 }
 
 GameObject::GameObject()
 {
 }
 
-GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed,float speed,int mass)
+GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed, float speed, int mass)
 {
 	position.x = x;
 	position.y = y;
@@ -41,6 +42,7 @@ GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed,floa
 	state = 1;			//Start it at frame 1
 	frame = 1;
 	this->animSpeed = animSpeed;
+	this->type = type;
 }
 
 
@@ -53,7 +55,7 @@ GameObject::~GameObject()
 	delete spriteClass;
 }
 
-bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color)
+bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color, float falseColl)
 {
 	status = ObjectStatus::Active;
 	spriteClass = new GameSprite();
@@ -73,13 +75,12 @@ bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int wi
 	this->spriteCol = col;
 	spriteHeight = height / spriteRow;
 	spriteWidth = width / spriteCol;
-	col_width = width * 0.70;
-	col_height = height *0.70;
+	col_width = width * falseColl; //if number lower means collision box smaller than player
+	col_height = height *falseColl;
 	col_xOffset = (width - col_width) / 2;
 	col_yOffset = (height - col_height) / 2;
-
 	//for rectangle collision
-	
+
 	if (frameHorizontal) {
 		maxFrame = spriteCol;					//TEST CODE WILL BE CLEANED UP LATER
 
@@ -97,17 +98,17 @@ bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int wi
 void GameObject::draw()		//Function that draw sprite
 {
 	//for RECT collision
-	left = position.x+col_xOffset;
+	left = position.x + col_xOffset;
 	right = position.x + spriteWidth;
-	top = position.y+col_yOffset;
+	top = position.y + col_yOffset;
 	bottom = position.y + spriteHeight;
 
-	if(frameHorizontal)
+	if (frameHorizontal)
 	{
-	spriteRect.top = (state - 1)*spriteHeight;					
-	spriteRect.bottom = spriteRect.top + spriteHeight;
-	spriteRect.left = (frame - 1)*spriteWidth;
-	spriteRect.right = spriteRect.left + spriteWidth;
+		spriteRect.top = (state - 1)*spriteHeight;
+		spriteRect.bottom = spriteRect.top + spriteHeight;
+		spriteRect.left = (frame - 1)*spriteWidth;
+		spriteRect.right = spriteRect.left + spriteWidth;
 	}
 	else
 	{
@@ -116,17 +117,24 @@ void GameObject::draw()		//Function that draw sprite
 		spriteRect.left = (state - 1)*spriteWidth;
 		spriteRect.right = spriteRect.left + spriteWidth;
 
-		
+
 	}
-	
+
 	spriteCentre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
 	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, &spriteCentre, rotation, &position);
 	sprite->SetTransform(&mat);
-	if (sprite) 
+	if (sprite)
 	{
-		spriteClass->draw(position, sprite, spriteRect, color);
+		spriteClass->draw(sprite, spriteRect, color);
 
-	}
+	}	
+	if (type == ObjectType::Player) {
+		collisionRect.top = spriteHeight / 2 + 10;
+		collisionRect.left = position.x;
+		collisionRect.bottom = spriteHeight + 5;
+		collisionRect.right = spriteWidth;
+
+	}	
 
 }
 
@@ -136,6 +144,26 @@ ObjectStatus GameObject::getStatus()
 {
 	return status;
 }
+
+ObjectType GameObject::getType()
+{
+	return type;
+}
+
+void GameObject::printData()
+{
+	if (type == ObjectType::Player) {
+		std::cout << "Player" << std::endl;
+		std::cout << "PlatFormColision:	" << platformCollision << std::endl;
+		std::cout << "enemy collision:	" << enemyCollision << std::endl;
+		std::cout << "ground collision:	" << getOnGroundStatus() << std::endl;
+
+	}
+
+	
+
+}
+
 
 void GameObject::setSpeed(float speed)		//Function to adjust the speed/velocity of the object
 {
@@ -184,17 +212,26 @@ void GameObject::setFrame(int frame)
 	this->frame = frame;
 }
 
-bool GameObject::collideWith(GameObject &object,D3DXVECTOR2 &collisionVector)
+bool GameObject::collideWith(GameObject &object, D3DXVECTOR2 &collisionVector)
 {
+	
 
-
-
-	if (bottom < object.top)return false;
-	if (top > object.bottom)return false;
-	if (right < object.left)return false;
-	if (left > object.right)return false;
-
-
+	if (object.getType() == ObjectType::Player) {		//this suppose to be enemy
+		if (bottom < object.top)return false;
+		if (top > object.bottom)return false;
+		if (right < object.left)return false;
+		if (left > object.right)return false;
+	}
+	
+	if (object.getType() == ObjectType::Platform) {
+		
+		if (bottom < object.top)return false;
+		if (top > object.bottom)return false;			// true no collision
+		if (right < object.left)return false;
+		if (left > object.right)return false;
+		
+	}
+	
 	//distance = object.getObjectPos() - position;			// Distance = object2 position - object1 position		
 	//
 	//if (D3DXVec2Length(&distance) < (spriteCentre.x + object.spriteCentre.x)) {
@@ -207,9 +244,8 @@ bool GameObject::collideWith(GameObject &object,D3DXVECTOR2 &collisionVector)
 	//	return true;
 	//}
 
-
-	
 	return true;
+	//means there is collision
 }
 
 
@@ -221,6 +257,10 @@ D3DXVECTOR2 GameObject::getAcceleration()
 bool GameObject::getOnGroundStatus()
 {
 	return false;		// this function needs to be implemented if the object has an onground bool 
+}
+
+void GameObject::setGroundStatus(bool status)
+{
 }
 
 

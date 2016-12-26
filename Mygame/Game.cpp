@@ -25,7 +25,7 @@ bool Game::initializeGame(HWND hwnd)
 		MessageBox(NULL, "There was an issue initializing the graphics", NULL, NULL);
 		return initialize = false;
 	}
-	if (!cursor->initialize(graphics->device3d, "sprite/dankcursor.png" ,1440,95, 1,15 ,true, D3DCOLOR_XRGB(255,0,255))) { 
+	if (!cursor->initialize(graphics->device3d, "sprite/dankcursor.png" ,1440,95, 1,15 ,true, D3DCOLOR_XRGB(255,0,255),1.0f)) { 
 		MessageBox(NULL, "There was an issue initializing the graphics", NULL, NULL);
 		return initialize = false;
 	}
@@ -74,7 +74,7 @@ void Game::run()	// This function is called repeatedly by main message loop
 	input->ProcessInput();
 	input->GetMouseLocation(mouseX, mouseY);
 	cursor->posVector = { (float)mouseX,(float)mouseY };
-	std::cout << "Mouse X : "<< mouseX << "          " "Mouse Y : " << mouseY << "          ";
+	//std::cout << "Mouse X : "<< mouseX << "          " "Mouse Y : " << mouseY << "          ";
 	setDrawingPoint(0, 0);
 	collisions();
 	update(framesToUpdate);

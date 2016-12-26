@@ -13,6 +13,7 @@
 #include "DxSound.h"
 #include "UserInterface.h"
 #include "Cursor.h"
+#include "Platform.h"
 
 
 class Game		//
