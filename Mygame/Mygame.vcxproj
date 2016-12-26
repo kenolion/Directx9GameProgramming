@@ -131,6 +131,7 @@
     </ClInclude>
     <ClInclude Include="DxSound.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FlappyBird.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameSprite.h" />
@@ -155,6 +156,7 @@
     </ClCompile>
     <ClCompile Include="DxSound.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FlappyBird.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameSprite.cpp" />

@@ -120,6 +120,13 @@ void GameObject::draw()		//Function that draw sprite
 
 
 	}
+	if (type == ObjectType::Player) {
+		collisionRect.top = position.y + spriteHeight / 2 + 10;
+		collisionRect.left = position.x;
+		collisionRect.bottom = position.y+ spriteHeight + 5;
+		collisionRect.right = left + spriteWidth;	
+
+	}
 
 	spriteCentre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
 	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, &spriteCentre, rotation, &position);
@@ -127,15 +134,8 @@ void GameObject::draw()		//Function that draw sprite
 	if (sprite)
 	{
 		spriteClass->draw(sprite, spriteRect, color);
-
 	}	
-	if (type == ObjectType::Player) {
-		collisionRect.top = spriteHeight / 2 + 10;
-		collisionRect.left = position.x;
-		collisionRect.bottom = spriteHeight + 5;
-		collisionRect.right = spriteWidth;
 
-	}	
 
 }
 
@@ -231,8 +231,14 @@ bool GameObject::collideWith(GameObject &object, D3DXVECTOR2 &collisionVector)
 		if (right < object.left)return false;
 		if (left > object.right)return false;
 		
+		if (collisionRect.bottom < object.top)setGroundStatus(false);
+		if (collisionRect.top > object.bottom)setGroundStatus(false);		// true no collision
+		if (collisionRect.right < object.left)setGroundStatus(false);
+		if (collisionRect.left > object.right)setGroundStatus(false);
+		setGroundStatus(true);
 	}
 	
+	std::cout << "BOTTOM" << bottom << "ob bottom" << object.top<<std::endl;
 	//distance = object.getObjectPos() - position;			// Distance = object2 position - object1 position		
 	//
 	//if (D3DXVec2Length(&distance) < (spriteCentre.x + object.spriteCentre.x)) {

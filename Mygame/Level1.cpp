@@ -47,14 +47,15 @@ void Level1::update(int gameTime)
 	for (int i = 0; i < GOBJECTNUML1; i++) {
 		object[i]->update(gameTime);
 	}
-
+	cursor->update(gameTime);
+	
 
 
 }
 
 void Level1::collisions()
 {
-
+	object[0]->forceVector = { 0,0 };
 	//Collision should not update players position
 	for (int i = 0; i < GOBJECTNUML1; i++) {
 		object[i]->posVector = object[i]->getObjectPos();
@@ -71,53 +72,31 @@ void Level1::collisions()
 		object[0]->setState(2);
 	}
 
+	
+	object[0]->setAcceleration(object[0]->forceVector/object[0]->getMass());
+	object[0]->setVelocity(object[0]->getVelocity() + object[0]->getAcceleration());
+	for(int i = 2;i<GOBJECTNUML1;i++)
+	if (object[0]->collideWith(*object[i], object[0]->posVector)) {
+
+		object[0]->platformCollision = false;
+
+	}
+	else {
+
+		object[0]->platformCollision = true;
+	}
+	if (object[0]->platformCollision) {
+
+	}
+	if (input->leftClickDown) {
+		object[0]->setX(mouseX);
+		object[0]->setY(mouseY);
+	}
 	if (input->upArrowKey) {
-		object[0]->forceVector = D3DXVECTOR2(0, -50);
-		object[0]->setVelocity(D3DXVECTOR2(0, -0.01));
-
-	}
-	for (int i = 1; i < GOBJECTNUML1; i++) {
-		object[i]->setAcceleration(object[i]->forceVector / object[i]->getMass());
-		object[i]->setVelocity(object[i]->getVelocity() + object[i]->getAcceleration() + gravity);
-
-	}
-	if (input->keyPressed) {
-		object[0]->setAcceleration(object[0]->forceVector / object[0]->getMass());
-		object[0]->setVelocity(object[0]->getVelocity() + object[0]->getAcceleration());
+		//object[0]->forceVector = D3DXVECTOR2(0, -50);
+		system("cls");
 	}
 
-
-
-
-
-	object[0]->posVector += object[0]->getVelocity();
-	for (int i = 1; i < GOBJECTNUML1; i++) {
-		if (object[0]->collideWith(*object[i], object[0]->posVector)) {
-			if (object[i]->getType() == ObjectType::Platform)		//2 is platform
-				object[0]->platformCollision = true;
-			if (object[i]->getType() == ObjectType::Player)		//2 is platform
-				object[0]->enemyCollision = true;
-			
-		}
-		else {
-			if (object[i]->getType() == ObjectType::Player)		//2 is platform
-				object[0]->enemyCollision = false;
-			object[0]->platformCollision = false;
-		}
-	}
-
-	for (int i = 0; i < GOBJECTNUML1; i++) {
-		if (object[i]->getOnGroundStatus()) {
-
-			object[i]->setVelocity(D3DXVECTOR2(object[i]->getVelocityX()*friction.x, 0));// applying friction
-			std::cout << "Gravity off";
-
-		}
-		else {
-			object[0]->setVelocity(object[0]->getVelocity() + gravity);
-			//std::cout << "GRAVITY ON";
-		}
-	}
 }
 
 void Level1::draw()
@@ -129,7 +108,7 @@ void Level1::draw()
 	object[0]->sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	for (int i = 0; i < GOBJECTNUML1; i++)
 		object[i]->draw();
-
+	cursor->draw();
 
 	object[0]->sprite->End();
 	graphics->end();
@@ -143,7 +122,7 @@ void Level1::deleteAll()
 	for (int i = 0; i < GOBJECTNUML1; i++) {
 		dltPtr(object[i]);
 	}
-
+	
 
 }
 
