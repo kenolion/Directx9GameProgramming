@@ -28,9 +28,14 @@ public:
 	bool initialize(HWND hwnd,int w,int h);
 	void clear(D3DCOLOR color);
 	void begin();
+
+	//=======================================================USED TO DRAW LINES IN YOUR LEVEL================================================================
 	void createLine(); //Zer add
 	void lineBegin(); //Zer add
+	void drawLine(D3DXVECTOR2 VECTOR[], int noOfCoordinates, int r, int g, int b);
 	void lineEnd(); //Zer add
+	//=======================================================================================================================================================
+
 	void end();
 	void present();
 	void cleanup();

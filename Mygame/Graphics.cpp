@@ -61,6 +61,12 @@ void Graphics::lineBegin()
 	line->Begin(); //Zer Add
 }
 
+void Graphics::drawLine(D3DXVECTOR2 VECTOR[] ,int noOfCoordinates, int r, int g, int b)
+{
+	line->Draw(VECTOR, noOfCoordinates, D3DCOLOR_XRGB(r, g, b));
+
+}
+
 void Graphics::end()
 {
 	// end scene

@@ -50,10 +50,15 @@ void Enemy::update(int &gameTime)
 void Enemy::draw()
 {
 	GameObject::draw();
-	goombaHitBox.top = spriteHeight / 2 - 10;
-	goombaHitBox.bottom = spriteRect.top + 20;
-	goombaHitBox.left = spriteWidth / 8;
-	goombaHitBox.right = spriteRect.left + 20;
+	goombaHitBox.top = position.x;// Top Right
+	goombaHitBox.bottom = position.x + spriteHeight;// Bottom Right?
+	goombaHitBox.left = position.x;			//
+	goombaHitBox.right = position.y + spriteWidth;
+
+	 hitBoxTop = goombaHitBox.top;
+	 hitBoxBottom = goombaHitBox.bottom;
+	 hitBoxLeft = goombaHitBox.left;
+	 hitBoxRight =goombaHitBox.right;
 
 }
 

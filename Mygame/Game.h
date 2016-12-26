@@ -39,13 +39,6 @@ public:
 	virtual void deleteAll();
 	virtual bool initializeGame(HWND hwnd);
 	void run();
-	
-	//================================================ State Changing Functions ================================================
-	
-	void changeState();
-	void deleteSceneContents();
-
-	//==========================================================================================================================
 
 	virtual void draw()=0;
 	virtual void update(int gameTime) = 0;

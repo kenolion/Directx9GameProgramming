@@ -25,7 +25,7 @@ bool Game::initializeGame(HWND hwnd)
 		MessageBox(NULL, "There was an issue initializing the graphics", NULL, NULL);
 		return initialize = false;
 	}
-	if (!cursor->initialize(graphics->device3d, "sprite/dankcursor.png" ,1440,95, 1,15 ,true, D3DCOLOR_XRGB(255,0,255),1.0f)) { 
+	if (!cursor->initialize(graphics->device3d, "sprite/dankcursor.png" ,1440,95, 1,15 ,true, D3DCOLOR_XRGB(255,0,255),1.0f,0,0,0,0)) { 
 		MessageBox(NULL, "There was an issue initializing the graphics", NULL, NULL);
 		return initialize = false;
 	}
@@ -82,24 +82,6 @@ void Game::run()	// This function is called repeatedly by main message loop
 
 
 }
-// ================================================================================================================================
-
-void Game::changeState()
-{
-
-}
-
-void Game::deleteSceneContents()
-{
-	dltPtr(graphics);
-	dltPtr(gameTime);
-	dltPtr(input);
-	dltPtr(sound);
-	dltPtr(cursor);
-	dltPtr(userinterface);
-
-}
-// ================================================================================================================================
 
 //Draws game object
 
