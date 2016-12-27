@@ -10,6 +10,12 @@
 #include "PlayerInput.h"
 #include "Player.h"
 #include <iostream>
+#include "DxSound.h"
+#include "UserInterface.h"
+#include "Cursor.h"
+#include "Platform.h"
+#include "Enemy.h"
+#include "Pictures.h"
 
 class Game		//
 {
@@ -19,17 +25,28 @@ protected:
 	Graphics * graphics;
 	GameTime *gameTime;
 	PlayerInput *input;
+	DxSound *sound;
+	UserInterface *userinterface;
+	Cursor *cursor;
+
+	
+	D3DXVECTOR2 friction;
+
+
 public:
 	int framesToUpdate;
 	bool initialize;
-	static void setDrawingPoint(int x, int y);
+	//Previously SetDrawingPoint function declaration was on this line.
 	virtual void deleteAll();
 	virtual bool initializeGame(HWND hwnd);
 	void run();
-	virtual void draw() = 0;
+
+	virtual void draw()=0;
 	virtual void update(int gameTime) = 0;
-	
-	LRESULT messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	virtual void collisions()=0;
+	int mouseX, mouseY;
+
+	GameStates state;
 	Game();
 	~Game();
 };

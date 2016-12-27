@@ -25,7 +25,7 @@ bool Graphics::initialize(HWND hw, int w, int h)
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.hDeviceWindow = hwnd;
 	d3dpp.Windowed = true;
-	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+	//d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
 	result = direct3d->CreateDevice(D3DADAPTER_DEFAULT,
 		D3DDEVTYPE_HAL,
@@ -33,8 +33,7 @@ bool Graphics::initialize(HWND hw, int w, int h)
 		D3DCREATE_SOFTWARE_VERTEXPROCESSING,
 		&d3dpp,
 		&device3d);
-	device3d->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	device3d->SetRenderState(D3DRS_LIGHTING, false);
+
 	return true;
 
 }
@@ -44,8 +43,7 @@ bool Graphics::initialize(HWND hw, int w, int h)
 void Graphics::clear(D3DCOLOR color)
 {
 	device3d->Clear(0, NULL, D3DCLEAR_TARGET,
-		D3DCOLOR_XRGB(0, 100, 100), 1.0f, 0);  // 0x00000000 = black
-	
+		color, 1.0f, 0);  // 0x00000000 = black
 }
 
 void Graphics::begin()
@@ -53,10 +51,31 @@ void Graphics::begin()
 	device3d->BeginScene();
 }
 
+void Graphics::createLine()
+{
+	D3DXCreateLine(device3d, &line);
+}
+
+void Graphics::lineBegin()
+{
+	line->Begin(); //Zer Add
+}
+
+void Graphics::drawLine(D3DXVECTOR2 VECTOR[] ,int noOfCoordinates, int r, int g, int b)
+{
+	line->Draw(VECTOR, noOfCoordinates, D3DCOLOR_XRGB(r, g, b));
+
+}
+
 void Graphics::end()
 {
 	// end scene
 	device3d->EndScene();
+}
+
+void Graphics::lineEnd()
+{
+	line->End(); //Zer Add
 }
 
 void Graphics::present()
@@ -78,6 +97,11 @@ void Graphics::cleanup()
 		direct3d->Release();
 		direct3d = NULL;
 	}
+
+	if (line) {			//Zer add
+		line->Release();
+		line = NULL;
+	}
 }
 
 
@@ -90,13 +114,5 @@ Graphics::Graphics()
 
 Graphics::~Graphics()
 {
-	if (device3d) {
-		device3d->Release();
-		device3d = NULL;
-	}
-	if (direct3d) {
-		direct3d->Release();
-		direct3d = NULL;
-	}
 
 }
