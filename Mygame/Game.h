@@ -11,11 +11,11 @@
 #include "Player.h"
 #include <iostream>
 #include "DxSound.h"
-#include "UserInterface.h"
 #include "Cursor.h"
 #include "Platform.h"
 #include "Enemy.h"
 #include "Pictures.h"
+#include "Button.h"
 
 class Game		//
 {
@@ -26,9 +26,8 @@ protected:
 	GameTime *gameTime;
 	PlayerInput *input;
 	DxSound *sound;
-	UserInterface *userinterface;
 	Cursor *cursor;
-
+	
 	
 	D3DXVECTOR2 friction;
 

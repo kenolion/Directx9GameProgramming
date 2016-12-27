@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cursor.cpp" />
-    <ClCompile Include="DxFont.cpp" />
     <ClCompile Include="DxSound.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -17,7 +16,6 @@
     <ClCompile Include="LevelPlayerWins.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerInput.cpp" />
-    <ClCompile Include="UserInterface.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="Windows.cpp" />
     <ClCompile Include="Pictures.cpp" />
@@ -153,7 +151,6 @@
     </Library>
     <ClInclude Include="Button.h" />
     <ClInclude Include="Cursor.h" />
-    <ClInclude Include="DxFont.h" />
     <ClInclude Include="DxSound.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
@@ -168,7 +165,6 @@
     <ClInclude Include="LevelPlayerWins.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerInput.h" />
-    <ClInclude Include="UserInterface.h" />
     <ClInclude Include="Windows.h" />
     <ClInclude Include="Pictures.h" />
     <ClInclude Include="GameStateManager.h" />

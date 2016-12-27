@@ -123,7 +123,6 @@ void Game::deleteAll() {
 	dltPtr(input);
 	dltPtr(sound);
 	dltPtr(cursor);
-	dltPtr(userinterface);
 
 
 }

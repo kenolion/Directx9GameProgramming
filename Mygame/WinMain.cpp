@@ -9,6 +9,7 @@
 #include "LevelMainMenu.h"
 #include "LevelPlayerWins.h"
 #include "FlappyBird.h"
+#include "GameStateManager.h"
 
 #include <iostream>
 #include <conio.h>
@@ -19,6 +20,8 @@
 //Global Player Sprites
 LRESULT WINAPI WinProc(HWND, UINT, WPARAM, LPARAM);
 Game * game;
+GameStateManager * gamestatemanager;
+
 
 void RedirectIOToConsole() //THE FUNCTION TO CREATE A CONSOLE BEN IF U READ THIS CODE EVENTUALLY
 {
@@ -84,11 +87,13 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 	
 
+				//GameStates gameState = GameStates::MENU; 
+				///	gamestatemanager->run(hwnd, gamestatemanager->gameState::MAINMENU);
 
-		
-			game = new FlappyBird(); //<--- use this to change level 
+					game = new LevelMainMenu(); //<--- use this to change level 
 
 					game->initializeGame(hwnd);
+			
 					if (game->initialize == true) {
 						while (msg.message != WM_QUIT) {
 							if (msg.message == WM_QUIT)
@@ -101,7 +106,6 @@ int WINAPI WinMain(HINSTANCE hInstance,
 								game->run();
 						}
 					}
-
 		game->deleteAll();
 
 		dltPtr(game);
