@@ -76,6 +76,7 @@ void LevelPlayerWins::update(int gameTime)
 		{
 			//quitgame
 			state = GameStates::EXITPROGRAM;
+			sound->fmodSystem->release();
 		}
 		quitButton->update(gameTime);
 	}

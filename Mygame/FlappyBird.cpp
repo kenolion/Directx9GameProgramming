@@ -70,8 +70,9 @@ void FlappyBird::collisions()
 	if (input->upArrowKey && !(object[1]->jump)) {
 		object[1]->jump = true;
 		object[1]->forceVector = { 0,-115 };
-
+		std::cout << object[1]->forceVector.y << std::endl;
 	}
+	
 	object[1]->setAcceleration(object[1]->forceVector / object[1]->getMass());
 	object[1]->setVelocity(object[1]->getVelocity() + object[1]->getAcceleration());
 	if (object[1]->jumpCD >= 40 && input->upArrowKey) {

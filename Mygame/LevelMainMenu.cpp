@@ -93,6 +93,7 @@ void LevelMainMenu::update(int gameTime)
 		{
 			//quit game; Game state = (something) to quit
 			state = GameStates::EXITPROGRAM;
+			sound->fmodSystem->release();							
 		}
 		quitButton->update(gameTime);
 	}

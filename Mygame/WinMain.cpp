@@ -78,26 +78,26 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 	ShowWindow(hwnd, nCmdShow);
 	ZeroMemory(&msg, sizeof(MSG));
-	gsm->initialize(hwnd);
+	gsm->initialize(hwnd);						// game statemachine initialized  this calls initialize game and set state thats stored in the game pointer
 	//========================================================================================================================================================================
 
 					if (gsm->game->initialize == true ) {
-						while (msg.message != WM_QUIT || gsm->state == GameStates::EXITPROGRAM) {
-							if (gsm->state != gsm->game->state) {
-								gsm->state = gsm->game->state;
-								
-								if (gsm->state == GameStates::EXITPROGRAM) {
-									msg.message = WM_QUIT;
-								}
-								gsm->changeState(hwnd);
-							}
-							if (msg.message == WM_QUIT)
-								break;
-							while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
-								TranslateMessage(&msg);
-								DispatchMessage(&msg);
-							}
-						    	ClipCursor(&rect);
+						while (msg.message != WM_QUIT || gsm->state == GameStates::EXITPROGRAM) {							//checks if either exit or wm_quit
+							if (gsm->state != gsm->game->state) {															// check if not same state as before that means i need to change state!
+								gsm->state = gsm->game->state;																// here saves the state in game state before i delete it!
+																															// 
+								if (gsm->state == GameStates::EXITPROGRAM) {												//checks if the state from game state is exit or not
+									msg.message = WM_QUIT;																	//
+								}																							//
+								gsm->changeState(hwnd);																		// if not then its time to change state! inside this function i will just delete some things thats stored in the heap
+							}																								//except for graphics pointer. Graphics pointer is saved in the gamestate class graphics pointer
+							if (msg.message == WM_QUIT)																	
+								break;																					
+							while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {											
+								TranslateMessage(&msg);																	
+								DispatchMessage(&msg);																	
+							}																							
+						    	ClipCursor(&rect);																		
 								gsm->game->run();
 						}
 					}
