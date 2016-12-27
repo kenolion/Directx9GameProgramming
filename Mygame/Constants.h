@@ -18,8 +18,8 @@ const float PLAYERMAXVEL = 1.0f;
 const int GOBJECTNUML1 = 5;
 enum class ObjectStatus { Active, Dying, Dead };
 enum class ObjectType { Enemy, Player, Platform };
-const int FLAPPYBIRDOBJECTS = 5;
-
+const int FLAPPYBIRDOBJECTS = 12;
+const float MAXYVELOCITY = 7;
 
 template<typename T>
 inline void dltPtr(T& ptr) {

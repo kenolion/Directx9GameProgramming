@@ -66,7 +66,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 	hwnd = CreateWindow(CLASS_NAME,
 		GAME_TITTLE,
-		WS_OVERLAPPED | WS_MINIMIZEBOX | WS_SYSMENU,
+		WS_OVERLAPPEDWINDOW | WS_MINIMIZEBOX | WS_SYSMENU,
 		GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2,          // default horizontal position of window
 		GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2,
 		GAME_WIDTH,             // width of window

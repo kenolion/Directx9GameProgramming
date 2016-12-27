@@ -19,13 +19,19 @@ Pictures::~Pictures()
 void Pictures::update(int &gameTime)
 {
 	for (int i = 0; i < gameTime; i++) {
-		if (animTimer >= 60) {
-			animTimer = 0;
-			frame++;
-			if (frame > maxFrame) {
-				frame = maxFrame;
+		for (int i = 0; i < gameTime; i++) {
+			//position += velocity;
+			if (position.x <= -100) {
+				position.x = GAME_WIDTH;
 			}
+			if (animTimer >= 60) {
+				animTimer = 0;
+				frame++;
+				if (frame > maxFrame) {
+					frame = maxFrame;
+				}
+			}
+			animTimer += animSpeed;
 		}
-		animTimer += animSpeed;
 	}
 }

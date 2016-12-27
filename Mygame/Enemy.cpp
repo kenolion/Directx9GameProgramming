@@ -18,25 +18,11 @@ Enemy::Enemy(float x, float y, D3DXVECTOR2 scaling, int animSpeed, float speed, 
 
 void Enemy::update(int &gameTime)
 {
-	std::cout << "Enemy X:" << position.x << "   " << std::endl;
-	std::cout << "Enemy Y:" << position.y << "   " << std::endl;
-	std::cout << "Enemy Velocity:" << velocity.x << "," << velocity.y << "   " << std::endl;
-
-	this->position = position;
-
-	if (position.x < -50)
-	{
-		position.x = GAME_WIDTH;
-		//ObjectStatus::Dead;
-	}
-
-	if (status == ObjectStatus::Dead) {
-
-	}
-	
-	velocity.x = -1;					//The goomba just walks left, lel.
-	this->position += velocity;
-
+	for (int i = 0; i < gameTime; i++){
+		position += velocity;
+		if (position.x == 0) {
+			position.x = GAME_WIDTH;
+		}
 			if (animTimer >= 60) {
 				animTimer = 0;
 				frame++;
@@ -45,20 +31,8 @@ void Enemy::update(int &gameTime)
 				}
 			}
 			animTimer += animSpeed;
+	}
 }
 
-void Enemy::draw()
-{
-	GameObject::draw();
-	goombaHitBox.top = position.x;// Top Right
-	goombaHitBox.bottom = position.x + spriteHeight;// Bottom Right?
-	goombaHitBox.left = position.x;			//
-	goombaHitBox.right = position.y + spriteWidth;
 
-	 hitBoxTop = goombaHitBox.top;
-	 hitBoxBottom = goombaHitBox.bottom;
-	 hitBoxLeft = goombaHitBox.left;
-	 hitBoxRight =goombaHitBox.right;
-
-}
 

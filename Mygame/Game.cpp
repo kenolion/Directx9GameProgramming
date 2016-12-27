@@ -74,8 +74,8 @@ void Game::run()	// This function is called repeatedly by main message loop
 	input->ProcessInput();
 	input->GetMouseLocation(mouseX, mouseY);
 	cursor->posVector = { (float)mouseX,(float)mouseY };
-	std::cout << "Mouse X : "<< mouseX << "          " "Mouse Y : " << mouseY << "          ";
-	setDrawingPoint(0, 0);
+	//std::cout << "Mouse X : "<< mouseX << "          " "Mouse Y : " << mouseY << "          ";
+	//setDrawingPoint(0, 0);
 	collisions();
 	update(framesToUpdate);
 	draw();// draws the games graphics

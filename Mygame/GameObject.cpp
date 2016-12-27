@@ -80,8 +80,8 @@ bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int wi
 	}
 	this->frameHorizontal = frameHorizontal;
 	spriteClass->initializeTex(device3d, file, width, height, row, col, color);  //When a game object is created, a game sprite is created.
-	this->width = width;			//actual bitmap width
-	this->height = height;			//actual bitmap height
+	this->width = width*scaling.x;			//actual bitmap width
+	this->height = height*scaling.y;			//actual bitmap height
 	this->spriteRow = row;			//
 	this->spriteCol = col;
 	spriteHeight = height / spriteRow;
@@ -90,14 +90,38 @@ bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int wi
 	col_height = height *falseColl;
 	col_xOffset = (width - col_width) / 2;
 	col_yOffset = (height - col_height) / 2;
+	if (scaling.x > 1) {
+		position.x += (spriteWidth / 2) * scaling.x;
 
-	this->hitBoxTop = hitBoxTop;
-	this->hitBoxBottom = hitBoxBottom;
-	this->hitBoxLeft = hitBoxLeft;
-	this->hitBoxRight = hitBoxRight;
+
+	}
+	if (scaling.y > 1) {
+		if (position.y > 0)
+			position.y -= (spriteHeight / 2) * scaling.y;
+		
+	}
 
 	//for rectangle collision
+	left = position.x + col_xOffset;
+	right = position.x + spriteWidth;
+	top = position.y + col_yOffset;
+	bottom = position.y + spriteHeight*scaling.y;
 
+	if (frameHorizontal)
+	{
+		spriteRect.top = (state - 1)*spriteHeight;
+		spriteRect.bottom = spriteRect.top + spriteHeight;
+		spriteRect.left = (frame - 1)*spriteWidth;
+		spriteRect.right = spriteRect.left + spriteWidth;
+	}
+	else
+	{
+		spriteRect.top = (frame - 1)*spriteHeight;
+		spriteRect.bottom = spriteRect.top + spriteHeight;
+		spriteRect.left = (state - 1)*spriteWidth;
+		spriteRect.right = spriteRect.left + spriteWidth;
+
+	}
 	if (frameHorizontal) {
 		maxFrame = spriteCol;					//TEST CODE WILL BE CLEANED UP LATER
 
@@ -118,7 +142,7 @@ void GameObject::draw()		//Function that draw sprite
 	left = position.x + col_xOffset;
 	right = position.x + spriteWidth;
 	top = position.y + col_yOffset;
-	bottom = position.y + spriteHeight;
+	bottom = position.y + spriteHeight*scaling.y;
 
 	if (frameHorizontal)
 	{
@@ -134,14 +158,6 @@ void GameObject::draw()		//Function that draw sprite
 		spriteRect.left = (state - 1)*spriteWidth;
 		spriteRect.right = spriteRect.left + spriteWidth;
 
-
-	}
-	if (type == ObjectType::Player) {
-		collisionRect.top = position.y + spriteHeight / 2 + 10;
-		collisionRect.left = position.x;
-		collisionRect.bottom = position.y+ spriteHeight + 5;
-		collisionRect.right = left + spriteWidth;	
-
 	}
 
 	spriteCentre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
@@ -150,7 +166,7 @@ void GameObject::draw()		//Function that draw sprite
 	if (sprite)
 	{
 		spriteClass->draw(sprite, spriteRect, color);
-	}	
+	}
 
 
 }
@@ -160,6 +176,11 @@ void GameObject::draw()		//Function that draw sprite
 ObjectStatus GameObject::getStatus()
 {
 	return status;
+}
+
+void GameObject::setStatus(ObjectStatus status)
+{
+	this->status = status;
 }
 
 ObjectType GameObject::getType()
@@ -177,7 +198,7 @@ void GameObject::printData()
 
 	}
 
-	
+
 
 }
 
@@ -231,30 +252,18 @@ void GameObject::setFrame(int frame)
 
 bool GameObject::collideWith(GameObject &object, D3DXVECTOR2 &collisionVector)
 {
-	
 
-	if (object.getType() == ObjectType::Player) {		//this suppose to be enemy
+
+	if (object.getType() == ObjectType::Enemy) {		//this suppose to be enemy
 		if (bottom < object.top)return false;
 		if (top > object.bottom)return false;
 		if (right < object.left)return false;
 		if (left > object.right)return false;
 	}
-	
-	if (object.getType() == ObjectType::Platform) {
-		
-		if (bottom < object.top)return false;
-		if (top > object.bottom)return false;			// true no collision
-		if (right < object.left)return false;
-		if (left > object.right)return false;
-		
-		if (collisionRect.bottom < object.top)setGroundStatus(false);
-		if (collisionRect.top > object.bottom)setGroundStatus(false);		// true no collision
-		if (collisionRect.right < object.left)setGroundStatus(false);
-		if (collisionRect.left > object.right)setGroundStatus(false);
-		setGroundStatus(true);
-	}
-	
-	std::cout << "BOTTOM" << bottom << "ob bottom" << object.top<<std::endl;
+
+
+
+
 	//distance = object.getObjectPos() - position;			// Distance = object2 position - object1 position		
 	//
 	//if (D3DXVec2Length(&distance) < (spriteCentre.x + object.spriteCentre.x)) {

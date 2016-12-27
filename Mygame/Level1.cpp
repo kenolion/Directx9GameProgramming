@@ -22,15 +22,15 @@ bool Level1::initializeGame(HWND hwnd)
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);
 		return initialize = false;
 	}
-	if (!object[2]->initialize(graphics->device3d, "sprite\\smalldick.png", 224, 69, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
+	if (!object[2]->initialize(graphics->device3d, "sprite\\platform.png", 224, 69, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);
 		return initialize = false;
 	}
-	if (!object[3]->initialize(graphics->device3d, "sprite\\smalldick.png", 224, 69, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
+	if (!object[3]->initialize(graphics->device3d, "sprite\\platform.png", 224, 69, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);
 		return initialize = false;
 	}
-	if (!object[4]->initialize(graphics->device3d, "sprite\\smalldick.png", 224, 69, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
+	if (!object[4]->initialize(graphics->device3d, "sprite\\platform.png", 224, 69, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);
 		return initialize = false;
 	}

@@ -67,7 +67,10 @@ public:
 	D3DXVECTOR2 posVector;
 	D3DXVECTOR2 forceVector;
 	ObjectStatus getStatus();
+	void setStatus(ObjectStatus status);
 	ObjectType getType();
+	bool jump;
+	int jumpCD;
 	//
 	void printData();
 protected:

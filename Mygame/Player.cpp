@@ -5,6 +5,7 @@ Player::Player(float x, float y, D3DXVECTOR2 scaling, int animSpeed,float speed,
 {
 	this->type = ObjectType::Player;
 	onGround = false;
+	jump = false;
 }
 
 
@@ -18,7 +19,13 @@ void Player::update(int &gameTime)
 	if (status == ObjectStatus::Active) {
 
 		for (int i = 0; i < gameTime; i++) {
+			if (velocity.y > MAXYVELOCITY) {
+				velocity.y = MAXYVELOCITY;
+			}
+			if (!enemyCollision) {
 			position += velocity;
+			}
+			jumpCD += 1.8;
 			if (animTimer >=60) {
 				animTimer = 0;
 				frame++;
@@ -29,6 +36,10 @@ void Player::update(int &gameTime)
 			animTimer += animSpeed;
 
 		}
+	}
+	else if(status == ObjectStatus::Dead){
+		state = 4;
+
 	}
 }
 
