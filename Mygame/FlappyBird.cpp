@@ -53,7 +53,6 @@ void FlappyBird::draw()
 	object[0]->sprite->Begin(D3DXSPRITE_ALPHABLEND);
 	for (int i = 0; i < FLAPPYBIRDOBJECTS; i++) {
 		object[i]->draw();
-
 	}
 	object[0]->sprite->End();
 	graphics->end();

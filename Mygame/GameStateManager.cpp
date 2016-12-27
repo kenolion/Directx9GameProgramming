@@ -43,6 +43,7 @@ void GameStateManager::changeState(HWND hwnd)
 
 	}
 	game->initializeGame(hwnd);
+	game->state = state;
 
 
 }

@@ -139,7 +139,7 @@ void LevelMainMenu::draw()
 
 	//graphics->drawLine(goombaVector, 5, 255, 204, 255);
 
-	std::cout << std::endl << goombaOne->hitBoxTop << std::endl << goombaOne->hitBoxBottom << std::endl << goombaOne->hitBoxLeft << std::endl << goombaOne->hitBoxRight << std::endl;
+	//std::cout << std::endl << goombaOne->hitBoxTop << std::endl << goombaOne->hitBoxBottom << std::endl << goombaOne->hitBoxLeft << std::endl << goombaOne->hitBoxRight << std::endl;
 	startButton->draw();
 	quitButton->draw();
 	
