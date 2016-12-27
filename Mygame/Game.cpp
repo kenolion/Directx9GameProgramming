@@ -15,16 +15,20 @@ Game::~Game()
 bool Game::initializeGame(HWND hwnd)
 {
 	this->hwnd = hwnd;
+	if(graphics == NULL){
 	graphics = new Graphics();
+	if (!graphics->initialize(hwnd, GAME_WIDTH, GAME_HEIGHT)) {
+		MessageBox(NULL, "There was an issue initializing the graphics", NULL, NULL);
+		return initialize = false;
+	}
+
+	}
 	input = new PlayerInput();
 	sound = new DxSound();
 	cursor = new Cursor(GAME_WIDTH/2,GAME_HEIGHT/2, D3DXVECTOR2(1.0f, 1.0f), 11); //6 is 10 frames per second
 
 	// initialize device
-	if (!graphics->initialize(hwnd, GAME_WIDTH, GAME_HEIGHT)) {
-		MessageBox(NULL, "There was an issue initializing the graphics", NULL, NULL);
-		return initialize = false;
-	}
+	
 	if (!cursor->initialize(graphics->device3d, "sprite/dankcursor.png" ,1440,95, 1,15 ,true, D3DCOLOR_XRGB(255,0,255),1.0f,0,0,0,0)) { 
 		MessageBox(NULL, "There was an issue initializing the graphics", NULL, NULL);
 		return initialize = false;
@@ -84,12 +88,16 @@ void Game::run()	// This function is called repeatedly by main message loop
 }
 
 //Draws game object
+void Game::deletegraphics() {
+	graphics->cleanup();
+	dltPtr(graphics);
 
+}
 
 
 void Game::deleteAll() {
-	graphics->cleanup();
-	dltPtr(graphics);
+	//graphics->cleanup();
+	//dltPtr(graphics);
 	dltPtr(gameTime);
 	dltPtr(input);
 	dltPtr(sound);

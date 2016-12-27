@@ -5,6 +5,8 @@
 bool FlappyBird::initializeGame(HWND hwnd)
 {
 	Game::initializeGame(hwnd);
+	sound->playMainMenuMusic(); 
+	sound->channel->setVolume(0.4f);
 	object[1] = new Player(50.0f, (float)(GAME_HEIGHT / 2), D3DXVECTOR2(1.0f, 1.0f), 10, 2.0f, 5);
 	object[0] = new Pictures(0.0f, 0.0f, D3DXVECTOR2(1.0f, 1.0f));
 	if (!object[0]->initialize(graphics->device3d, "sprite\\skybackground.png", 1280, 720, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0, 0, 0, 0)) {
@@ -44,6 +46,7 @@ void FlappyBird::update(int gameTime)
 		object[i]->update(gameTime);
 
 	}
+	cursor->update(gameTime);
 }
 
 void FlappyBird::draw()
@@ -54,6 +57,7 @@ void FlappyBird::draw()
 	for (int i = 0; i < FLAPPYBIRDOBJECTS; i++) {
 		object[i]->draw();
 	}
+	cursor->draw();
 	object[0]->sprite->End();
 	graphics->end();
 	graphics->present();
@@ -90,7 +94,10 @@ void FlappyBird::collisions()
 		}
 
 	}
-
+	if (object[1]->getStatus() == ObjectStatus::Dead) {
+		sound->pauseMainMenuMusic();
+		state = GameStates::LEVELPLAYERWIN;
+	}
 
 
 }

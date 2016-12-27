@@ -24,11 +24,13 @@ void GameStateManager::initialize(HWND hwnd)
 void GameStateManager::changeState(HWND hwnd)
 {
 	if (game != NULL) {
+		graphic = game->graphics;
 		game->deleteAll();
 	
 		//dltPtr(game);
 
 	}
+	
 	switch (state) {
 	case GameStates::MENU:
 		game = &menu;
@@ -42,6 +44,7 @@ void GameStateManager::changeState(HWND hwnd)
 
 
 	}
+	game->graphics = graphic;
 	game->initializeGame(hwnd);
 	game->state = state;
 

@@ -69,6 +69,16 @@ void DxSound::playPlayerWinMusic()
 	result = fmodSystem->playSound(FMOD_CHANNEL_FREE, playerWinMusic, false, &channel);
 }
 
+void DxSound::pauseMainMenuMusic()
+{
+	result = fmodSystem->playSound(FMOD_CHANNEL_FREE, mainmenuMusic, true, &channel);
+}
+
+void DxSound::pausePlayerWinMusic()
+{
+	result = fmodSystem->playSound(FMOD_CHANNEL_FREE, playerWinMusic, true, &channel);
+}
+
 DxSound::DxSound()
 {
 }

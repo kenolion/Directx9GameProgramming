@@ -40,9 +40,9 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	MSG msg;
 	gsm = new GameStateManager();
 	RECT rect;
-	rect.bottom = GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2 + GAME_HEIGHT;
-	rect.right = (GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2) + GAME_WIDTH;
-	rect.left = GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2;
+	rect.bottom = GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2 + GAME_HEIGHT-20;
+	rect.right = (GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2) + GAME_WIDTH-50;
+	rect.left = GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2+50;
 	rect.top = GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2+50;
 
 	ShowCursor(false);
@@ -85,9 +85,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 						while (msg.message != WM_QUIT || gsm->state == GameStates::EXITPROGRAM) {
 							if (gsm->state != gsm->game->state) {
 								gsm->state = gsm->game->state;
-								if(gsm->game->state == GameStates::LEVEL1){
-									std::cout << "level1";
-								}
+								
 								if (gsm->state == GameStates::EXITPROGRAM) {
 									msg.message = WM_QUIT;
 								}
@@ -105,7 +103,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 					}
 
 		gsm->game->deleteAll();
-
+		gsm->game->deletegraphics();
 		//dltPtr(gsm->game);
 		dltPtr(gsm);
 	

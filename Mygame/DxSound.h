@@ -30,6 +30,8 @@ public:
 	void playMainMenuMusic();
 	void playClickSound();
 	void playPlayerWinMusic();
+	void pauseMainMenuMusic();
+	void pausePlayerWinMusic();
 
 	// =======================================================================================================
 

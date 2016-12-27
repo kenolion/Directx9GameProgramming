@@ -22,7 +22,7 @@ class Game		//
 protected:
 
 	HWND hwnd;
-	Graphics * graphics;
+	
 	GameTime *gameTime;
 	PlayerInput *input;
 	DxSound *sound;
@@ -36,10 +36,13 @@ protected:
 public:
 	int framesToUpdate;
 	bool initialize;
+	Graphics * graphics;
 	//Previously SetDrawingPoint function declaration was on this line.
 	virtual void deleteAll();
 	virtual bool initializeGame(HWND hwnd);
 	void run();
+
+	void deletegraphics();
 
 	virtual void draw()=0;
 	virtual void update(int gameTime) = 0;

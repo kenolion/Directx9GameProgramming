@@ -14,7 +14,7 @@ public:
 	
 	void initialize(HWND hwnd);
 	void changeState(HWND hwnd);
-
+	Graphics *graphic;
 	FlappyBird lvl1;
 	LevelPlayerWins pwin;
 	LevelMainMenu menu;

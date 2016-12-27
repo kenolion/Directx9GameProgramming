@@ -6,7 +6,7 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 {
 	Game::initializeGame(hwnd);
 	sound->playMainMenuMusic();
-	sound->channel->setVolume(0.2f);
+	sound->channel->setVolume(0.4f);
 	//======================================================= Create your Game Objects Here =======================================================
 	backgroundImage = new Pictures(0.0f, 0.0f, D3DXVECTOR2(1.0f, 1.0f)); //x, y, scaling, animation, speed,mass
 	if (!backgroundImage->initialize(graphics->device3d, "sprite\\backgroundimage.png", 1280, 720, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
@@ -75,6 +75,7 @@ void LevelMainMenu::update(int gameTime)
 		{
 			//change to level one
 			state = GameStates::LEVEL1;
+			sound->pauseMainMenuMusic();
 		}
 		startButton->update(gameTime);
 	}
@@ -157,6 +158,7 @@ void LevelMainMenu::draw()
 void LevelMainMenu::deleteAll()
 {
 	Game::deleteAll();
+	
 	dltPtr(startButton);
 	dltPtr(quitButton);
 	dltPtr(goombaOne);

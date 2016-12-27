@@ -4,8 +4,9 @@
 bool LevelPlayerWins::initializeGame(HWND hwnd)
 {
 	Game::initializeGame(hwnd);
+	
 	sound->playPlayerWinMusic();
-
+	
 	//======================================================= Create your Game Objects Here =======================================================
 	backgroundImage = new Pictures(0.0f, 0.0f, D3DXVECTOR2(1.0f, 1.0f)); //x, y, scaling, animation, speed,mass
 	if (!backgroundImage->initialize(graphics->device3d, "sprite\\backgroundImage.png", 1280, 720, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0 ,0 ,0 ,0)) {
@@ -58,6 +59,8 @@ void LevelPlayerWins::update(int gameTime)
 		if (childrenPointer1->isClicked(input->leftClickDown))
 		{
 			//returnToMainMenu
+			state = GameStates::MENU;
+			sound->pausePlayerWinMusic();
 		}
 		returnToMainMenuButton->update(gameTime);
 	}
@@ -72,6 +75,7 @@ void LevelPlayerWins::update(int gameTime)
 		if (childrenPointer2->isClicked(input->leftClickDown))
 		{
 			//quitgame
+			state = GameStates::EXITPROGRAM;
 		}
 		quitButton->update(gameTime);
 	}
@@ -118,6 +122,7 @@ void LevelPlayerWins::deleteAll()
 	dltPtr(youWinTextLogo);
 	dltPtr(backgroundImage);
 	dltPtr(returnToMainMenuButton);
+	
 }
 
 LevelPlayerWins::LevelPlayerWins()
