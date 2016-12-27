@@ -15,7 +15,7 @@ public:
 
 	//YOU DONT NEED A HITBOXLINE POINTER OBJECT, BECAUSE GRAPHICS IS ALREADY DECLARED	Graphics * hitBoxLines;
 
-	D3DXVECTOR2 goombaVector[];
+//	D3DXVECTOR2 goombaVector[];
 
 	bool initializeGame(HWND hwnd);
 	void update(int gameTime);

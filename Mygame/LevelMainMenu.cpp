@@ -6,7 +6,7 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 {
 	Game::initializeGame(hwnd);
 	sound->playMainMenuMusic();
-
+	sound->channel->setVolume(0.2f);
 	//======================================================= Create your Game Objects Here =======================================================
 	backgroundImage = new Pictures(0.0f, 0.0f, D3DXVECTOR2(1.0f, 1.0f)); //x, y, scaling, animation, speed,mass
 	if (!backgroundImage->initialize(graphics->device3d, "sprite\\backgroundimage.png", 1280, 720, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
@@ -74,6 +74,7 @@ void LevelMainMenu::update(int gameTime)
 		if (childrenPointer->isClicked(input->leftClickDown))
 		{
 			//change to level one
+			state = GameStates::LEVEL1;
 		}
 		startButton->update(gameTime);
 	}
@@ -90,6 +91,7 @@ void LevelMainMenu::update(int gameTime)
 		if (childrenPointer->isClicked(input->leftClickDown))
 		{
 			//quit game; Game state = (something) to quit
+			state = GameStates::EXITPROGRAM;
 		}
 		quitButton->update(gameTime);
 	}
@@ -99,11 +101,11 @@ void LevelMainMenu::update(int gameTime)
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	//goombaVector[0] = D3DXVECTOR2(goombaOne->hitBoxTop+100, goombaOne->hitBoxBottom+100), D3DXVECTOR2(goombaOne->hitBoxBottom+ 100, goombaOne->hitBoxRight) , D3DXVECTOR2(goombaOne->hitBoxRight, goombaOne->hitBoxTop+goombaOne->hitBoxRight) , D3DXVECTOR2(goombaOne->hitBoxTop + goombaOne->hitBoxRight, goombaOne->hitBoxTop);
-	goombaVector[0] = D3DXVECTOR2(goombaOne->hitBoxTop,goombaOne->getObjectY()+5);      //first point aka top left point
-	goombaVector[1] = D3DXVECTOR2(goombaOne->hitBoxTop, goombaOne->getObjectY()+30);	//second point aka bottom left point
-	goombaVector[2] = D3DXVECTOR2(goombaOne->hitBoxTop+20, goombaOne->getObjectY()+30);	//third point aka bottom right point
-	goombaVector[3] = D3DXVECTOR2(goombaOne->hitBoxTop+20,goombaOne->getObjectY()+5);	//fourth point aka top right point
-	goombaVector[4] = D3DXVECTOR2(goombaOne->hitBoxTop, goombaOne->getObjectY()+5);		//fifth point aka top left point
+	////goombaVector[0] = D3DXVECTOR2(goombaOne->hitBoxTop,goombaOne->getObjectY()+5);      //first point aka top left point
+	////goombaVector[1] = D3DXVECTOR2(goombaOne->hitBoxTop, goombaOne->getObjectY()+30);	//second point aka bottom left point
+	////goombaVector[2] = D3DXVECTOR2(goombaOne->hitBoxTop+20, goombaOne->getObjectY()+30);	//third point aka bottom right point
+	////goombaVector[3] = D3DXVECTOR2(goombaOne->hitBoxTop+20,goombaOne->getObjectY()+5);	//fourth point aka top right point
+	////goombaVector[4] = D3DXVECTOR2(goombaOne->hitBoxTop, goombaOne->getObjectY()+5);		//fifth point aka top left point
 	goombaOne->update(gameTime);
 	
 

@@ -18,6 +18,15 @@ const float PLAYERMAXVEL = 1.0f;
 const int GOBJECTNUML1 = 5;
 enum class ObjectStatus { Active, Dying, Dead };
 enum class ObjectType { Enemy, Player, Platform };
+
+enum class GameStates			//Strongly Type enumartions may come in handy if this framework includes a level editor, other states that might have it's own main menu, exit enum and etcetera.
+{
+	EXITPROGRAM,		//Array 0
+	MENU,				//Array 1
+	LEVEL1,				//Array 2
+	LEVELPLAYERWIN		//ArreSTay 3
+};
+
 const int FLAPPYBIRDOBJECTS = 12;
 const float MAXYVELOCITY = 7;
 

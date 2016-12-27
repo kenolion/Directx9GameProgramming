@@ -9,7 +9,7 @@
 #include "LevelMainMenu.h"
 #include "LevelPlayerWins.h"
 #include "FlappyBird.h"
-
+#include "GameStateManager.h"
 #include <iostream>
 #include <conio.h>
 
@@ -18,7 +18,7 @@
 #define WIN32_LEAN_AND_MEAN
 //Global Player Sprites
 LRESULT WINAPI WinProc(HWND, UINT, WPARAM, LPARAM);
-Game * game;
+GameStateManager *gsm;
 
 void RedirectIOToConsole() //THE FUNCTION TO CREATE A CONSOLE BEN IF U READ THIS CODE EVENTUALLY
 {
@@ -38,7 +38,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	HWND hwnd;
 	WNDCLASSEX wcex;
 	MSG msg;
-
+	gsm = new GameStateManager();
 	RECT rect;
 	rect.bottom = GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2 + GAME_HEIGHT;
 	rect.right = (GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2) + GAME_WIDTH;
@@ -77,20 +77,22 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		(LPVOID)NULL);         // no window parameters
 
 	ShowWindow(hwnd, nCmdShow);
-
 	ZeroMemory(&msg, sizeof(MSG));
-
+	gsm->initialize(hwnd);
 	//========================================================================================================================================================================
 
-	
-
-
-		
-			game = new FlappyBird(); //<--- use this to change level 
-
-					game->initializeGame(hwnd);
-					if (game->initialize == true) {
-						while (msg.message != WM_QUIT) {
+					if (gsm->game->initialize == true ) {
+						while (msg.message != WM_QUIT || gsm->state == GameStates::EXITPROGRAM) {
+							if (gsm->state != gsm->game->state) {
+								gsm->state = gsm->game->state;
+								if(gsm->game->state == GameStates::LEVEL1){
+									std::cout << "level1";
+								}
+								if (gsm->state == GameStates::EXITPROGRAM) {
+									msg.message = WM_QUIT;
+								}
+								gsm->changeState(hwnd);
+							}
 							if (msg.message == WM_QUIT)
 								break;
 							while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
@@ -98,13 +100,14 @@ int WINAPI WinMain(HINSTANCE hInstance,
 								DispatchMessage(&msg);
 							}
 						    	ClipCursor(&rect);
-								game->run();
+								gsm->game->run();
 						}
 					}
 
-		game->deleteAll();
+		gsm->game->deleteAll();
 
-		dltPtr(game);
+		//dltPtr(gsm->game);
+		dltPtr(gsm);
 	
 	//========================================================================================================================================================================
 	UnregisterClass(wcex.lpszClassName, hInstance);
@@ -115,8 +118,31 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 
 LRESULT WINAPI WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {		//Windows procedure
+	switch (msg)
+	{
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
+		break;
+	case WM_KEYDOWN:
 
-	return game->messageHandler(hwnd, msg, wParam, lParam);
+		switch (wParam) {
+		case VK_ESCAPE:
+			PostQuitMessage(0);
+			return 0;
+			break;
+			//case VK_F1:
+			//	input->remapKeys();//<---- underconstruction used to remap keys but needs to be switched to windows input instead of directinput
+
+			//break;
+		}
+		break;
+	case WM_LBUTTONDOWN:
+		break;
+
+	}
+	return DefWindowProc(hwnd, msg, wParam, lParam);
+	
 }
 
 

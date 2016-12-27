@@ -86,35 +86,6 @@ void Game::run()	// This function is called repeatedly by main message loop
 //Draws game object
 
 
-LRESULT Game::messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)		//Windows procedure
-{
-
-
-	switch (msg)
-	{
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		return 0;
-		break;
-	case WM_KEYDOWN:
-
-		switch (wParam) {
-		case VK_ESCAPE:
-			PostQuitMessage(0);
-			return 0;
-			break;
-			//case VK_F1:
-			//	input->remapKeys();//<---- underconstruction used to remap keys but needs to be switched to windows input instead of directinput
-
-				//break;
-		}
-		break;
-	case WM_LBUTTONDOWN:
-		break;
-
-	}
-	return DefWindowProc(hwnd, msg, wParam, lParam);
-}
 
 void Game::deleteAll() {
 	graphics->cleanup();
