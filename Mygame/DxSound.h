@@ -2,7 +2,7 @@
 #define DXSOUND_H
 
 #ifndef NUM_CHANNELS
-#define NUM_CHANNELS 3
+#define NUM_CHANNELS 6
 #endif // !NUM_CHANNELS
 #include <fmod.hpp>
 #include <Windows.h>
@@ -19,6 +19,8 @@ public:
 	FMOD::Sound *mainmenuMusic;
 	FMOD::Sound *clickSound;
 	FMOD::Sound *playerWinMusic;
+	FMOD::Sound *playjumpSound;
+	FMOD::Sound *deathSound;
 
 	// =======================================================================================================
 	bool initializeSound();
@@ -30,6 +32,9 @@ public:
 	void playMainMenuMusic();
 	void playClickSound();
 	void playPlayerWinMusic();
+	void playJumpSound();
+	void playDeathSound();
+
 	void pauseMainMenuMusic();
 	void pausePlayerWinMusic();
 

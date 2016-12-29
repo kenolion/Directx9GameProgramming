@@ -18,15 +18,15 @@ bool FlappyBird::initializeGame(HWND hwnd)
 		return initialize = false;
 	}
 	for (int i = 2; i < 9; i++) {
-		object[i] = new Enemy(i*189.0f, 609.0f, D3DXVECTOR2(1.0f, 2.0f), 10, -15.0f, 5);
-		if (!object[i]->initialize(graphics->device3d, "sprite\\pipestanding.png", 46, 111, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f)) {
+		object[i] = new Enemy(i*189.0f, 609.0f, D3DXVECTOR2(1.0f, 2.0f), 10, -5.0f, 5);
+		if (!object[i]->initialize(graphics->device3d, "sprite\\pipestanding.png", 46, 150, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f)) {
 			MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
 			return initialize = false;
 		}
 	}
 	for (int i = 9; i < 16; i++) {
-		object[i] = new Enemy((i - 7)*189.0f, 0.0f, D3DXVECTOR2(1.0f, 1.5f), 10, -15.0f, 5);
-		if (!object[i]->initialize(graphics->device3d, "sprite\\upsidedownPipe.png", 46, 114, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f)) {
+		object[i] = new Enemy((i - 7)*189.0f, 0.0f, D3DXVECTOR2(1.0f, 1.5f), 10, -5.0f, 5);
+		if (!object[i]->initialize(graphics->device3d, "sprite\\upsidedownPipe.png", 46, 150, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f)) {
 			MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
 			return initialize = false;
 		}
@@ -94,7 +94,7 @@ void FlappyBird::draw()
 	menuButton->draw();
 
 	cursor->setMatrix(D3DXVECTOR2(1.0f, 1.0f), D3DXVECTOR2(0.0f, 0.0f), 0.0f, D3DXVECTOR2(GAME_WIDTH / 2, 25));		//Set this to draw my font
-	graphics->drawfont("Seconds", timer, 10, 100, 100, cursor->sprite, D3DCOLOR_XRGB(255, 255, 255), 30);			// last parameter depends on the size of your font
+	graphics->drawfont("Score : ", timer*10, 13, 500, 50, cursor->sprite, D3DCOLOR_XRGB(255, 0, 0), 30);			// last parameter depends on the size of your font
 	cursor->draw();
 	object[0]->sprite->End();
 	graphics->end();
@@ -106,6 +106,7 @@ void FlappyBird::collisions()
 
 	object[1]->forceVector = { 0,0 };
 	if (input->upArrowKey && !(object[1]->jump)) {
+		sound->playJumpSound();
 		object[1]->jump = true;
 		object[1]->forceVector = { 0,-115 };
 		std::cout << object[1]->forceVector.y << std::endl;
@@ -125,7 +126,7 @@ void FlappyBird::collisions()
 	
 		for (int i = 0; i < FLAPPYBIRDOBJECTS; i++) {
 			if (i == 1)i++;
-			object[i]->setVelocity(D3DXVECTOR2(object[i]->getSpeed(), (timer+1.15*sin(object[i]->getObjectX()))));
+			object[i]->setVelocity(D3DXVECTOR2(object[i]->getSpeed(), (1.15*sin(object[i]->getObjectX()))));
 
 		}
 	
@@ -139,6 +140,7 @@ void FlappyBird::collisions()
 
 	}
 	if (object[1]->getStatus() == ObjectStatus::Dead) {
+		sound->playDeathSound();
 		sound->pauseMainMenuMusic();
 		state = GameStates::LEVELPLAYERWIN;
 	}

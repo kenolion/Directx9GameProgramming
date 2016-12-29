@@ -50,7 +50,20 @@ void DxSound::loadSounds()
 	if (result != FMOD_OK) {
 		MessageBox(NULL, "ERROR", "Could not load playerWinMusic.mp3", MB_ICONERROR);
 	}
-	mainmenuMusic->setMode(FMOD_LOOP_NORMAL);
+	playerWinMusic->setMode(FMOD_LOOP_NORMAL);
+
+	result = fmodSystem->createStream("sounds//jumpSound.mp3", FMOD_DEFAULT, 0, &playjumpSound);
+	if (result != FMOD_OK) {
+		MessageBox(NULL, "ERROR", "Could not load jumpSound", MB_ICONERROR);
+	}
+	playjumpSound->setMode(FMOD_LOOP_OFF);
+
+
+	result = fmodSystem->createStream("sounds//deathSound.mp3", FMOD_DEFAULT, 0, &deathSound);
+	if (result != FMOD_OK) {
+		MessageBox(NULL, "ERROR", "Could not load deathSound", MB_ICONERROR);
+	}
+	deathSound->setMode(FMOD_LOOP_OFF);
 
 
 }
@@ -71,6 +84,17 @@ void DxSound::playPlayerWinMusic()
 	result = fmodSystem->playSound(FMOD_CHANNEL_FREE, playerWinMusic, false, &channel);
 }
 
+void DxSound::playJumpSound()
+{
+	result = fmodSystem->playSound(FMOD_CHANNEL_FREE, playjumpSound, false , &channel);
+}
+
+void DxSound::playDeathSound()
+{
+	result = fmodSystem->playSound(FMOD_CHANNEL_FREE, deathSound, false, &channel);
+}
+
+
 void DxSound::pauseMainMenuMusic()
 {
 	result = fmodSystem->playSound(FMOD_CHANNEL_FREE, mainmenuMusic, true, &channel);
@@ -80,6 +104,7 @@ void DxSound::pausePlayerWinMusic()
 {
 	result = fmodSystem->playSound(FMOD_CHANNEL_FREE, playerWinMusic, true, &channel);
 }
+
 
 DxSound::DxSound()
 {
