@@ -23,10 +23,11 @@ void GameStateManager::initialize(HWND hwnd)
 
 void GameStateManager::changeState(HWND hwnd)
 {
-	if (game != NULL) {
+	if (game != NULL) { 
+		
+		//sound = game->sound;
 		graphic = game->graphics;
 		game->deleteAll();
-	
 		//dltPtr(game);
 
 	}
@@ -44,10 +45,13 @@ void GameStateManager::changeState(HWND hwnd)
 
 
 	}
+
 	game->graphics = graphic;
+	//game->sound = sound;
 	game->initializeGame(hwnd);
 	game->state = state;
 
 
 }
+
 

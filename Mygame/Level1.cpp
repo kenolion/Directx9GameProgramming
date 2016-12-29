@@ -14,27 +14,27 @@ bool Level1::initializeGame(HWND hwnd)
 
 	// initialize texture
 
-	if (!object[0]->initialize(graphics->device3d, "sprite\\militia.png", 128, 192, 4, 4, true, D3DCOLOR_XRGB(0, 0, 0), 0.70f,0,0,0,0)) {
+	if (!object[0]->initialize(graphics->device3d, "sprite\\militia.png", 128, 192, 4, 4, true, D3DCOLOR_XRGB(0, 0, 0), 0.70f)) {
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);			//Device3d,sprite file name, width , height , row,collumn
 		return initialize = false;
 	}
-	if (!object[1]->initialize(graphics->device3d, "sprite\\practical9.png", 64, 64, 2, 2, false, D3DCOLOR_XRGB(0, 0, 0), 0.70f,0,0,0,0)) {
+	if (!object[1]->initialize(graphics->device3d, "sprite\\practical9.png", 64, 64, 2, 2, false, D3DCOLOR_XRGB(0, 0, 0), 0.70f)) {
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);
 		return initialize = false;
 	}
-	if (!object[2]->initialize(graphics->device3d, "sprite\\platform.png", 224, 69, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
+	if (!object[2]->initialize(graphics->device3d, "sprite\\platform.png", 224, 69, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f)) {
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);
 		return initialize = false;
 	}
-	if (!object[3]->initialize(graphics->device3d, "sprite\\platform.png", 224, 69, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
+	if (!object[3]->initialize(graphics->device3d, "sprite\\platform.png", 224, 69, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f)) {
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);
 		return initialize = false;
 	}
-	if (!object[4]->initialize(graphics->device3d, "sprite\\platform.png", 224, 69, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
+	if (!object[4]->initialize(graphics->device3d, "sprite\\platform.png", 224, 69, 1, 1, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f)) {
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);
 		return initialize = false;
 	}
-	if (!object[5]->initialize(graphics->device3d, "sprite\\goombawalkleft.png", 168, 31, 1, 8, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f,0,0,0,0)) {
+	if (!object[5]->initialize(graphics->device3d, "sprite\\goombawalkleft.png", 168, 31, 1, 8, true, D3DCOLOR_XRGB(0, 0, 0), 1.0f)) {
 		MessageBox(NULL, "There was an issue creating the sprite", NULL, NULL);
 		return initialize = false;
 	}

@@ -10,10 +10,9 @@ GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed)
 	state = 1;			//Start it at frame 1
 	frame = 1;
 	this->animSpeed = animSpeed;
-	this->type = type;
 }
 
-GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling)
+GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling)		// for objects without animation
 {
 	position.x = x;
 	position.y = y;
@@ -28,7 +27,7 @@ GameObject::GameObject()
 {
 }
 
-GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed, float speed, int mass)
+GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed, float speed, int mass)					// for moving objects
 {
 	position.x = x;
 	position.y = y;
@@ -53,7 +52,6 @@ GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed, flo
 	state = 1;			//Start it at frame 1
 	frame = 1;
 	this->animSpeed = animSpeed;
-	this->type = type;
 }
 
 
@@ -66,7 +64,7 @@ GameObject::~GameObject()
 	delete spriteClass;
 }
 
-bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color, float falseColl, float hitBoxTop, float hitBoxBottom, float hitBoxLeft, float hitBoxRight)
+bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color, float falseColl)
 {
 	status = ObjectStatus::Active;
 	spriteClass = new GameSprite();
@@ -123,7 +121,7 @@ bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int wi
 
 	}
 	if (frameHorizontal) {
-		maxFrame = spriteCol;					//TEST CODE WILL BE CLEANED UP LATER
+		maxFrame = spriteCol;					
 
 	}
 	else {
@@ -200,6 +198,13 @@ void GameObject::printData()
 
 
 
+}
+
+void GameObject::setMatrix(D3DXVECTOR2 scaling, D3DXVECTOR2 spriteCentre, float rotation, D3DXVECTOR2 position)
+{
+
+	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, &spriteCentre, rotation, &position);
+	sprite->SetTransform(&mat);
 }
 
 

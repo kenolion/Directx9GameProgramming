@@ -25,8 +25,9 @@ void Player::update(int &gameTime)
 			if (!enemyCollision) {
 			position += velocity;
 			}
-			
-			jumpCD += 1.5;
+			if(jump == true){
+			jumpCD += 2.0;
+			}
 			if (animTimer >=60) {
 				animTimer = 0;
 				frame++;

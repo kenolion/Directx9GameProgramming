@@ -10,6 +10,7 @@
 #define LP_TEXTURE  LPDIRECT3DTEXTURE9
 #define LP_3DDEVICE LPDIRECT3DDEVICE9
 #define LP_3D       LPDIRECT3D9
+#include <string>
 
 class Graphics
 {
@@ -21,19 +22,21 @@ public:
 	LP_3DDEVICE device3d;
 
 	LPD3DXLINE line = NULL; // Zer add Line Pointer 
-
+	LPD3DXFONT font;
 	HWND hwnd;
 	HRESULT result;
 	D3DPRESENT_PARAMETERS d3dpp;
+	RECT fontRect;
 	bool initialize(HWND hwnd,int w,int h);
 	void clear(D3DCOLOR color);
 	void begin();
 
-	//=======================================================USED TO DRAW LINES IN YOUR LEVEL================================================================
+	//=======================================================USED TO DRAW LINES and font IN YOUR LEVEL================================================================
 	void createLine(); //Zer add
 	void lineBegin(); //Zer add
 	void drawLine(D3DXVECTOR2 VECTOR[], int noOfCoordinates, int r, int g, int b);
 	void lineEnd(); //Zer add
+	void drawfont(std::string text,float number,int noOfChar,float x,float y,LPD3DXSPRITE sprite,D3DXCOLOR color, int bottom);
 	//=======================================================================================================================================================
 
 	void end();

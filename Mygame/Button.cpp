@@ -2,47 +2,22 @@
 
 
 
-Button::Button(float x, float y, D3DXVECTOR2 scaling, int animSpeed,LPCSTR string, int noOfCharacters, int r,int g, int b) : GameObject(x, y, scaling , animSpeed)
+Button::Button(float x, float y, D3DXVECTOR2 scaling, int animSpeed,LPCSTR string, int noOfCharacters, int r,int g, int b,LPD3DXFONT font) : GameObject(x, y, scaling , animSpeed)
 {
 	this->string = string;
 	this->noOfCharacters = noOfCharacters;
 	this->r = r;
 	this->g = g;
 	this->b = b;
+	this->font = font;
 }
 
 Button::~Button()
 {
-	font->Release();
-	font = NULL;
+	
 }
 
 
-bool Button::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color,float falseColl, float hitBoxTop, float hitBoxBottom, float hitBoxLeft, float hitBoxRight)
-{
-	GameObject::initialize(device3d, file, width, height, row, col, frameHorizontal, color, falseColl, hitBoxTop, hitBoxBottom, hitBoxLeft, hitBoxRight);
-
-	hr = D3DXCreateFont(device3d,			    //(1st Parameter) [LPDIRECT3DDEVICE9] Pointer to an IDirect3DDevice9 interface, the device to be associated with the font object.
-		25,										//(2nd Parameter) [INT] The height of the characters in logical units.
-		0,										//(3rd Parameter) [UINT] The width of the characters in logical units. 
-		0,										//(4th Parameter) [UINT] Typeface weight. One example is bold.
-		1,										//(5th Parameter) [UINT] The number of mipmap levels.
-		false,									//(6th Parameter) [BOOL] True for italic font, false otherwise.
-		DEFAULT_CHARSET, 						//(7th Parameter) [DWORD] The character set of the font.
-		OUT_TT_ONLY_PRECIS,						//(8th Parameter) [DWORD] Specifies how Windows should attempt to match the desired font sizes and characteristics with actual fonts. Use OUT_TT_ONLY_PRECIS for instance, to ensure that you always get a TrueType font.
-		DEFAULT_QUALITY,						//(9th Parameter) [DWORD] Specifies how Windows should match the desired font with a real font. It applies to raster fonts only and should not affect TrueType fonts
-		DEFAULT_PITCH | FF_DONTCARE,			//(10th Parameter) [DWORD]Pitch and family index
-		"Arial",								//(11th Parameter) [LPCSTR] String containing the typeface name. If the compiler settings require Unicode, the data type LPCTSTR resolves to LPCWSTR. Otherwise, the string data type resolves to LPCSTR. See Remarks. 
-		&font);									//(12th Parameter) [LPD3DXFONT]Returns a pointer to an ID3DXFont interface, representing the created font object.
-
-	if (FAILED(hr))
-	{
-		MessageBox(NULL, "ERROR", "Could not initialize Font", MB_ICONERROR);
-		return false;
-	}
-
-	return true;
-}
 
 bool Button::onHover(int mouseX, int mouseY)
 {
