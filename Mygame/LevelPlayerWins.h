@@ -10,6 +10,10 @@ public:
 	GameObject * youWinTextLogo;
 	GameObject * quitButton;
 
+
+	Button *childrenPointer1;
+	Button *childrenPointer2;
+
 	bool initializeGame(HWND hwnd);
 	void update(int gameTime);
 	void collisions();

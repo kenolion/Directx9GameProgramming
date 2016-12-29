@@ -23,8 +23,8 @@ protected:
 
 	HWND hwnd;
 	
-	GameTime *gameTime;
-	PlayerInput *input;
+	
+
 	
 	UserInterface *userinterface;
 	Cursor *cursor;
@@ -37,6 +37,8 @@ public:
 	int framesToUpdate;
 	bool initialize;
 	Graphics * graphics;
+	GameTime *gameTime;
+	PlayerInput *input;
 	DxSound *sound;
 	//Previously SetDrawingPoint function declaration was on this line.
 	void run();

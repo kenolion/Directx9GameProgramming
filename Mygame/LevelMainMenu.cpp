@@ -44,7 +44,8 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 	}
 	
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	
+	childrenPointer = dynamic_cast<Button*>(startButton); //This makes it so that a derived class can access base class methods and variables through pointing with "childrenPointer2"
+	childrenPointer2 = dynamic_cast<Button*>(quitButton); //Children class = Parent class
 	//Enemy Goomba Testing
 	
 
@@ -56,13 +57,8 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 void LevelMainMenu::update(int gameTime)
 {
 
-	
 	cursor->update(gameTime); //Update cursor according to mouseX and mouseY
-
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-
-	Button *childrenPointer = dynamic_cast<Button*>(startButton); //Children class = Parent 
-
 	if (childrenPointer->onHover(mouseX, mouseY)) 
 	{
 		if (childrenPointer->isClicked(input->leftClickDown))
@@ -79,12 +75,10 @@ void LevelMainMenu::update(int gameTime)
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-
-	Button *childrenPointer2 = dynamic_cast<Button*>(quitButton); //Children class = Parent class
 	
 	if (childrenPointer2->onHover(mouseX, mouseY))
 	{
-		if (childrenPointer->isClicked(input->leftClickDown))
+		if (childrenPointer2->isClicked(input->leftClickDown))
 		{
 			//quit game; Game state = (something) to quit
 			state = GameStates::EXITPROGRAM;

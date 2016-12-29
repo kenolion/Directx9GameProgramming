@@ -21,7 +21,7 @@ void Enemy::update(int &gameTime)
 {
 	for (int i = 0; i < gameTime; i++){
 		position += velocity;
-		if (position.x == 0) {
+		if (position.x <= 0 - spriteWidth) {
 			position.x = GAME_WIDTH;
 		}
 			if (animTimer >= 60) {

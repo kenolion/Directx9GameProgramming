@@ -12,7 +12,7 @@ const int GROUND_LEVEL = GAME_HEIGHT - 150;		// sets the height of ground 150 pi
 const float GRAVITY = 0.5f;
 const float FRICTION = 0.97f;
 const float PLAYERMAXVEL = 1.0f;
-
+const int REQFPS = 60;
 
 //LEVEL1
 const int GOBJECTNUML1 = 5;
@@ -27,7 +27,7 @@ enum class GameStates			//Strongly Type enumartions may come in handy if this fr
 	LEVELPLAYERWIN		//ArreSTay 3
 };
 
-const int FLAPPYBIRDOBJECTS = 12;
+const int FLAPPYBIRDOBJECTS = 16;
 const float MAXYVELOCITY = 7;
 
 template<typename T>

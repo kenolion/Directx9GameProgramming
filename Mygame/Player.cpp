@@ -28,7 +28,8 @@ void Player::update(int &gameTime)
 			if(jump == true){
 			jumpCD += 2.0;
 			}
-			if (animTimer >=60) {
+			
+			if (animTimer >=REQFPS) {
 				animTimer = 0;
 				frame++;
 				if (frame > maxFrame) {

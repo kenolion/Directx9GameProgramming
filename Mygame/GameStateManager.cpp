@@ -4,7 +4,8 @@
 
 GameStateManager::GameStateManager()
 {
-	game = &menu;
+	game = new LevelMainMenu();
+
 	
 }
 
@@ -24,9 +25,11 @@ void GameStateManager::initialize(HWND hwnd)
 void GameStateManager::changeState(HWND hwnd)
 {
 	if (game != NULL) { 
-		
-		//sound = game->sound;
+		//previousState = game;
+		sound = game->sound;
 		graphic = game->graphics;
+		time = game->gameTime;
+		playerinput = game->input;
 		game->deleteAll();
 		//dltPtr(game);
 
@@ -34,20 +37,25 @@ void GameStateManager::changeState(HWND hwnd)
 	
 	switch (state) {
 	case GameStates::MENU:
-		game = &menu;
+		//game = &menu;
+		game = new LevelMainMenu();
 		break;
 	case GameStates::LEVEL1:
-		game = &lvl1;
+		//game = &lvl1;
+		game = new FlappyBird();
 		break;
 	case GameStates::LEVELPLAYERWIN:
-		game = &pwin;
-
+		//game = &pwin;
+		game = new LevelPlayerWins();
 
 
 	}
 
 	game->graphics = graphic;
-	//game->sound = sound;
+	game->gameTime = time;
+	game->input = playerinput;
+	game->sound = sound;
+
 	game->initializeGame(hwnd);
 	game->state = state;
 

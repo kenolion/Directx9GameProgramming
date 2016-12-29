@@ -31,6 +31,8 @@ bool LevelPlayerWins::initializeGame(HWND hwnd)
 		MessageBox(NULL, "There was an issue creating the start button", NULL, NULL);
 		return initialize = false; //If false program wont run
 	}
+	childrenPointer1 = dynamic_cast<Button*>(returnToMainMenuButton);
+
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 
 	quitButton = new Button(0, 0, D3DXVECTOR2(1.0f, 1.0f), 30, "Exit Game", 10, 255, 155, 0,graphics->font);
@@ -42,7 +44,7 @@ bool LevelPlayerWins::initializeGame(HWND hwnd)
 		MessageBox(NULL, "There was an issue creating the quit button", NULL, NULL);
 		return initialize = false; //If false program wont run
 	}
-	
+	childrenPointer2 = dynamic_cast<Button*>(quitButton);
 
 }
 
@@ -51,8 +53,6 @@ void LevelPlayerWins::update(int gameTime)
 
 	cursor->posVector = { (float)mouseX,(float)mouseY };
 	cursor->update(gameTime); //Update cursor according to mouseX and mouseY
-
-	Button *childrenPointer1 = dynamic_cast<Button*>(returnToMainMenuButton); //Children class = Parent 
 
 	if (childrenPointer1->onHover(mouseX, mouseY))
 	{
@@ -67,8 +67,6 @@ void LevelPlayerWins::update(int gameTime)
 	else {
 		returnToMainMenuButton->setFrame(1);
 	}
-
-	Button *childrenPointer2 = dynamic_cast<Button*>(quitButton); //Children class = Parent class
 
 	if (childrenPointer2->onHover(mouseX, mouseY))
 	{
