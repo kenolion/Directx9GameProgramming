@@ -12,8 +12,10 @@ public:
 	GameObject * goombaOne;
 	GameObject * backgroundImage;
 	GameObject * gameLogo;
-	Button *childrenPointer2;
+
 	Button *childrenPointer;
+	Button *childrenPointer2;
+
 	//YOU DONT NEED A HITBOXLINE POINTER OBJECT, BECAUSE GRAPHICS IS ALREADY DECLARED	Graphics * hitBoxLines;
 
 //	D3DXVECTOR2 goombaVector[];

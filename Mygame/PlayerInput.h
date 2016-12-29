@@ -22,7 +22,7 @@ public:
 	DIMOUSESTATE m_mouseState;			//MOUSESTATE IS USED FOR RECORDING THE CURRENT STATE OF KEYBOARD AND MOUSE DEVICES
 	int m_mouseX, m_mouseY;
 	bool ReadMouse();
-	void ProcessInput();
+	void convertRelativeToAbsolute();
 	int mouseX, mouseY; //To be used to do checking.
 
 	void GetMouseLocation(int& mouseX, int& mouseY);

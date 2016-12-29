@@ -40,6 +40,7 @@ public:
 	D3DXVECTOR2 getVelocity();
 	float getVelocityX();
 	float getVelocityY();
+	void setScaling(D3DXVECTOR2 scaling);
 
 
 	float getMass();

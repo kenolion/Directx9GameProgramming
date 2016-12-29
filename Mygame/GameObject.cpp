@@ -188,11 +188,11 @@ ObjectType GameObject::getType()
 
 void GameObject::printData()
 {
-	if (type == ObjectType::Player) {
-		std::cout << "Player" << std::endl;
-		std::cout << "PlatFormColision:	" << platformCollision << std::endl;
-		std::cout << "enemy collision:	" << enemyCollision << std::endl;
-		std::cout << "ground collision:	" << getOnGroundStatus() << std::endl;
+	if (type == ObjectType::Enemy) {
+		//std::cout << "Player" << std::endl;
+		std::cout << "velocity.y:	" << velocity.y << std::endl;
+		//std::cout << "enemy collision:	" << enemyCollision << std::endl;
+		//std::cout << "ground collision:	" << getOnGroundStatus() << std::endl;
 
 	}
 
@@ -314,6 +314,11 @@ float GameObject::getVelocityX()
 float GameObject::getVelocityY()
 {
 	return velocity.y;
+}
+
+void GameObject::setScaling(D3DXVECTOR2 scaling)
+{
+	this->scaling = scaling;
 }
 
 float GameObject::getMass()

@@ -84,7 +84,7 @@ void Graphics::createLine()
 
 void Graphics::lineBegin()
 {
-	line->Begin(); //Zer Add
+	line->Begin(); 
 }
 
 void Graphics::drawLine(D3DXVECTOR2 VECTOR[] ,int noOfCoordinates, int r, int g, int b)
@@ -101,7 +101,7 @@ void Graphics::end()
 
 void Graphics::lineEnd()
 {
-	line->End(); //Zer Add
+	line->End();
 }
 
 void Graphics::drawfont(std::string text, int number , int noOfChar, float x, float y, LPD3DXSPRITE sprite, D3DXCOLOR color, int bottom)
@@ -143,7 +143,7 @@ void Graphics::cleanup()
 		direct3d = NULL;
 	}
 
-	if (line) {			//Zer add
+	if (line) {	
 		line->Release();
 		line = NULL;
 	}

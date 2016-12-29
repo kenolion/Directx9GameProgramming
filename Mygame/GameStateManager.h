@@ -11,14 +11,18 @@ public:
 	~GameStateManager();
 
 	Game * game;
-	//DxSound *sound;
+	GameTime *time;
+	Game *previousState;
+	PlayerInput * playerinput;
+	
+	DxSound *sound;
 	
 	void initialize(HWND hwnd);
 	void changeState(HWND hwnd);
 	Graphics *graphic;
-	FlappyBird lvl1;
-	LevelPlayerWins pwin;
-	LevelMainMenu menu;
+	FlappyBird *lvl1;
+	LevelPlayerWins *pwin;
+	LevelMainMenu *menu;
 
 	GameStates state;
 private:

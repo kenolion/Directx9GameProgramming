@@ -18,7 +18,7 @@ bool DxSound::initializeSound()
 		MessageBox(NULL, "ERROR", "Could not initiaize fmodsystem!", MB_ICONERROR);
 		return false;
 	}
-
+	return true;
 }
 
 void DxSound::updateSound()
