@@ -12,13 +12,14 @@ public:
 	int update();
 	GameTime();
 	~GameTime();
+	int Requested_FPS;
 private:
 //	LONGLONG start;
 	//float frequencySeconds;
 	LARGE_INTEGER timer_freq;
 	LARGE_INTEGER time_now;
 	LARGE_INTEGER time_previous;
-	int Requested_FPS;
+	
 	float intervalsPerFrame;
 	
 };

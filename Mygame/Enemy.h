@@ -10,9 +10,7 @@ public:
 	void update(int &gameTime);
 	
 
-	RECT goombaHitBox;
 
-	int circleDetectionRadius;
 };
 
 #endif

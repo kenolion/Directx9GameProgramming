@@ -4,6 +4,7 @@
 
 Enemy::Enemy()
 {
+	type = ObjectType::Enemy;
 }
 
 

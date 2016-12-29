@@ -11,11 +11,6 @@
 class GameObject
 {
 public:
-	//Object Hitbox
-	float hitBoxTop;
-	float hitBoxBottom;
-	float hitBoxLeft;
-	float hitBoxRight;
 
 	GameObject();
 	GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed, float speed, int mass);			//x, y, scaling, animation, speed,mass											//
@@ -24,7 +19,7 @@ public:
 	
 
 	~GameObject();
-	virtual bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color,float falseColl,float hitBoxTop, float hitBoxBottom, float hitBoxLeft, float hitBoxRight);
+	virtual bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color,float falseColl);
 	virtual void update(int &gameTime) = 0;
 	virtual void draw();
 	
@@ -72,7 +67,8 @@ public:
 	bool jump;
 	int jumpCD;
 	//
-	void printData();
+	void printData(); // used to print players data
+	void setMatrix(D3DXVECTOR2 scaling,D3DXVECTOR2 spriteCentre,float rotation,D3DXVECTOR2 position);	//scaling,spritecentre,rotation,position
 protected:
 	//informational data(name, desc wtv u want)
 	std::string name;

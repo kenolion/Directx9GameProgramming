@@ -11,6 +11,7 @@ public:
 	~GameStateManager();
 
 	Game * game;
+	//DxSound *sound;
 	
 	void initialize(HWND hwnd);
 	void changeState(HWND hwnd);

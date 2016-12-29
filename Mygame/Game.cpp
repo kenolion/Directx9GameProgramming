@@ -15,21 +15,30 @@ Game::~Game()
 bool Game::initializeGame(HWND hwnd)
 {
 	this->hwnd = hwnd;
-	if(graphics == NULL){
-	graphics = new Graphics();
-	if (!graphics->initialize(hwnd, GAME_WIDTH, GAME_HEIGHT)) {
-		MessageBox(NULL, "There was an issue initializing the graphics", NULL, NULL);
-		return initialize = false;
-	}
+	if (graphics == NULL) {
+		graphics = new Graphics();
+		if (!graphics->initialize(hwnd, GAME_WIDTH, GAME_HEIGHT)) {
+			MessageBox(NULL, "There was an issue initializing the graphics", NULL, NULL);
+			return initialize = false;
+		}
 
+	}
+	if (sound == NULL) {
+		sound = new DxSound();
+		if (!sound->initializeSound()) {
+			MessageBox(NULL, "There was an issue initializing the Sounds", NULL, NULL);
+			return initialize = false;
+			
+		}
+		sound->loadSounds();
 	}
 	input = new PlayerInput();
-	sound = new DxSound();
-	cursor = new Cursor(GAME_WIDTH/2,GAME_HEIGHT/2, D3DXVECTOR2(1.0f, 1.0f), 11); //6 is 10 frames per second
+
+	cursor = new Cursor(GAME_WIDTH / 2, GAME_HEIGHT / 2, D3DXVECTOR2(1.0f, 1.0f), 11); //6 is 10 frames per second
 
 	// initialize device
-	
-	if (!cursor->initialize(graphics->device3d, "sprite/dankcursor.png" ,1440,95, 1,15 ,true, D3DCOLOR_XRGB(255,0,255),1.0f,0,0,0,0)) { 
+
+	if (!cursor->initialize(graphics->device3d, "sprite/dankcursor.png", 1440, 95, 1, 15, true, D3DCOLOR_XRGB(255, 0, 255), 1.0f)) {
 		MessageBox(NULL, "There was an issue initializing the graphics", NULL, NULL);
 		return initialize = false;
 	}
@@ -43,14 +52,11 @@ bool Game::initializeGame(HWND hwnd)
 		return initialize = false;
 	}
 
-	if (!sound->initializeSound()) {
-		MessageBox(NULL, "There was an issue initializing the Sounds", NULL, NULL);
-		return initialize = false;
-	}
-	
-	sound->loadSounds();
+
+
+
 	//sound->playSoundtrack();
-	
+
 
 	gameTime = new GameTime();
 
@@ -98,9 +104,9 @@ void Game::deletegraphics() {
 void Game::deleteAll() {
 	//graphics->cleanup();
 	//dltPtr(graphics);
+	dltPtr(sound);
 	dltPtr(gameTime);
 	dltPtr(input);
-	dltPtr(sound);
 	dltPtr(cursor);
 	dltPtr(userinterface);
 

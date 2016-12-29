@@ -172,9 +172,9 @@ void PlayerInput::getInput()		//Function that gets the player input
 	
 	if (m_mouseState.rgbButtons[0])
 	{
-		dxsound.playClickSound();
+		
 		leftClickDown = true;
-		std::cout << "Left click is pressed.";
+		
 	}
 	else
 	{

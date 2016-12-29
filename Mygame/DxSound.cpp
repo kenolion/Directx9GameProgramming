@@ -4,11 +4,13 @@
 
 bool DxSound::initializeSound()
 {
-	result = FMOD::System_Create(&fmodSystem);
-	if (result != FMOD_OK) {
-		MessageBox(NULL, "ERROR", "Could not create fmodsystem!", MB_ICONERROR);
-		return false;
+	if (fmodSystem == NULL) {
+		result = FMOD::System_Create(&fmodSystem);
+		if (result != FMOD_OK) {
+			MessageBox(NULL, "ERROR", "Could not create fmodsystem!", MB_ICONERROR);
+			return false;
 
+		}
 	}
 
 	result = fmodSystem->init(NUM_CHANNELS, FMOD_INIT_NORMAL, 0);
@@ -86,4 +88,5 @@ DxSound::DxSound()
 
 DxSound::~DxSound()
 {
+	//fmodSystem->release();
 }

@@ -18,8 +18,6 @@ public:
 	LPDIRECTINPUTDEVICE8 DI_Device;
 	LPDIRECTINPUTDEVICE8 M_Device;	
 
-	DxSound dxsound;
-
 	//Zer add these ====================================================
 	DIMOUSESTATE m_mouseState;			//MOUSESTATE IS USED FOR RECORDING THE CURRENT STATE OF KEYBOARD AND MOUSE DEVICES
 	int m_mouseX, m_mouseY;
