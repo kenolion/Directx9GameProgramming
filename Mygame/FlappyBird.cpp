@@ -125,7 +125,7 @@ void FlappyBird::collisions()
 	
 		for (int i = 0; i < FLAPPYBIRDOBJECTS; i++) {
 			if (i == 1)i++;
-			object[i]->setVelocity(D3DXVECTOR2(object[i]->getSpeed(), (timer+1.5*sin(object[i]->getObjectX()))));
+			object[i]->setVelocity(D3DXVECTOR2(object[i]->getSpeed(), (timer+1.15*sin(object[i]->getObjectX()))));
 
 		}
 	
