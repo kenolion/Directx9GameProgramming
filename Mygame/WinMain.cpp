@@ -18,7 +18,7 @@
 #define WIN32_LEAN_AND_MEAN
 //Global Player Sprites
 LRESULT WINAPI WinProc(HWND, UINT, WPARAM, LPARAM);
-GameStateManager *gsm;
+GameStateManager *gsm;			
 
 void RedirectIOToConsole() //THE FUNCTION TO CREATE A CONSOLE BEN IF U READ THIS CODE EVENTUALLY
 {
@@ -38,7 +38,9 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	HWND hwnd;
 	WNDCLASSEX wcex;
 	MSG msg;
-	gsm = new GameStateManager();
+
+	gsm = new GameStateManager();		//Pointer GSM is a new GameStateManager; Meaning 
+
 	RECT rect;
 	rect.bottom = GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2 + GAME_HEIGHT-20;
 	rect.right = (GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2) + GAME_WIDTH-50;
@@ -78,6 +80,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 	ShowWindow(hwnd, nCmdShow);
 	ZeroMemory(&msg, sizeof(MSG));
+
 	gsm->initialize(hwnd);						// game statemachine initialized  this calls initialize game and set state thats stored in the game pointer
 	//========================================================================================================================================================================
 

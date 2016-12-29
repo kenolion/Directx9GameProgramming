@@ -2,7 +2,7 @@
 
 
 
-bool PlayerInput::ReadMouse() //Smart and Pro programmer zer add this
+bool PlayerInput::ReadMouse()
 {
 	hr = M_Device->GetDeviceState(sizeof(DIMOUSESTATE), (LPVOID)&m_mouseState); //Read the Mouse Device
 	if (FAILED(hr))
@@ -20,7 +20,7 @@ bool PlayerInput::ReadMouse() //Smart and Pro programmer zer add this
 	return true;
 }
 
-void PlayerInput::ProcessInput()  //Smart and Pro programmer zer add this
+void PlayerInput::convertRelativeToAbsolute()
 {
 	
 	m_mouseX += m_mouseState.lX; //mousestate.IX IS THE RELATIVE X POSITION 
@@ -181,7 +181,7 @@ void PlayerInput::getInput()		//Function that gets the player input
 		leftClickDown = false;
 	}
 
-	if			(m_mouseState.rgbButtons[1])
+	if	(m_mouseState.rgbButtons[1])
 	{
 		std::cout << "Right click is pressed.";
 	}

@@ -66,20 +66,13 @@ void Game::run()	// This function is called repeatedly by main message loop
 {
 	framesToUpdate = gameTime->update();
 
-	/*
-	1.Input
-	2.AI
-	3.Collision
-	4.Render
-	*/
+	input->getInput();												//A function that detects for input 
+	input->ReadMouse();												//Read the mouse Device
+	input->convertRelativeToAbsolute();								//Converts Relative X and Y mouse position to Absolute position
+	input->GetMouseLocation(mouseX, mouseY);						//Stores the converted absolute position to the Input class's mouseX and mouseY variable
 
-	input->getInput();
-	input->ReadMouse();
-	input->ProcessInput();
-	input->GetMouseLocation(mouseX, mouseY);
-	cursor->posVector = { (float)mouseX,(float)mouseY };
-	//std::cout << "Mouse X : "<< mouseX << "          " "Mouse Y : " << mouseY << "          ";
-	//setDrawingPoint(0, 0);
+	cursor->posVector = { (float)mouseX,(float)mouseY };			//Sets the Cursor Position to the Absolute MouseX and MouseY in the window.
+	
 	collisions();
 	update(framesToUpdate);
 	draw();// draws the games graphics
