@@ -36,7 +36,7 @@ public:
 	void lineBegin(); //Zer add
 	void drawLine(D3DXVECTOR2 VECTOR[], int noOfCoordinates, int r, int g, int b);
 	void lineEnd(); //Zer add
-	void drawfont(std::string text,float number,int noOfChar,float x,float y,LPD3DXSPRITE sprite,D3DXCOLOR color, int bottom);
+	void drawfont(std::string text,int number,int noOfChar,float x,float y,LPD3DXSPRITE sprite,D3DXCOLOR color, int bottom);
 	//=======================================================================================================================================================
 
 	void end();

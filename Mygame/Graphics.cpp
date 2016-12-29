@@ -104,19 +104,19 @@ void Graphics::lineEnd()
 	line->End(); //Zer Add
 }
 
-void Graphics::drawfont(std::string text, float number , int noOfChar, float x, float y, LPD3DXSPRITE sprite, D3DXCOLOR color, int bottom)
+void Graphics::drawfont(std::string text, int number , int noOfChar, float x, float y, LPD3DXSPRITE sprite, D3DXCOLOR color, int bottom)
 {
-	noOfChar *=11 ;
+	text += std::to_string(number);
 	fontRect.top = y;
 	fontRect.left = x;
-	fontRect.right = fontRect.left + noOfChar;
+	fontRect.right = fontRect.left + text.length()*11;
 	fontRect.bottom = fontRect.top + bottom;
-	text += std::to_string(number);
+	
 	
 
 	font->DrawText(sprite,
 		text.c_str(),
-		noOfChar,				
+		text.length(),				
 		&fontRect,
 		0,
 		color);

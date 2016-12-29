@@ -66,7 +66,7 @@ void FlappyBird::draw()
 		object[i]->draw();
 	}
 	cursor->setMatrix(D3DXVECTOR2(1.0f, 1.0f), D3DXVECTOR2(0.0f, 0.0f), 0.0f, D3DXVECTOR2(GAME_WIDTH / 2, 25));		//Set this to draw my font
-	graphics->drawfont("Seconds", timer, 10, 100, 100, cursor->sprite, D3DCOLOR_XRGB(255, 255, 255), 30);			// last parameter depends on the size of your font
+	graphics->drawfont("Seconds", timer, 13, 100, 100, cursor->sprite, D3DCOLOR_XRGB(255, 255, 255), 30);			// last parameter depends on the size of your font cause it modifies the rectangles bottom
 	cursor->draw();
 	object[0]->sprite->End();
 	graphics->end();

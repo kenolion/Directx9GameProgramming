@@ -42,7 +42,8 @@ bool LevelMainMenu::initializeGame(HWND hwnd)
 		MessageBox(NULL, "There was an issue creating the quit button", NULL, NULL);
 		return initialize = false; //If false program wont run
 	}
-	
+	childrenPointer = dynamic_cast<Button*>(startButton); //Children class = Parent 
+	childrenPointer2 = dynamic_cast<Button*>(quitButton); //Children class = Parent class
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	
 	//Enemy Goomba Testing
@@ -61,7 +62,7 @@ void LevelMainMenu::update(int gameTime)
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 
-	Button *childrenPointer = dynamic_cast<Button*>(startButton); //Children class = Parent 
+	
 
 	if (childrenPointer->onHover(mouseX, mouseY)) 
 	{
@@ -80,11 +81,11 @@ void LevelMainMenu::update(int gameTime)
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 
-	Button *childrenPointer2 = dynamic_cast<Button*>(quitButton); //Children class = Parent class
+	
 	
 	if (childrenPointer2->onHover(mouseX, mouseY))
 	{
-		if (childrenPointer->isClicked(input->leftClickDown))
+		if (childrenPointer2->isClicked(input->leftClickDown))
 		{
 			//quit game; Game state = (something) to quit
 			state = GameStates::EXITPROGRAM;
