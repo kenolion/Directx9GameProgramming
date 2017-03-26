@@ -2,7 +2,7 @@
 
 
 
-bool PlayerInput::ReadMouse() //Smart and Pro programmer zer add this
+bool PlayerInput::ReadMouse()
 {
 	hr = M_Device->GetDeviceState(sizeof(DIMOUSESTATE), (LPVOID)&m_mouseState); //Read the Mouse Device
 	if (FAILED(hr))
@@ -20,7 +20,7 @@ bool PlayerInput::ReadMouse() //Smart and Pro programmer zer add this
 	return true;
 }
 
-void PlayerInput::ProcessInput()  //Smart and Pro programmer zer add this
+void PlayerInput::convertRelativeToAbsolute()
 {
 	
 	m_mouseX += m_mouseState.lX; //mousestate.IX IS THE RELATIVE X POSITION 
@@ -55,6 +55,7 @@ void PlayerInput::GetMouseLocation(int & mouseX, int & mouseY) //Stores the mous
 	return;
 }
 
+
 bool PlayerInput::initializeKeyboard(HWND hwnd)		//Function that displays error message if play input is false
 {
 	hr = DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&DI_OBJECT, NULL);
@@ -79,7 +80,7 @@ bool PlayerInput::initializeKeyboard(HWND hwnd)		//Function that displays error 
 		system("pause");
 		return false;
 	}
-	hr = DI_Device->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+	hr = DI_Device->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_EXCLUSIVE);
 	if (FAILED(hr)) {
 		std::cout << "Failed to set cooperative level";
 		system("pause");
@@ -109,7 +110,7 @@ bool PlayerInput::initializeMouse(HWND hwnd)
 		return false;
 	}
 
-	hr = M_Device->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+	hr = M_Device->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_EXCLUSIVE);
 	if (FAILED(hr)) {
 		std::cout << "Failed to set cooperative level";
 		system("pause");
@@ -147,6 +148,11 @@ void PlayerInput::getInput()		//Function that gets the player input
 		keyPressed = true;
 
 	}
+	if (KEYDOWN(keys, zKey)) {
+		jumpKey = true;
+		keyPressed = true;
+
+	}
 
 	if (leftArrowKey == true && keys[leftAKey] ==0) {
 
@@ -167,7 +173,27 @@ void PlayerInput::getInput()		//Function that gets the player input
 		upArrowKey = false;
 		keyPressed = false;
 	}
+	if (jumpKey == true && keys[zKey] == 0) {
+		jumpKey = false;
+		keyPressed = false;
+	}
+	
+	if (m_mouseState.rgbButtons[0])
+	{
+		
+		leftClickDown = true;
+		
+	}
+	else
+	{
+		leftClickDown = false;
+	}
 
+	if	(m_mouseState.rgbButtons[1])
+	{
+		std::cout << "Right click is pressed.";
+	}
+	
 }
 
 
@@ -178,6 +204,7 @@ PlayerInput::PlayerInput()		//Initialization of player input defailt values
 	rightAKey = 205;
 	downAKey = 208;
 	upAKey = 200;
+	zKey = 44;
 	M_Device = 0; //Make Direct Input interface variables to null.
 	m_mouseState.lX = GAME_WIDTH / 2;
 	m_mouseState.lY = GAME_HEIGHT / 2;

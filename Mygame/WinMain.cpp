@@ -5,8 +5,10 @@
 #include "Graphics.h"
 #include "GameSprite.h"
 #include "Game.h"
-#include "Level1.h"
 #include "LevelMainMenu.h"
+#include "LevelPlayerWins.h"
+#include "FlappyBird.h"
+#include "GameEngine.h"
 #include <iostream>
 #include <conio.h>
 
@@ -15,7 +17,7 @@
 #define WIN32_LEAN_AND_MEAN
 //Global Player Sprites
 LRESULT WINAPI WinProc(HWND, UINT, WPARAM, LPARAM);
-Game * game;
+GameEngine *gameEngine;
 
 void RedirectIOToConsole() //THE FUNCTION TO CREATE A CONSOLE BEN IF U READ THIS CODE EVENTUALLY
 {
@@ -36,14 +38,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	WNDCLASSEX wcex;
 	MSG msg;
 
-	game = new LevelMainMenu(); //<--- use this to change level ===========================================================================================================================================================
-	
-	RECT rect;
-	rect.bottom = GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2 + GAME_HEIGHT;
-	rect.right = (GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2) + GAME_WIDTH;
-	rect.left = GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2;
-	rect.top = GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2;
-	ShowCursor(false);
+	gameEngine = new GameEngine();
+
 	RedirectIOToConsole();
 	wcex.cbSize = sizeof(wcex);
 	wcex.cbClsExtra = 0;                 // no extra class memory				
@@ -58,13 +54,12 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	wcex.lpszClassName = CLASS_NAME;
 	wcex.hIconSm = NULL;
 
-
 	if (RegisterClassEx(&wcex) == 0)    // if error
 		return false;
 
 	hwnd = CreateWindow(CLASS_NAME,
 		GAME_TITTLE,
-		 WS_OVERLAPPED | WS_MINIMIZEBOX | WS_SYSMENU,
+		WS_OVERLAPPEDWINDOW | WS_MINIMIZEBOX | WS_SYSMENU,
 		GetSystemMetrics(SM_CXSCREEN) / 2 - GAME_WIDTH / 2,          // default horizontal position of window
 		GetSystemMetrics(SM_CYSCREEN) / 2 - GAME_HEIGHT / 2,
 		GAME_WIDTH,             // width of window
@@ -75,29 +70,31 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		(LPVOID)NULL);         // no window parameters
 
 	ShowWindow(hwnd, nCmdShow);
-
 	ZeroMemory(&msg, sizeof(MSG));
-	game->initializeGame(hwnd);
-	if (game->initialize == true) {
-		while (msg.message != WM_QUIT) {
+	if (gameEngine->initialize(hwnd)) {
+		gameEngine->changeState(LevelMainMenu::getInstance(), hwnd);
+		//========================================================================================================================================================================
+		while (msg.message != WM_QUIT || gameEngine->exit == true) {							//checks if either exit or wm_quit
+																// here saves the state in game state before i delete it!																					// 
+			if (gameEngine->exit == true) {												//checks if the state from game state is exit or not
+				msg.message = WM_QUIT;																	//
+			}																							//
+
 			if (msg.message == WM_QUIT)
 				break;
 			while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
 				TranslateMessage(&msg);
 				DispatchMessage(&msg);
-
 			}
-			ClipCursor(&rect);
-			game->run();
-
-
+			gameEngine->handleEvents();
+			gameEngine->run();
 		}
 	}
+	//dltPtr(GameEngine->game);
 
-	game->deleteAll();
+	dltPtr(gameEngine);
 
-
-	dltPtr(game);
+	//========================================================================================================================================================================
 	UnregisterClass(wcex.lpszClassName, hInstance);
 	return msg.wParam;
 	system("pause");
@@ -106,8 +103,31 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 
 LRESULT WINAPI WinProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {		//Windows procedure
+	switch (msg)
+	{
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
+		break;
+	case WM_KEYDOWN:
 
-	return game->messageHandler(hwnd, msg, wParam, lParam);
+		switch (wParam) {
+		case VK_ESCAPE:
+			PostQuitMessage(0);
+			return 0;
+			break;
+			//case VK_F1:
+			//	input->remapKeys();//<---- underconstruction used to remap keys but needs to be switched to windows input instead of directinput
+
+			//break;
+		}
+		break;
+	case WM_LBUTTONDOWN:
+		break;
+
+	}
+	return DefWindowProc(hwnd, msg, wParam, lParam);
+
 }
 
 

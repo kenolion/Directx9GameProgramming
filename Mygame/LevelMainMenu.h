@@ -1,12 +1,7 @@
-#ifndef LEVELMAINMENU_H			//ZER ADD
+#ifndef LEVELMAINMENU_H			
 #define LEVELMAINMENU_H
 
 #include "Game.h"
-#include "Graphics.h"
-#include "GameSprite.h"
-#include "GameObject.h"
-#include "PlayerInput.h"
-#include "Button.h"
 
 class LevelMainMenu : public Game
 {
@@ -14,16 +9,34 @@ public:
 
 	GameObject * startButton;
 	GameObject * quitButton;
+	GameObject * backgroundImage;
+	GameObject * gameLogo;
 
-	bool initializeGame(HWND hwnd);
-	void update(int gameTime);
-	void collisions();
+	Button *childrenPointer;
+	Button *childrenPointer2;
 
-	void draw();
+	//YOU DONT NEED A HITBOXLINE POINTER OBJECT, BECAUSE GRAPHICS IS ALREADY DECLARED	Graphics * hitBoxLines;
+
+	bool initializeGame(HWND hwnd, GameEngine * game);
+	void update(int gameTime, GameEngine * game);
+	void collisions(GameEngine * game);
+	void handleEvents(GameEngine *game);
+
+	void draw(GameEngine * game);
 	void deleteAll();
+	static LevelMainMenu * getInstance() {
+		return &mainMenuState;
+	}
+private:
+	static LevelMainMenu mainMenuState;
 
+protected:
 	LevelMainMenu();
 	~LevelMainMenu();
+
+
+	
+		
 };
 
 #endif

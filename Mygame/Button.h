@@ -1,31 +1,33 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 #include "GameObject.h"
-#include "Graphics.h"
-#include "constants.h"
-#include "PlayerInput.h"
 
-#include<d3d9.h> 
-#include<d3dx9.h>
 
 class Button : public GameObject
 {
 public:
 
-	LPD3DXFONT font = NULL; //P5 Font Pointer
+	//D3DX VARIABLES
 	HRESULT hr;
+	LPD3DXFONT font;
+	//VARIABLES
+	RECT buttonRect;				//Hitbox for the Button
+	LPCSTR string;					//Text for the Button
+	int noOfCharacters;				//Number of Characters of the text on the button
+	int r, g, b;					//RGB colour to mainpulate the colour of the button.
 
-	Button(float x, float y, D3DXVECTOR2 scaling, int animSpeed);
 
-	void drawText(LPCSTR buttonText, int noOfChars, int r, int g, int b);
+	//FUNCTIONS
+	Button(float x, float y, D3DXVECTOR2 scaling, int animSpeed, LPCSTR string,int noOfCharacters,int r, int g, int b, LPD3DXFONT font);
 
-	void update(int &gameTime);
+	void draw(GameEngine * game);
+	void update(int &gameTime, float xOffSet, float yOffSet);
+
 	~Button();
-
-	bool initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color);
 	bool onHover(int mouseX, int mouseY);
+	bool isClicked(bool leftClickDown);
 
-	RECT buttonRect;
+
 	
 
 	

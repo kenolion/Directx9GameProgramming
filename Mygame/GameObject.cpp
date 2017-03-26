@@ -1,43 +1,30 @@
 #include "GameObject.h"
-LPD3DXSPRITE GameObject::sprite = NULL;
-//Zer Add (For Button)
-GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed)
+#include "GameEngine.h"
+
+GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int mass, int animSpeed)		// for objects without animation
 {
 	position.x = x;
 	position.y = y;
 	this->scaling = scaling;
-	color = D3DCOLOR_ARGB(255, 255, 255, 255);
 	state = 1;			//Start it at frame 1
 	frame = 1;
+	color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	this->mass = mass;
 	this->animSpeed = animSpeed;
 }
+
 
 GameObject::GameObject()
 {
 }
 
-GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed,float speed,int mass)
+GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed)					// for moving objects
 {
 	position.x = x;
 	position.y = y;
 	this->scaling = scaling;
-	//not mine
-	/*if (rotation > twopi)
-		rotation = twopi;
-	if (rotation < 0)
-		rotation = 0;
-	if (speed > maxSpeed)
-		speed = maxSpeed;
-	if (speed < 0)
-		speed = 0;
-	this->rotation = rotation;
-	this->speed = speed;
-	velocity.x = cos(rotation) * speed;
-	velocity.y = sin(rotation) * speed;*/
-	//
-	this->speed = speed;
+
 	color = D3DCOLOR_ARGB(255, 255, 255, 255);
-	this->mass = mass;
 	state = 1;			//Start it at frame 1
 	frame = 1;
 	this->animSpeed = animSpeed;
@@ -46,68 +33,50 @@ GameObject::GameObject(float x, float y, D3DXVECTOR2 scaling, int animSpeed,floa
 
 GameObject::~GameObject()
 {
-	if (sprite) {
-		sprite->Release();
-		sprite = 0;
-	}
-	delete spriteClass;
+	dltPtr(spriteClass);
 }
 
-bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color)
+bool GameObject::initialize(LPDIRECT3DDEVICE9 device3d, std::string file, int width, int height, int row, int col, bool frameHorizontal, D3DXCOLOR color, float falseColl)
 {
 	status = ObjectStatus::Active;
 	spriteClass = new GameSprite();
+
 	// SPRITE IS EMPTY
-	if (sprite == NULL) {
-		HRESULT hr = D3DXCreateSprite(device3d, &sprite);
-		if (FAILED(hr)) {
-			MessageBox(NULL, "ERROR", "Could not create sprite", MB_ICONERROR);
-			return false;
-		}
-	}
 	this->frameHorizontal = frameHorizontal;
 	spriteClass->initializeTex(device3d, file, width, height, row, col, color);  //When a game object is created, a game sprite is created.
-	this->width = width;			//actual bitmap width
-	this->height = height;			//actual bitmap height
+	this->width = width*scaling.x;			//actual bitmap width
+	this->height = height*scaling.y;			//actual bitmap height
 	this->spriteRow = row;			//
 	this->spriteCol = col;
 	spriteHeight = height / spriteRow;
 	spriteWidth = width / spriteCol;
-	col_width = width * 0.70;
-	col_height = height *0.70;
-	col_xOffset = (width - col_width) / 2;
-	col_yOffset = (height - col_height) / 2;
+	col_width = this->width * falseColl; //if number lower means collision box smaller than player
+	col_height = this->height *falseColl;
+	col_xOffset = (this->width - col_width) / 2;
+	col_yOffset = (this->height - col_height) / 2;
+	if (scaling.x > 1) {
+		position.x += (spriteWidth / 2) * scaling.x;
+
+
+	}
+	if (scaling.y > 1) {
+		if (position.y > 0)
+			position.y -= (spriteHeight / 2) * scaling.y;
+
+	}
 
 	//for rectangle collision
-	
-	if (frameHorizontal) {
-		maxFrame = spriteCol;					//TEST CODE WILL BE CLEANED UP LATER
+	collisionRect.left = position.x + col_xOffset;
+	collisionRect.right = position.x + spriteWidth;
+	collisionRect.top = position.y + col_yOffset;
+	collisionRect.bottom = position.y + spriteHeight*scaling.y;
 
-	}
-	else {
-		maxFrame = spriteRow;
-	}
-
-
-	return true;
-}
-
-
-
-void GameObject::draw()		//Function that draw sprite
-{
-	//for RECT collision
-	left = position.x+col_xOffset;
-	right = position.x + spriteWidth;
-	top = position.y+col_yOffset;
-	bottom = position.y + spriteHeight;
-
-	if(frameHorizontal)
+	if (frameHorizontal)
 	{
-	spriteRect.top = (state - 1)*spriteHeight;					
-	spriteRect.bottom = spriteRect.top + spriteHeight;
-	spriteRect.left = (frame - 1)*spriteWidth;
-	spriteRect.right = spriteRect.left + spriteWidth;
+		spriteRect.top = (state - 1)*spriteHeight;
+		spriteRect.bottom = spriteRect.top + spriteHeight;
+		spriteRect.left = (frame - 1)*spriteWidth;
+		spriteRect.right = spriteRect.left + spriteWidth;
 	}
 	else
 	{
@@ -116,19 +85,69 @@ void GameObject::draw()		//Function that draw sprite
 		spriteRect.left = (state - 1)*spriteWidth;
 		spriteRect.right = spriteRect.left + spriteWidth;
 
-		
 	}
-	
-	spriteCentre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
-	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, &spriteCentre, rotation, &position);
-	sprite->SetTransform(&mat);
-	if (sprite) 
-	{
-		spriteClass->draw(position, sprite, spriteRect, color);
+	if (frameHorizontal) {
+		maxFrame = spriteCol;
 
 	}
+	else {
+		maxFrame = spriteRow;
+	}
+	if (type == ObjectType::Player) {
+		screenPos.y = position.y - spriteHeight;
+		screenPos.x = position.x - spriteWidth;
+	}
+	return true;
+}
+
+
+
+void GameObject::draw(GameEngine * game)		//Function that draw sprite
+{
+	//for RECT collision
+	collisionRect.left = position.x + col_xOffset;
+	collisionRect.right = position.x + spriteWidth;
+	collisionRect.top = position.y + col_yOffset;
+	collisionRect.bottom = position.y + spriteHeight*scaling.y;
+
+	if (frameHorizontal)					//Changes if the sprite sheet frames are going horizontally or vertically
+	{
+		spriteRect.top = (state - 1)*spriteHeight;
+		spriteRect.bottom = spriteRect.top + spriteHeight;
+		spriteRect.left = (frame - 1)*spriteWidth;
+		spriteRect.right = spriteRect.left + spriteWidth;
+	}
+	else
+	{
+		spriteRect.top = (frame - 1)*spriteHeight;
+		spriteRect.bottom = spriteRect.top + spriteHeight;
+		spriteRect.left = (state - 1)*spriteWidth;
+		spriteRect.right = spriteRect.left + spriteWidth;
+
+	}
+
+	spriteCentre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
+	if (type == ObjectType::Player || type == ObjectType::Platform) {
+		if (type == ObjectType::Platform)
+			screenPos = position - positionOffset;		// This code moves the tiles but not the player because i dont want the player to move
+		D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, &spriteCentre, rotation, &screenPos);
+	}
+	else {
+		D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, &spriteCentre, rotation, &position);
+	}
+	game->sprite->SetTransform(&mat);
+	if (game->sprite)
+	{
+		spriteClass->draw(game->sprite, spriteRect, color);
+	}
+
 
 }
+
+void GameObject::physics(PlayerInput * input)
+{
+}
+
 
 
 
@@ -137,10 +156,40 @@ ObjectStatus GameObject::getStatus()
 	return status;
 }
 
-void GameObject::setSpeed(float speed)		//Function to adjust the speed/velocity of the object
+void GameObject::setStatus(ObjectStatus status)
 {
-	this->speed = speed;
+	this->status = status;
 }
+
+ObjectType GameObject::getType()
+{
+	return type;
+}
+
+void GameObject::printData()
+{
+	if (type == ObjectType::Enemy) {
+		std::cout << "velocity.y:	" << velocity.y << std::endl;
+	}
+
+
+
+}
+
+void GameObject::setMatrix(D3DXVECTOR2 scaling, D3DXVECTOR2 spriteCentre, float rotation, D3DXVECTOR2 position, GameEngine * game)
+{
+
+	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, &spriteCentre, rotation, &position);
+	game->sprite->SetTransform(&mat);
+}
+
+void GameObject::calculateVelocity()
+{
+	acceleration = forceVector / mass;
+	velocity += acceleration;
+}
+
+
 
 D3DXVECTOR2 GameObject::getObjectPos()
 {
@@ -169,10 +218,6 @@ void GameObject::setY(float y)
 }
 
 
-float GameObject::getSpeed()
-{
-	return speed;
-}
 
 void GameObject::setState(int state)
 {
@@ -184,15 +229,34 @@ void GameObject::setFrame(int frame)
 	this->frame = frame;
 }
 
-bool GameObject::collideWith(GameObject &object,D3DXVECTOR2 &collisionVector)
+float GameObject::getWidth()
+{
+	return spriteWidth;
+}
+
+float GameObject::getHeight()
+{
+	return spriteHeight;
+}
+
+bool GameObject::collideWith(GameObject *object)
 {
 
 
+	if (object->getType() == ObjectType::Enemy) {
+		if (collisionRect.bottom < object->collisionRect.top)return false;
+		if (collisionRect.top > object->collisionRect.bottom)return false;
+		if (collisionRect.right < object->collisionRect.left)return false;
+		if (collisionRect.left > object->collisionRect.right)return false;
+	}
 
-	if (bottom < object.top)return false;
-	if (top > object.bottom)return false;
-	if (right < object.left)return false;
-	if (left > object.right)return false;
+	if (object->getType() == ObjectType::Platform) {
+		if (collisionRect.bottom < object->collisionRect.top)return false;
+		if (collisionRect.top > object->collisionRect.bottom)return false;
+		if (collisionRect.right < object->collisionRect.left)return false;
+		if (collisionRect.left > object->collisionRect.right)return false;
+
+	}
 
 
 	//distance = object.getObjectPos() - position;			// Distance = object2 position - object1 position		
@@ -207,9 +271,8 @@ bool GameObject::collideWith(GameObject &object,D3DXVECTOR2 &collisionVector)
 	//	return true;
 	//}
 
-
-	
 	return true;
+	//means there is collision
 }
 
 
@@ -218,10 +281,7 @@ D3DXVECTOR2 GameObject::getAcceleration()
 	return acceleration;
 }
 
-bool GameObject::getOnGroundStatus()
-{
-	return false;		// this function needs to be implemented if the object has an onground bool 
-}
+
 
 
 D3DXVECTOR2 GameObject::getVelocity()
@@ -237,6 +297,11 @@ float GameObject::getVelocityX()
 float GameObject::getVelocityY()
 {
 	return velocity.y;
+}
+
+void GameObject::setScaling(D3DXVECTOR2 scaling)
+{
+	this->scaling = scaling;
 }
 
 float GameObject::getMass()

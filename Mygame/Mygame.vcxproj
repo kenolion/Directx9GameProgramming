@@ -73,8 +73,8 @@
     <LibraryPath>$(DXSDK_DIR)lib\x86;C:\Program Files (x86)\FMOD SoundSystem\FMOD Programmers API Windows\api\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>E:\FMOD\FMOD Programmers API Windows\api\inc;$(DXSDK_DIR)include\;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\FMOD\FMOD Programmers API Windows\api\lib;$(DXSDK_DIR)lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Programmers API Windows\api\inc;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Programmers API Windows\api\lib;$(DXSDK_DIR)lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -125,57 +125,53 @@
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="Cursor.h" />
-    <ClInclude Include="DxFont.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="DxSound.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FlappyBird.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameSprite.h" />
+    <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Constants.h" />
-    <ClInclude Include="Level1.h" />
     <ClInclude Include="LevelMainMenu.h" />
+    <ClInclude Include="Pictures.h" />
     <ClInclude Include="Platform.h" />
+    <ClInclude Include="LevelPlayerWins.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerInput.h" />
     <ClInclude Include="UserInterface.h" />
-    <ClInclude Include="Windows.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cursor.cpp" />
-    <ClCompile Include="DxFont.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="DxSound.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FlappyBird.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameSprite.cpp" />
+    <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="Graphics.cpp" />
-    <ClCompile Include="Level1.cpp" />
     <ClCompile Include="LevelMainMenu.cpp" />
+    <ClCompile Include="Pictures.cpp" />
     <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="LevelPlayerWins.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerInput.cpp" />
     <ClCompile Include="UserInterface.cpp" />
     <ClCompile Include="WinMain.cpp" />
-    <ClCompile Include="Windows.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="C:\Program Files (x86)\FMOD SoundSystem\FMOD Programmers API Windows\api\lib\fmodex_vc.lib">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-    </Library>
   </ItemGroup>
   <ItemGroup>
     <Text Include="FontFormats.txt" />
+    <Text Include="TileMap.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="C:\Program Files (x86)\FMOD SoundSystem\FMOD Programmers API Windows\api\lib\fmodex_vc.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

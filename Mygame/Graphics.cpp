@@ -33,6 +33,32 @@ bool Graphics::initialize(HWND hw, int w, int h)
 		D3DCREATE_SOFTWARE_VERTEXPROCESSING,
 		&d3dpp,
 		&device3d);
+	if (FAILED(result)) {
+		::MessageBox(hwnd,
+			"Device3d failed to create",
+			"System error", MB_ICONEXCLAMATION | MB_OK);
+		return false;
+	}
+	result = D3DXCreateFont(device3d,			    //(1st Parameter) [LPDIRECT3DDEVICE9] Pointer to an IDirect3DDevice9 interface, the device to be associated with the font object.
+		25,										//(2nd Parameter) [INT] The height of the characters in logical units.
+		0,										//(3rd Parameter) [UINT] The width of the characters in logical units. 
+		0,										//(4th Parameter) [UINT] Typeface weight. One example is bold.
+		1,										//(5th Parameter) [UINT] The number of mipmap levels.
+		false,									//(6th Parameter) [BOOL] True for italic font, false otherwise.
+		DEFAULT_CHARSET, 						//(7th Parameter) [DWORD] The character set of the font.
+		OUT_TT_ONLY_PRECIS,						//(8th Parameter) [DWORD] Specifies how Windows should attempt to match the desired font sizes and characteristics with actual fonts. Use OUT_TT_ONLY_PRECIS for instance, to ensure that you always get a TrueType font.
+		DEFAULT_QUALITY,						//(9th Parameter) [DWORD] Specifies how Windows should match the desired font with a real font. It applies to raster fonts only and should not affect TrueType fonts
+		DEFAULT_PITCH | FF_DONTCARE,			//(10th Parameter) [DWORD]Pitch and family index
+		"Arial",								//(11th Parameter) [LPCSTR] String containing the typeface name. If the compiler settings require Unicode, the data type LPCTSTR resolves to LPCWSTR. Otherwise, the string data type resolves to LPCSTR. See Remarks. 
+		&font);									//(12th Parameter) [LPD3DXFONT]Returns a pointer to an ID3DXFont interface, representing the created font object.
+
+	if (FAILED(result))
+	{
+		MessageBox(NULL, "ERROR", "Could not initialize Font", MB_ICONERROR);
+		return false;
+	}
+
+
 
 	return true;
 
@@ -58,7 +84,13 @@ void Graphics::createLine()
 
 void Graphics::lineBegin()
 {
-	line->Begin(); //Zer Add
+	line->Begin(); 
+}
+
+void Graphics::drawLine(D3DXVECTOR2 VECTOR[] ,int noOfCoordinates, int r, int g, int b)
+{
+	line->Draw(VECTOR, noOfCoordinates, D3DCOLOR_XRGB(r, g, b));
+
 }
 
 void Graphics::end()
@@ -69,7 +101,26 @@ void Graphics::end()
 
 void Graphics::lineEnd()
 {
-	line->End(); //Zer Add
+	line->End();
+}
+
+void Graphics::drawfont(std::string text, int number , int noOfChar, float x, float y, LPD3DXSPRITE sprite, D3DXCOLOR color, int bottom)
+{
+	text += std::to_string(number);
+	fontRect.top = y;
+	fontRect.left = x;
+	fontRect.right = fontRect.left + text.length()*11;
+	fontRect.bottom = fontRect.top + bottom;
+	
+	
+
+	font->DrawText(sprite,
+		text.c_str(),
+		text.length(),				
+		&fontRect,
+		0,
+		color);
+
 }
 
 void Graphics::present()
@@ -92,9 +143,13 @@ void Graphics::cleanup()
 		direct3d = NULL;
 	}
 
-	if (line) {			//Zer add
+	if (line) {	
 		line->Release();
 		line = NULL;
+	}
+	if (font) {
+		font->Release();
+		font = NULL;
 	}
 }
 

@@ -1,6 +1,5 @@
 #ifndef USERINTERFACE_H
 #define USERINTERFACE_H
-#include "constants.h"
 #include "Graphics.h"
 #include "Button.h"
 

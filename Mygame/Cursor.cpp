@@ -13,7 +13,7 @@ Cursor::~Cursor()
 {
 }
 
-void Cursor::update(int & gameTime)
+void Cursor::update(int & gameTime, float xOffSet, float yOffSet)
 {
 	this->position = posVector;
 	for (int i = 0; i < gameTime; i++) {

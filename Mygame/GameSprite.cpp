@@ -37,7 +37,7 @@ void GameSprite::initializeTex(LPDIRECT3DDEVICE9 device3d,std::string file, int 
 
 
 
-void GameSprite::draw(D3DXVECTOR2 position, LPD3DXSPRITE sprite, RECT spriteRect,D3DCOLOR color)
+void GameSprite::draw( LPD3DXSPRITE sprite, RECT spriteRect,D3DCOLOR color)
 {
 
 

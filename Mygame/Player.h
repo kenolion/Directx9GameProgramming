@@ -1,9 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "PlayerInput.h"
-#include "GameSprite.h"
 #include "GameObject.h"
 
+enum class CharacterState { Idle,Walking,Jumping,LedgeGrab };
 
 class Player:public GameObject
 {
@@ -20,13 +19,13 @@ public:
 	//bool    loop;           // true to loop frames
 	//bool    visible;        // true when visible
 	//bool    animComplete;   // true when loop is false and endFrame has finished displaying
-	Player(float x, float y,D3DXVECTOR2 scaling,int animSpeed,float speed,int mass);
-	void update(int &gameTime);
-
-	//Mario properties
-	bool onGround;
-	bool getOnGroundStatus();
-
+	Player(float x, float y,D3DXVECTOR2 scaling,int animSpeed,int mass);
+	void update(int &gameTime, float xOffSet, float yOffSet);
+	void physics(PlayerInput *input);
+	float walkSpeed;
+	float jumpSpeed;
+	CharacterState fsm;
+	CharacterState getCharacterState();
 	~Player();
 };
 
